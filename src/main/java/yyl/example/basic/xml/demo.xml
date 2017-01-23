@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<element id="001" name="node1">
+		hello world
+	</element>
+	<element id="002" name="node2">
+		hello world
+	</element>
+</root>
