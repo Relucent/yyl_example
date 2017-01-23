@@ -8,6 +8,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+/**
+ * SWT内置浏览器
+ */
 public class BrowserTest {
 
 	public static void main(String[] args) {

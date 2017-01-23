@@ -8,41 +8,38 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-// ����ʽ����
+/**
+ * 填充布局
+ */
 public class MyFillLayout implements MouseListener {
 
 	private Shell shell;
-
-	private Button b0;
-
-	private Button b1;
-
+	private Button btnHorizontal;
+	private Button btnVertical;
 	private FillLayout fillLayout;
-
-	public static void main(String[] args) {
-		new MyFillLayout().open();
-	}
 
 	public void open() {
 		final Display display = Display.getDefault();
 		shell = new Shell();
 		fillLayout = new FillLayout();
-		// fillLayout.type=SWT.VERTICAL; //��ֱ
-		// fillLayout.type=SWT.HORIZONTAL; //ˮƽ(Ĭ��)
+		//# fillLayout.type=SWT.VERTICAL; 
+		//# fillLayout.type=SWT.HORIZONTAL; 
 		shell.setLayout(fillLayout);
-		b0 = new Button(shell, SWT.NONE);
-		b0.setText("ˮƽ");
-		b0.addMouseListener(this);
-		b1 = new Button(shell, SWT.NONE);
-		b1.setText("��ֱ");
-		b1.addMouseListener(this);
+		btnHorizontal = new Button(shell, SWT.NONE);
+		btnHorizontal.setText("HORIZONTAL");
+		btnHorizontal.addMouseListener(this);
+		btnVertical = new Button(shell, SWT.NONE);
+		btnVertical.setText("VERTICAL");
+		btnVertical.addMouseListener(this);
 		shell.setText("FillLayout");
-		shell.setSize(100, 100);
+		shell.setSize(200, 200);
 		shell.layout();
 		shell.open();
-		while (!shell.isDisposed())
-			if (!display.readAndDispatch())
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
 				display.sleep();
+			}
+		}
 	}
 
 	public void mouseDoubleClick(MouseEvent arg0) {
@@ -52,10 +49,15 @@ public class MyFillLayout implements MouseListener {
 	}
 
 	public void mouseUp(MouseEvent arg0) {
-		if (arg0.getSource() == b0)
+		if (arg0.getSource() == btnHorizontal) {
 			fillLayout.type = SWT.HORIZONTAL;
-		else if (arg0.getSource() == b1)
+		} else if (arg0.getSource() == btnVertical) {
 			fillLayout.type = SWT.VERTICAL;
+		}
 		shell.layout();
+	}
+
+	public static void main(String[] args) {
+		new MyFillLayout().open();
 	}
 }

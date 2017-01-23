@@ -16,21 +16,23 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tray;
 import org.eclipse.swt.widgets.TrayItem;
 
+/**
+ * 托盘程序
+ */
 public class DesktopTray {
 
 	private Shell shell;
-	private Tray tray;//ϵͳ��ͼ��ؼ�
+	private Tray tray;
 	private Display display;
 
 	public DesktopTray() {
 		display = new Display();
 		shell = new Shell(display, SWT.SHELL_TRIM ^ SWT.MAX);//������󻯰�ť
 		shell.setText("TrayExample");
-		//ȡϵͳ��Ԥ�õ�ͼ��
 		shell.setImage(display.getSystemImage(SWT.ICON_WORKING));
 
 		tray = display.getSystemTray();
-		
+
 		initTrayItem();
 		registerListener();
 
@@ -48,83 +50,64 @@ public class DesktopTray {
 		}
 		display.dispose();
 	}
-	
-//initContainer
-	
+
+	//initContainer
+
 	private void initTrayItem() {
 		TrayItem trayItem = new TrayItem(tray, SWT.NONE);
 		trayItem.setVisible(true);
 		trayItem.setToolTipText(shell.getText());
 
-
 		final Menu trayMenu = new Menu(shell, SWT.POP_UP);
 
-		
 		MenuItem showMenuItem = new MenuItem(trayMenu, SWT.PUSH);
-		showMenuItem.setText("��ʾ����");
+		showMenuItem.setText("Menu");
 		trayMenu.setDefaultItem(showMenuItem);
 
+		//分隔条
 		new MenuItem(trayMenu, SWT.SEPARATOR);
-  
-		MenuItem item;
-		item = new MenuItem(trayMenu, SWT.PUSH);
-		item.setText("��ťA");
-		item = new MenuItem(trayMenu, SWT.PUSH);
-		item.setText("��ťB");
-		item = new MenuItem(trayMenu, SWT.PUSH);
-		item.setText("��ťC");
-		item = new MenuItem(trayMenu, SWT.PUSH);
-		item.setText("��ťD");
-		item = new MenuItem(trayMenu, SWT.PUSH);
-		item.setText("�ر�");
-		item.addSelectionListener(new SelectionListener(){
 
+		for (int i = 0; i < 5; i++) {
+			new MenuItem(trayMenu, SWT.PUSH).setText("Item" + i);
+		}
+
+		MenuItem item = new MenuItem(trayMenu, SWT.PUSH);
+		item.setText("Exit");
+		item.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO �Զ���ɷ������
-				
 			}
 
 			public void widgetSelected(SelectionEvent arg0) {
 				close();
 			}
-			
+
 		});
 
-		
-		trayItem.addListener(SWT.MenuDetect, new Listener()
-        {
-            public void handleEvent(Event event)
-            {
-            	trayMenu.setVisible(true);
-            }
-        });
+		trayItem.addListener(SWT.MenuDetect, new Listener() {
+			public void handleEvent(Event event) {
+				trayMenu.setVisible(true);
+			}
+		});
 
-		//��ϵͳ��ͼ��������Ҽ�ʱ���¼�������ϵͳ���˵�   
 		trayItem.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent event) {
-	
 
 			}
+
 			public void widgetSelected(SelectionEvent event) {
 				trayMenu.setVisible(true);
 			}
 		});
 
-		
-		
 		trayItem.setImage(shell.getImage());
 	}
-	
-	private void registerListener() {
-		//ע�ᴰ���¼�������   
-		shell.addShellListener(new ShellAdapter() {
 
-			//���������С����ťʱ���������أ�ϵͳ����ʾͼ��   
+	private void registerListener() {
+		shell.addShellListener(new ShellAdapter() {
 			public void shellIconified(ShellEvent e) {
 				toggleDisplay();
 			}
 
-			//������ڹرհ�ťʱ��������ֹ���򣬶�ʱ���ش��ڣ�ͬʱϵͳ����ʾͼ��   
 			public void shellClosed(ShellEvent e) {
 				e.doit = false; //��ĵ�ԭ��ϵͳ��������¼�   
 				toggleDisplay();
@@ -136,10 +119,6 @@ public class DesktopTray {
 		new DesktopTray();
 	}
 
-	/**  
-	 * �����ǿɼ�״̬ʱ�������ش��ڣ�ͬʱ��ϵͳ����ͼ��ɾ��  
-	 * ����������״̬ʱ������ʾ���ڣ�������ϵͳ������ʾͼ��  
-	 */
 	private void toggleDisplay() {
 		try {
 			shell.setVisible(!shell.isVisible());
@@ -152,8 +131,8 @@ public class DesktopTray {
 			e.printStackTrace();
 		}
 	}
-	
-	public void close(){
+
+	public void close() {
 		shell.close();
 		display.dispose();
 	}

@@ -7,7 +7,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-//���ʽ���� �� SWT2.0 ��
+/**
+ * FORM布局
+ */
 public class MyFormLayout {
 
 	public static void main(String[] args) {
@@ -19,21 +21,23 @@ public class MyFormLayout {
 		formLayout.marginWidth = 20;
 		formLayout.marginHeight = 20;
 
-		new Button(shell, SWT.NONE).setText("��ť1");
+		new Button(shell, SWT.NONE).setText("B1");
 
 		Button b = new Button(shell, SWT.NONE);
-		b.setText("��ť2");
+		b.setText("B2");
 
-		FormData formData = new FormData(100, 50);
+		FormData formData = new FormData(100, 100);
 		b.setLayoutData(formData);
 
 		shell.setLayout(formLayout);
 		shell.setText("FormLayout");
-		shell.setSize(200, 100);
+		shell.setSize(200, 200);
 		shell.layout();
 		shell.open();
-		while (!shell.isDisposed())
-			if (!display.readAndDispatch())
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
 				display.sleep();
+			}
+		}
 	}
 }

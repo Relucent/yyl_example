@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
-//网格式布局
+//表格树
 public class TableTreeTest {
 
 	private Tree tree;
@@ -31,13 +31,17 @@ public class TableTreeTest {
 		removeBug(tree);
 		shell.layout();
 		shell.open();
-		while (!shell.isDisposed())
-			if (!display.readAndDispatch())
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
 				display.sleep();
+			}
+		}
 	}
 
 	/**
-	 * <p>功能描述:设置表头</p>
+	 * <p>
+	 * 功能描述:设置表头
+	 * </p>
 	 */
 	public void initTableColumn() {
 		String[] sColumnNames = new String[] { "第一列", "第二列", "第三列", "第四列" };
@@ -50,7 +54,7 @@ public class TableTreeTest {
 		}
 		tree.setHeaderVisible(true);
 		tree.setLinesVisible(true);
-		//		TreeColumn.pack();		
+		//# TreeColumn.pack();		
 	}
 
 	public void testFreshTableTree() {
@@ -90,7 +94,9 @@ public class TableTreeTest {
 	}
 
 	/**
-	 * <p>功能描述:生成一个TreeEditor控件</p> 
+	 * <p>
+	 * 功能描述:生成一个TreeEditor控件
+	 * </p>
 	 * @param tree TreeEditor控件所属的Tree
 	 * @param horizontalAlignment 水平位置(SWT.CANCEL | SWT.RIGHT | SWT.LEFT)
 	 */
@@ -108,9 +114,7 @@ public class TableTreeTest {
 	}
 
 	/*
-	 * 注：以下代码用于处理SWT树节点折叠时时的一个问题
-	 * 当树节点折叠时，应该隐藏节点中的控件(TreeEditor)
-	 * 而当前SWT版本,Tree控件不会自动隐藏，疑为SWT的BUG
+	 * 注：以下代码用于处理SWT树节点折叠时时的一个问题 当树节点折叠时，应该隐藏节点中的控件(TreeEditor) 而当前SWT版本,Tree控件不会自动隐藏，疑为SWT的BUG
 	 */
 	public void removeBug(final Tree tree) {
 
@@ -164,8 +168,7 @@ public class TableTreeTest {
 
 	private void hideControlInTableTreeItem(TreeItem treeItem, boolean pVisible) {
 		TreeItem parentItem = treeItem.getParentItem();
-		boolean visible = pVisible
-				&& (parentItem == null || parentItem.getExpanded());
+		boolean visible = pVisible && (parentItem == null || parentItem.getExpanded());
 		setVisibilityTreeEditor(treeItem, visible);
 		for (int len = treeItem.getItemCount(), i = 0; i < len; i++) {
 			hideControlInTableTreeItem(treeItem.getItem(i), visible);
@@ -173,7 +176,9 @@ public class TableTreeTest {
 	}
 
 	/**
-	 * <p>功能描述:清空</p>
+	 * <p>
+	 * 功能描述:清空
+	 * </p>
 	 * @param tableTree Tree对象
 	 */
 	protected void clearTableTreeItem(Tree tableTree) {
@@ -184,7 +189,9 @@ public class TableTreeTest {
 	}
 
 	/**
-	 * <p>功能描述:销毁批核列表中的所有复选框按钮</p>
+	 * <p>
+	 * 功能描述:销毁批核列表中的所有复选框按钮
+	 * </p>
 	 * @param treeItem TreeItem对象
 	 * @update YYL
 	 */

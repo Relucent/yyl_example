@@ -12,7 +12,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-//��ջʽ����
+/**
+ * Stack 布局
+ */
 public class MyStackLayout {
 
 	public static void main(String[] args) {
@@ -25,16 +27,16 @@ public class MyStackLayout {
 		final Composite comp1 = new Composite(shell, SWT.NONE);
 		final StackLayout stackLayout = new StackLayout();
 		final Text txt1 = new Text(comp1, SWT.BORDER);
-		txt1.setText("text1");
+		txt1.setText("T1");
 		final Text txt2 = new Text(comp1, SWT.BORDER);
-		txt2.setText("text2");
+		txt2.setText("T2");
 
 		Composite comp2 = new Composite(shell, SWT.NONE);
 		comp2.setLayout(new RowLayout());
 		Button btn1 = new Button(comp2, SWT.NONE);
 		Button btn2 = new Button(comp2, SWT.NONE);
-		btn1.setText("��ʾtext1");
-		btn2.setText("��ʾtext2");
+		btn1.setText("T1");
+		btn2.setText("T2");
 
 		comp1.setLayout(stackLayout);
 		stackLayout.topControl = txt1;

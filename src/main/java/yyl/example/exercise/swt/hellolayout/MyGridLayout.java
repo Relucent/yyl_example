@@ -9,64 +9,61 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-//���ʽ����
+/**
+ * 表格布局
+ */
 public class MyGridLayout {
 
 	public static void main(String[] args) {
 		final Display display = Display.getDefault();
 		final Shell shell = new Shell();
-		// ����ʽ����
+
 		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 2; // ����
-		gridLayout.makeColumnsEqualWidth = false; // �Ƿ�Ⱦ�ָ�
+		gridLayout.numColumns = 2;
+		gridLayout.makeColumnsEqualWidth = false;
+		//# GridLayout gridLayout = new GridLayout(2,false);
 
-		// GridLayout gridLayout = new GridLayout(2,false); //��һ�ֹ���
-
-		// �߾����ò��� �� RowLayout����
-		gridLayout.marginTop = 10; // ����������ϱ�Ե10�����ؼ����Ĭ��0��
-		gridLayout.marginLeft = 5; // ������������Ե5�����ؼ�� ��Ĭ��0��
-		gridLayout.verticalSpacing = 2; // �������2�����ؼ�� ��Ĭ��0��
+		gridLayout.marginTop = 10;
+		gridLayout.marginLeft = 5;
+		gridLayout.verticalSpacing = 2;
 
 		new Button(shell, SWT.NONE).setText("b1");
 		new Button(shell, SWT.NONE).setText("button2");
-		Button b = new Button(shell, SWT.NONE);
-		b.setText("b3");
+
+		Button b3 = new Button(shell, SWT.NONE);
+		b3.setText("b3");
+
 		new Button(shell, SWT.NONE).setText("button5");
 		new Button(shell, SWT.NONE).setText("btn6");
 
-		b.addHelpListener(new HelpListener() {
-
+		//选中按钮，点击F1帮助 执行该事件
+		b3.addHelpListener(new HelpListener() {
 			public void helpRequested(HelpEvent arg0) {
-				System.out.println("�����˰�����Ϣ");
+				System.out.println("点击了帮助");
 			}
 		});
 
-		// GridData > ���Ƹ��Ӳ���
+		GridData gridData = new GridData();
 
-		GridData gridData = new GridData();// ����һ��GridData
+		//# new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		//# new GridData(GridData.FILL_HORIZONTAL);
+		//# new GridData(GridData.FILL_VERTICAL);
+		//# new GridData(GridData.FILL_BOTH);
 
-		// /*GridData ���죺*/
-		// new GridData(GridData.HORIZONTAL_ALIGN_FILL);//ˮƽ�������ģʽ
-		// new GridData(GridData.FILL_HORIZONTAL);//ˮƽ������ռģʽ
-		// new GridData(GridData.FILL_VERTICAL);//��ֱ������ռģʽ
-		// new GridData(GridData.FILL_BOTH);//˫����ռģʽ
+		gridData.horizontalSpan = 2;
 
-		gridData.horizontalSpan = 2;// �������ռ�����еĿռ�
+		//# gridData.horizontalAlignment = GridData.BEGINNING; 
+		//# gridData.horizontalAlignment = GridData.CENTER;
+		//# gridData.horizontalAlignment = GridData.END; 
+		//# gridData.horizontalAlignment = GridData.FILL; 
 
-		// /*���뷽ʽ��*/
-		// gridData.horizontalAlignment = GridData.BEGINNING; //����루Ĭ�ϣ�
-		// gridData.horizontalAlignment = GridData.CENTER; //���ж���
-		// gridData.horizontalAlignment = GridData.END; //���Ҷ���
-		// gridData.horizontalAlignment = GridData.FILL; //�������пռ�
+		// gridDate.horizontalAlignment = 10; 
+		gridData.grabExcessHorizontalSpace = false;
 
-		// gridDate.horizontalAlignment = 10;// ʹ��������ƶ�10������
-		gridData.grabExcessHorizontalSpace = false;// ����Ƿ���������С�ı��ı䣨Ĭ��false��
-
-		// /*���������С��*/
 		// gridData.widthHint = 80;
 		// gridData.heightHint = 20;
 
-		b.setLayoutData(gridData);
+		b3.setLayoutData(gridData);
 		shell.setLayout(gridLayout);
 		shell.setText("GridLayout");
 		shell.setSize(200, 200);
