@@ -34,7 +34,7 @@ public class CustomCacheManager implements CacheManager {
 			synchronized (this.cacheMap) {
 				cache = this.cacheMap.get(name);
 				if (cache == null) {
-					cache = createGuavaCache(name);
+					cache = createCache(name);
 					this.cacheMap.put(name, cache);
 				}
 			}
@@ -42,7 +42,7 @@ public class CustomCacheManager implements CacheManager {
 		return cache;
 	}
 
-	protected Cache createGuavaCache(String name) {
+	protected Cache createCache(String name) {
 		return new CustomCache(name);
 	}
 }
