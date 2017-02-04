@@ -3,6 +3,7 @@ package yyl.example.basic.encrypt;
 import java.security.MessageDigest;
 
 public class Md5 {
+
 	public static void main(String[] args) throws Throwable {
 
 		MessageDigest md = MessageDigest.getInstance("MD5");
