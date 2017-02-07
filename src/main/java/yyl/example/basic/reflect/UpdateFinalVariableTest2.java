@@ -15,6 +15,12 @@ public class UpdateFinalVariableTest2 {
 		field.set("hello", "hello world".toCharArray());
 
 		System.out.println("hello");//此处会打印 hello world (常量池中的字符串被修改了)
+
+		field.set("hello", "hello".toCharArray());
+		System.out.println("hello");//此处会打印 hello world (因为常量hello已经是hello world了)
+
+		field.set("hello", new char[] { 'h', 'e', 'l', 'l', 'o' });
+		System.out.println("hello");//此处会打印 hello(常量池中的字符串终于被改回来了)
 	}
 
 }
