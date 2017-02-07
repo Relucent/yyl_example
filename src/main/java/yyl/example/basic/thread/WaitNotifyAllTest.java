@@ -3,9 +3,9 @@ package yyl.example.basic.thread;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 演示wait/notify的用法
+ * 演示wait/notifyAll的用法
  */
-public class WaitNotifyTest {
+public class WaitNotifyAllTest {
 
 	private static final Object LOCK = new Object();
 	private static final AtomicInteger COUNT = new AtomicInteger(0);
@@ -21,7 +21,6 @@ public class WaitNotifyTest {
 						try {
 							LOCK.wait();
 							System.out.println(i + "\t" + "唤醒并执行完毕!");
-							LOCK.notify();
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -31,7 +30,7 @@ public class WaitNotifyTest {
 		}
 		Thread.sleep(1000);
 		synchronized (LOCK) {
-			LOCK.notify();
+			LOCK.notifyAll(); //一般情况先来后唤醒
 		}
 	}
 }
