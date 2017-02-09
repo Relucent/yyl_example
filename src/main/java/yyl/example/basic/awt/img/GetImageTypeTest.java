@@ -14,8 +14,9 @@ import javax.imageio.stream.ImageInputStream;
 public class GetImageTypeTest {
 
 	public static void main(String[] args) throws IOException {
-		InputStream input = GetImageTypeTest.class.getResourceAsStream("image1.png");
-		System.out.println(getFormatName(input));
+		try (InputStream input = Helper.openInputStream()) {
+			System.out.println(getFormatName(input));
+		}
 	}
 
 	/**

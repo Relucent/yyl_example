@@ -19,10 +19,10 @@ import javax.imageio.ImageIO;
 public class WatermarkTest {
 
 	public static void main(String[] args) throws IOException {
-		InputStream input = WatermarkTest.class.getResourceAsStream("image1.png");
-		BufferedImage im = pressWatermark(input);
-		ImageIO.write(im, "png", new File("D:/test-" + System.currentTimeMillis() + ".png"));
-		input.close();
+		try (InputStream input = Helper.openInputStream()) {
+			BufferedImage im = pressWatermark(input);
+			ImageIO.write(im, "png", new File("D:/test-" + System.currentTimeMillis() + ".png"));
+		}
 	}
 
 	/**
