@@ -1,4 +1,4 @@
-package yyl.example.basic.img;
+package yyl.example.basic.awt.img;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,12 +8,21 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
+/**
+ * 获得图片类型
+ */
 public class GetImageTypeTest {
 
 	public static void main(String[] args) throws IOException {
 		InputStream input = GetImageTypeTest.class.getResourceAsStream("image1.png");
 		System.out.println(getFormatName(input));
 	}
+
+	/**
+	 * 读取图片类型
+	 * @param input 图片数据流
+	 * @return 图片类型
+	 */
 	private static String getFormatName(InputStream input) {
 		ImageInputStream is = null;
 		try {
