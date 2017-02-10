@@ -1,6 +1,5 @@
 package yyl.example.basic.awt.img;
 
-import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -13,13 +12,12 @@ import javax.swing.JFrame;
  * 图片画布
  */
 @SuppressWarnings("serial")
-public class ImageCanvas extends Canvas {
+public class ImageCanvas extends DoubleBufferCanvas {
 
 	// ==============================Fields===========================================
 	private Image image;
 	private int angel = 0;
 	private AffineTransform transform;
-	private Image canvasBuffer;
 
 	// ==============================Constructors=====================================
 	public ImageCanvas(Image image) {
@@ -30,6 +28,7 @@ public class ImageCanvas extends Canvas {
 	// ==============================Methods==========================================
 	@Override
 	public void paint(Graphics g) {
+
 		super.paint(g);
 
 		angel = (angel + 1) % 360;
@@ -46,31 +45,12 @@ public class ImageCanvas extends Canvas {
 		}
 	}
 
-	@Override
-	public void update(Graphics g) {
-		Graphics bufferGraphics = getBufferGraphics();
-		if (bufferGraphics == null) {
-			paint(g);
-		} else {
-			paint(bufferGraphics);
-			bufferGraphics.dispose();
-			g.drawImage(canvasBuffer, 0, 0, this);
-		}
-	}
-
-	private Graphics getBufferGraphics() {
-		if (canvasBuffer == null) {
-			canvasBuffer = createImage(getWidth(), getHeight());
-		}
-		return canvasBuffer.getGraphics();
-	}
-
 	public static void main(String[] args) throws Exception {
 
 		JFrame frame = new JFrame();
 		ImageCanvas canvas = new ImageCanvas(Helper.getImage());
 		frame.getContentPane().add(canvas);
-		frame.setBounds(100, 100, 500, 400);
+		frame.setBounds(100, 100, 280, 280);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("image");
 		frame.setResizable(false);
