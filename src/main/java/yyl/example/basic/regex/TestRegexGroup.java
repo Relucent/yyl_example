@@ -7,7 +7,7 @@ public class TestRegexGroup {
 
 		String[] result = new String[3];
 		Pattern p = Pattern
-				.compile("^([ \\S\\s]*)[\\〔|\\[]{1}([0-9]*)[|\\]\\〕]{1}[第]?([ \\S\\s]*)号$");
+				.compile("^(.*)\\〔([0-9]*)〕第?(.*)号$");
 		Matcher m = p.matcher("机关代字〔2009〕12号");
 		if (m.groupCount() == 3 && m.find()) {
 			result[0] = m.group(1);

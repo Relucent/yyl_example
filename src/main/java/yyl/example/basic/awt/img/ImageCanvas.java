@@ -52,7 +52,7 @@ public class ImageCanvas extends DoubleBufferCanvas {
 		frame.getContentPane().add(canvas);
 		frame.setBounds(100, 100, 280, 280);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("image");
+		frame.setTitle("Hello World");
 		frame.setResizable(false);
 		frame.setVisible(true);
 
