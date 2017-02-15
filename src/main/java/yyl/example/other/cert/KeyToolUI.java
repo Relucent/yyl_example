@@ -36,6 +36,7 @@ public class KeyToolUI {
 		tabbedPane.add("检查密钥", new CertContent3().getContainer());
 		tabbedPane.add("导入密钥", new CertContent4().getContainer());
 		tabbedPane.add("删除密钥", new CertContent5().getContainer());
+		tabbedPane.add("生成私钥", new CertContent6().getContainer());
 		tabbedPane.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
