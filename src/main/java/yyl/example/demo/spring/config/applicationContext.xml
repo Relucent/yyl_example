@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-	<context:component-scan base-package="yyl.example.demo.spring.component" />
+	<context:component-scan base-package="yyl.example.demo.spring.component,yyl.example.demo.spring.aspectj" />
 
 	<bean id="component1" class="yyl.example.demo.spring.component.Component1" />
 	<bean id="component2" class="yyl.example.demo.spring.component.Component2">
@@ -15,6 +15,9 @@
 	</bean>
 
 	<context:annotation-config />
+
+	<aop:aspectj-autoproxy />
+
 	<cache:annotation-driven cache-manager="cacheManager" />
 
 	<!--[<bean id="cacheManager" class="org.springframework.cache.guava.GuavaCacheManager" />] -->
