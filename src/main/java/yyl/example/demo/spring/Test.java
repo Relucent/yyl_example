@@ -3,6 +3,7 @@ package yyl.example.demo.spring;
 import yyl.example.demo.spring.component.Component2;
 import yyl.example.demo.spring.component.Component3;
 import yyl.example.demo.spring.component.Component4;
+import yyl.example.demo.spring.component.Component5;
 import yyl.example.demo.spring.env.SpringEnv;
 
 public class Test {
@@ -20,5 +21,8 @@ public class Test {
 
 		Component4 component4 = env.getBean(Component4.class);
 		component4.method();
+
+		Component5 component5 = env.getBean(Component5.class);
+		component5.method();
 	}
 }
