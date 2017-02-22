@@ -28,6 +28,7 @@
 		<crawler4j.version>4.2</crawler4j.version>
 		<vertx.version>3.3.3</vertx.version>
 		<zookeeper.version>3.4.9</zookeeper.version>
+		<curator.version>2.11.1</curator.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
@@ -237,6 +238,11 @@
 			<artifactId>zookeeper</artifactId>
 			<version>${zookeeper.version}</version>
 			<!--[<type>pom</type>] -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-recipes</artifactId>
+			<version>${curator.version}</version>
 		</dependency>
 
 	</dependencies>
