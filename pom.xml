@@ -27,7 +27,7 @@
 		<DJNativeSwing.version> 1.0.0</DJNativeSwing.version>
 		<crawler4j.version>4.2</crawler4j.version>
 		<vertx.version>3.3.3</vertx.version>
-		<zookeeper.version>3.4.6</zookeeper.version>
+		<zookeeper.version>3.4.9</zookeeper.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
