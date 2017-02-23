@@ -32,19 +32,21 @@ public class CuratorDistributedLockTest {
 
 		System.out.println("zk client start successfully!");
 
+		InterProcessMutex lock = new InterProcessMutex(client, ZK_LOCK_PATH);
+
 		for (int i = 0; i < 3; i++) {
 			new Thread(() -> {
-				doWithLock(client);
+				doWithLock(client, lock);
 			}, "Thread-" + i).start();
 		}
 
 	}
 
-	private static void doWithLock(CuratorFramework client) {
-		InterProcessMutex lock = new InterProcessMutex(client, ZK_LOCK_PATH);
+	private static void doWithLock(CuratorFramework client, InterProcessMutex lock) {
 		try {
 			String name = Thread.currentThread().getName();
 			if (lock.acquire(10 * 1000, TimeUnit.SECONDS)) {
+
 				System.out.println(name + " hold lock");
 
 				System.out.println(client.getChildren().forPath(ZK_LOCK_PATH));
