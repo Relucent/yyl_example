@@ -45,6 +45,26 @@ public class JavaCompilerTest {
 				+ "}"//
 				+ "";
 
+		boolean success = compile(className, source);
+
+		if (success) {
+			URLClassLoader classLoader = new URLClassLoader(new URL[] { new File(tempdir).toURI().toURL() }) {
+				//加上这个方法是为了在ClassLoader被GC的时候够输出信息
+				protected void finalize() throws Throwable {
+					System.out.println("URLClassLoader -> Finalize!");
+				}
+			};
+			Class<?> clazz = classLoader.loadClass(className);
+			System.out.println(clazz.newInstance());
+			classLoader.close();
+		}
+
+		//没有对HelloWorld的引用，所以URLClassLoader能够被回收
+		System.gc();
+		Thread.sleep(1000);//等待回收
+	}
+
+	private static boolean compile(String className, String source) {
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
 		//DiagnosticListener 编译的诊断信息
@@ -58,12 +78,7 @@ public class JavaCompilerTest {
 		System.out.println("Success: " + success);
 		print(diagnostics);
 
-		if (success) {
-			URLClassLoader classLoader = new URLClassLoader(new URL[] { new File(tempdir).toURI().toURL() });
-			Class<?> clazz = classLoader.loadClass("HelloWorld");
-			System.out.println(clazz.newInstance());
-			classLoader.close();
-		}
+		return success;
 	}
 
 	private static void print(DiagnosticCollector<JavaFileObject> diagnostics) {
