@@ -1,4 +1,4 @@
-package yyl.example.basic.reflect;
+package yyl.example.basic.reflect.generic;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
