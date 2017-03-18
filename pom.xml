@@ -31,6 +31,7 @@
 		<zookeeper.version>3.4.9</zookeeper.version>
 		<curator.version>2.11.1</curator.version>
 		<hibernate.version>4.3.11.Final</hibernate.version>
+		<snakeyaml.version>1.17</snakeyaml.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
@@ -257,6 +258,12 @@
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-recipes</artifactId>
 			<version>${curator.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>${snakeyaml.version}</version>
 		</dependency>
 
 	</dependencies>
