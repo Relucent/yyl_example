@@ -32,6 +32,7 @@
 		<curator.version>2.11.1</curator.version>
 		<hibernate.version>4.3.11.Final</hibernate.version>
 		<snakeyaml.version>1.17</snakeyaml.version>
+		<disruptor.version>3.3.6</disruptor.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
@@ -271,6 +272,12 @@
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
 			<version>${snakeyaml.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<version>${disruptor.version}</version>
 		</dependency>
 
 	</dependencies>
