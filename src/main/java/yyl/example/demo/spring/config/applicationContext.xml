@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-	<context:component-scan base-package="yyl.example.demo.spring.component,yyl.example.demo.spring.aspectj" />
+	<context:component-scan base-package="yyl.example.demo.spring.component,yyl.example.demo.spring.aspectj,yyl.example.demo.spring.configuration" />
 
 	<bean id="component1" class="yyl.example.demo.spring.component.Component1" />
 	<bean id="component2" class="yyl.example.demo.spring.component.Component2">
