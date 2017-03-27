@@ -25,16 +25,17 @@ public class PropertiesTest {
 				+ " a.\\ b .1 :==VALUE\n"//
 				+ "a.b.2:==VALUE\n"//
 				+ "  a.b.3 = VALUE\n"//
-				+ "  a.b.4 :VALUE  \n"//
+				+ "  a.b.4 :VALUE  \n"//结尾的空格不会被去掉
 				+ "  a.b.5 =:VALUE\n"//
 				+ "  a.b.6 ==VALUE\n"//
 				+ "  a.b.7 VALUE 123\n"//
+				+ "a.b.8=\'VALUE 123\'\n"//
 				+ "");
 
 		properties.load(reader);
 
 		for (Map.Entry<Object, Object> entry : properties.entrySet()) {
-			System.out.println(entry.getKey() + "|->" + entry.getValue());
+			System.out.println(entry.getKey() + "|^" + entry.getValue() + "$");
 		}
 
 	}
