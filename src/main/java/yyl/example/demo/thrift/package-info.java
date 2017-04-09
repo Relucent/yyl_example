@@ -8,7 +8,7 @@
  */
 package yyl.example.demo.thrift;
 
-//| Thrift 脚本可定义的数据类型包括以下几种类型：
+//| 一、 Thrift 脚本可定义的数据类型包括以下几种类型：
 //| 基本类型：
 //|  bool：布尔值，true 或 false，对应 Java 的 boolean
 //|  byte：8 位有符号整数，对应 Java 的 byte
@@ -27,3 +27,48 @@ package yyl.example.demo.thrift;
 //|  exception：对应 Java 的 Exception
 //| 服务类型：
 //|  service：对应服务的类
+//|
+//| 二、编码基本步骤：
+//|  1) 服务端编码基本步骤
+//|   实现服务处理接口impl
+//|   创建TProcessor
+//|   创建TServerTransport
+//|   创建TProtocol
+//|   创建TServer
+//|   启动Server
+//|  
+//|  2) 客户端编码基本步骤：
+//|   创建Transport
+//|   创建TProtocol
+//|   基于TTransport和TProtocol创建 Client
+//|   调用Client的相应方法
+//|
+//| 三、数据传输协议
+//|  TBinaryProtocol : 二进制格式.
+//|  TCompactProtocol : 压缩格式
+//|  TJSONProtocol : JSON格式
+//|  TSimpleJSONProtocol : 提供JSON write-only 协议, 生成的文件很容易通过脚本语言解析
+//|
+//| 四、JAVA中使用thrift步骤：
+//| 1) 定义 thrift 文件，例如 hello.thrift，文件内容
+//| 
+//|  namespace java yyl.example.demo.thrift
+//|  service HelloService {
+//|   string hello(1:string text)
+//|  }
+//| 
+//| 2) 使用命令编译 thrift 
+//|  (window环境可以下载 thrift.exe)
+//| 命令格式： thrift --gen <language> <Thrift filename>
+//| 
+//| 例如执行命令 thrift-0.10.0.exe -r -gen java ./hello.thrift 
+//| 会自动生成一个gen-java的目录，其中有构建的客户端有用的源代码 (HelloService.java)
+//|
+//| 3) 创建 service handler类
+//| 该类需要实现 HelloService.Iface接口
+//|
+//| 4) 创建服务器代码
+//|
+//| 5) 创建客户端代码
+//| 
+//| ...
