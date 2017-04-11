@@ -6,5 +6,7 @@
  * 
  * Redis官方是不支持windows的，但是 Microsoft Open Tech group 在 GitHub上开发了一个Win64的版本<br>
  * 项目地址： [https://github.com/MSOpenTech/redis]<br>
+ * 
+ * Jedis 是 Redis 官方首选的 Java 客户端开发包 (redis的java版本的客户端实现)
  */
 package yyl.example.demo.redis;

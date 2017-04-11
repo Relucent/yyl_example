@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>yyl.example</groupId>
 	<artifactId>yyl_example</artifactId>
@@ -35,6 +34,7 @@
 		<hibernate.version>4.3.11.Final</hibernate.version>
 		<snakeyaml.version>1.17</snakeyaml.version>
 		<disruptor.version>3.3.6</disruptor.version>
+		<jedis.version>2.9.0</jedis.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
@@ -287,9 +287,11 @@
 			<artifactId>libthrift</artifactId>
 			<version>${thrift.version}</version>
 		</dependency>
-
-
-
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
 
 	</dependencies>
 
