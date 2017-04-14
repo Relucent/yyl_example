@@ -65,11 +65,10 @@ public class JedisListQueueTest2 {
 
 		private void waitFinish(Jedis jedis) {
 			while (!Thread.currentThread().isInterrupted()) {
-				long len = jedis.llen(QUEUE_KEY);
-				if (len == 0) {
+				if (jedis.llen(QUEUE_KEY) == 0L) {
 					return;
 				}
-				sleepQuietly(1000);
+				sleepQuietly(3000);
 			}
 		}
 
@@ -100,6 +99,8 @@ public class JedisListQueueTest2 {
 
 							batchSequence++;
 						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				}
 			});
@@ -130,6 +131,8 @@ public class JedisListQueueTest2 {
 								log("[" + name + "] -> " + value);
 							}
 						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 					log("[" + name + "] # stop ");
 				}
