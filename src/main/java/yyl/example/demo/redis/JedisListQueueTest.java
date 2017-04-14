@@ -1,5 +1,7 @@
 package yyl.example.demo.redis;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import redis.clients.jedis.Jedis;
@@ -21,15 +23,16 @@ public class JedisListQueueTest {
 	private static class Producer implements Runnable {
 		@Override
 		public void run() {
-			long sequence = 0;
+			long batchSequence = 0;
 			try (Jedis jedis = new Jedis("localhost", 6379)) {
 				jedis.del(QUEUE_KEY);
 				while (true) {
-					for (int i = 0; i < 100; i++) {
-						jedis.lpush(QUEUE_KEY, String.valueOf(sequence++));
+					batchSequence++;
+					for (int i = 0; i < 10; i++) {
+						jedis.rpush(QUEUE_KEY, batchSequence + ":" + i);
 					}
 					try {
-						Thread.sleep(1 * 1000);
+						Thread.sleep(10 * 1000);
 					} catch (InterruptedException e) {
 						break;
 					}
@@ -51,10 +54,20 @@ public class JedisListQueueTest {
 			try (Jedis jedis = new Jedis("localhost", 6379)) {
 				while (!Thread.currentThread().isInterrupted()) {
 					List<String> values = jedis.blpop(0, QUEUE_KEY);
-					System.out.println("[" + name + "] -> " + values);
+					System.out.println(now() + " [" + name + "] -> " + values);
 				}
 			}
 		}
 	}
+
+	private static String now() {
+		return DATE_FORMAT.get().format(System.currentTimeMillis());
+	}
+
+	private static ThreadLocal<DateFormat> DATE_FORMAT = new ThreadLocal<DateFormat>() {
+		protected DateFormat initialValue() {
+			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		};
+	};
 
 }
