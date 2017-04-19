@@ -25,3 +25,5 @@ package yyl.example.demo.mongodb;
 //#  ./mongod
 //#  如果的数据库目录不是/data/db，可以通过 --dbpath 来指定
 //#  mongod --dbpath /data/db
+//#  
+//#  MongoDB 默认端口号是 27017
