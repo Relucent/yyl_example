@@ -35,6 +35,7 @@
 		<snakeyaml.version>1.17</snakeyaml.version>
 		<disruptor.version>3.3.6</disruptor.version>
 		<jedis.version>2.9.0</jedis.version>
+		<mongodb.version>3.4.2</mongodb.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
@@ -291,6 +292,11 @@
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>${mongodb.version}</version>
 		</dependency>
 
 	</dependencies>
