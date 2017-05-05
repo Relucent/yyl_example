@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<url>http://maven.apache.org</url>
+
+	<!--# modelVersion：这个是 POM 的版本号，现在都是 4.0.0 的 # -->
+	<modelVersion>4.0.0</modelVersion>
+
+	<!--# groupId、artifactId、version：分别表示 Maven 项目的组织名、构件名、版本号，它们三个合起来就是 Maven 坐标，根据这个坐标可以在 Maven 仓库中对应唯一的 Maven 构件。 # -->
+	<groupId>yyl.example</groupId>
+	<artifactId>yyl_example</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<!--# packaging：表示该项目的打包方式，war 表示打包为 war 文件，默认为 jar，表示打包为 jar 文件。 # -->
+	<packaging>jar</packaging>
+
+	<!--# name、url：表示该项目的名称与 URL 地址，可以省略 # -->
+	<name>example</name>
+	<url>http://maven.apache.org</url>
+
+	<!-- properties： 定义一些配置属性，例如：project.build.sourceEncoding (项目构建源码编码方式)，可设置为 UTF-8，可防止中文乱码 -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<!--| dependencies：定义该项目的依赖关系，其中每一个 dependency 对应一个 Maven项目 | -->
+	<!--| 每个构件包都会有一个 Scope(作用域)，它表示该构件包在什么时候起作用，包括以下五种：| -->
+	<!--| compile：默认作用域，在编译、测试、运行时有效 | -->
+	<!--| test：对于测试时有效 | -->
+	<!--| runtime：对于测试、运行时有效 | -->
+	<!--| provided：对于编译、测试时有效，但在运行时无效 | -->
+	<!--| system：与 provided 类似，但依赖于系统资源 | -->
+
+	<dependencies>
+
+		<!-- Commons -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>6.0.6</version>
+		</dependency>
+
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- JSTL -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Tools -->
+		<dependency>
+			<groupId>jdk.tools</groupId>
+			<artifactId>jdk.tools</artifactId>
+			<version>${java.version}</version>
+			<scope>system</scope>
+			<systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+		</dependency>
+
+		<!-- Custom -->
+		<dependency>
+			<groupId>yyl</groupId>
+			<artifactId>yyl-custom</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/yyl-custom-0.0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
+
+	</dependencies>
+
+
+	<!--| 常用命令 | -->
+	<!--| mvn clean：清空输出目录(即 target 目录) | -->
+	<!--| mvn compile：编译源代码 | -->
+	<!--| mvn package：生成构件包(一般为 jar 包或 war 包) | -->
+	<!--| mvn install：将构件包安装到本地仓库 | -->
+	<!--| mvn deploy：将构件包部署到远程仓库 | -->
+	<build>
+		<plugins>
+			<!-- Compile -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<!-- Test -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.15</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+			<!-- Package -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<warName>demo.war</warName>
+				</configuration>
+			</plugin>
+			<!-- Tomcat -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
