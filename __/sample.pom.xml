@@ -54,6 +54,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>6.0.6</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- Servlet -->
@@ -69,7 +70,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
-			<scope>runtime</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Tools -->
