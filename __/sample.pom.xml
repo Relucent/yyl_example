@@ -139,4 +139,6 @@
 		</plugins>
 	</build>
 
+	<!-- 将本地jar包安装到本地仓库的命令 -->
+	<!-- ( mvn install:install-file -Dfile=[jar文件所存放的地址] -DgroupId=[JAR所属的GROUP] -DartifactId=[JAR的项目名] -Dversion=[版本号] -Dpackaging=[打包形式jar] -DgeneratePom=true ) -->
 </project>
