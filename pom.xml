@@ -37,7 +37,7 @@
 		<disruptor.version>3.3.6</disruptor.version>
 		<jedis.version>2.9.0</jedis.version>
 		<mongodb.version>3.4.2</mongodb.version>
-		<webmagic.version>0.6.1</webmagic.version>
+		<webmagic.version>0.7.0</webmagic.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
