@@ -1,0 +1,30 @@
+{
+	"store" : {
+		"book" : [ {
+			"title" : "红楼梦",
+			"author" : "曹雪芹",
+			"category" : "名著",
+			"price" : 99.90
+		}, {
+			"title" : "西游记",
+			"author" : "吴承恩",
+			"category" : "名著",
+			"price" : 80.65
+		}, {
+			"title" : "Thinking in C++",
+			"author" : "Eckel",
+			"category" : "计算机",
+			"price" : 200.50,
+			"discount" : true
+		} ],
+		"computer" : [ {
+			"title" : "MacBook Pro 13.3英寸笔记本",
+			"brand" : "Apple",
+			"price" : 12800.00
+		}, {
+			"title" : "ThinkPad T460",
+			"brand" : "ThinkPad",
+			"price" : 8000.00
+		} ]
+	}
+}
