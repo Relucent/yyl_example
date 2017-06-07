@@ -3,7 +3,7 @@ package yyl.example.basic.thread;
 /**
  * 线程不安全测试
  */
-public class NoThreadSafe {
+public class NoThreadSafe1 {
 
 	private static boolean flag = true;
 
