@@ -8,18 +8,22 @@ public class NoThreadSafe2 {
 	public static void main(String[] args) throws InterruptedException {
 		Worker1 worker1 = new Worker1();
 		Worker2 worker2 = new Worker2();
+		Worker3 worker3 = new Worker3();
 		worker1.start();
 		worker2.start();
+		worker3.start();
 
 		Thread.sleep(1000);
 
 		worker1.flag = false;
 		worker2.flag = false;
+		worker3.flag = false;
 
 		Thread.sleep(5000);
 
 		System.out.println(worker1.flag);
 		System.out.println(worker2.flag);
+		System.out.println(worker3.flag);
 
 		System.exit(0);
 	}
@@ -41,6 +45,17 @@ public class NoThreadSafe2 {
 			while (flag) {
 			}
 			System.out.println("exit worker2");
+		};
+	}
+
+	static class Worker3 extends Thread {
+		volatile boolean flag = true;
+
+		public void run() {
+			while (flag) {
+				Thread.yield();
+			}
+			System.out.println("exit worker3");
 		};
 	}
 }
