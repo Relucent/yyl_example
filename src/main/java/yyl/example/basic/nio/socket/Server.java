@@ -14,6 +14,7 @@ public class Server {
 
 		final Selector selector = Selector.open();
 		final ByteBuffer buffer = ByteBuffer.allocate(1024 * 1024);
+		final Tool tool = new Tool();
 
 		ServerSocketChannel socketChannel = ServerSocketChannel.open();
 		socketChannel.socket().bind(new InetSocketAddress(9998));
@@ -31,14 +32,20 @@ public class Server {
 					channel.configureBlocking(false);
 					channel.register(selector, SelectionKey.OP_READ);
 				} else if (key.isReadable()) {
+
 					SocketChannel channel = (SocketChannel) key.channel();
-					String value = Tool.read(channel, buffer);
+
+					String value = tool.read(channel, buffer);
+
 					if (value == null) {
-						Tool.closeQuietly(key, channel);
+						if (!channel.isOpen()) {
+							key.cancel();
+						}
 						continue;
 					}
+
 					System.out.println(value);
-					Tool.write(channel, "hello " + value);
+					tool.write(channel, "hello " + value);
 				}
 			}
 			keySet.clear();

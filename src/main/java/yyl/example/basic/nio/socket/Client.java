@@ -15,6 +15,7 @@ public class Client {
 
 		Scanner scanner = new Scanner(System.in);
 		Selector selector = Selector.open();
+		Tool tool = new Tool();
 
 		ByteBuffer buffer = ByteBuffer.allocate(1024 * 1024);
 		SocketChannel channel = SocketChannel.open();
@@ -35,28 +36,29 @@ public class Client {
 				if ((ops & SelectionKey.OP_CONNECT) == SelectionKey.OP_CONNECT) {
 					if (channel.finishConnect()) {
 						System.out.println("[Connect successfully]");
-						input(channel, buffer, scanner);
+						input(channel, tool, scanner);
 					} else {
 						System.out.println("[Connect failed]");
-						Tool.closeQuietly(key, channel);
+						tool.closeQuietly(channel);
 						return;
 					}
 				} else if ((ops & SelectionKey.OP_READ) == SelectionKey.OP_READ) {
-					String value = Tool.read(channel, buffer);
+					String value = tool.read(channel, buffer);
+					if (value == null) {
+						continue;
+					}
 					System.out.println(value);
-					input(channel, buffer, scanner);
+					input(channel, tool, scanner);
 				}
 			}
 			keySet.clear();
 		}
-
 	}
 
-	private static void input(SocketChannel channel, ByteBuffer buffer, Scanner scanner) throws IOException {
-		buffer.clear();
+	private static void input(SocketChannel channel, Tool tool, Scanner scanner) throws IOException {
 		System.out.print("Please enter:");
 		String line = scanner.nextLine();
-		Tool.write(channel, line);
+		tool.write(channel, line);
 	}
 
 }
