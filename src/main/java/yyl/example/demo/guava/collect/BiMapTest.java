@@ -3,6 +3,7 @@ package yyl.example.demo.guava.collect;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+/** 双向 Map */
 public class BiMapTest {
 
 	public static void main(String[] args) {
@@ -17,5 +18,7 @@ public class BiMapTest {
 		System.out.println(map2.get("v1"));
 
 		System.out.println(map2.inverse() == map1);
+
+		map1.put("k0", "v1");//throw Exception
 	}
 }
