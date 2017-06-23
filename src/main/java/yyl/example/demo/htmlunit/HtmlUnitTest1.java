@@ -12,7 +12,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * HtmlUnit 是一款开源的 JAVA 页面分析工具，相当于一个没有界面的浏览器。<br>
  * 通过HtmlUnit不仅可以获得网页内容，还提供了对网页进行操作的方法。<br>
  */
-public class HtmlUnitTest {
+public class HtmlUnitTest1 {
 	public static void main(String[] args) {
 
 		//得到浏览器对象
