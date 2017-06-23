@@ -38,6 +38,9 @@
 		<jedis.version>2.9.0</jedis.version>
 		<mongodb.version>3.4.2</mongodb.version>
 		<webmagic.version>0.7.0</webmagic.version>
+		<htmlunit.version>2.27</htmlunit.version>
+		<httpclient.version>4.5.3</httpclient.version>
+		<commons-io.version>2.5</commons-io.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
@@ -321,6 +324,23 @@
 			<groupId>us.codecraft</groupId>
 			<artifactId>webmagic-selenium</artifactId>
 			<version>${webmagic.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<version>${htmlunit.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
 		</dependency>
 
 	</dependencies>
