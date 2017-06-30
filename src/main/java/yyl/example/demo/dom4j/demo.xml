@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<node name="node1">
+		<node name="node1.1">text1.1</node>
+		<node name="node1.2">text1.2</node>
+		<node name="node1.3">text1.3</node>
+	</node>
+	<node name="node2">
+		<node name="node2.1">text2.1</node>
+		<node name="node2.2">text2.2</node>
+		<node name="node2.3">text2.3</node>
+	</node>
+</root>
