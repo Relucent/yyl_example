@@ -1,34 +1,37 @@
 package yyl.example.exercise.html;
 
+import java.io.StringWriter;
+
 /**
- * Html构建者，用于构建一个Html片段
- * @author yaoyilang
- * @datetime 2009-8-6 上午10:55:09
- * @version 1.0
+ * HTML构建者，用于构建一个HTML片段
  */
 public class HtmlBuilder {
 
-	private StringBuilder html;
+	// ==============================Fields============================================
+	private final StringWriter writer;
+
+	// ==============================Constructors======================================
 
 	/**
 	 * 默认构造函数
 	 */
 	public HtmlBuilder() {
-		this.html = new StringBuilder();
+		this.writer = new StringWriter();
 	}
 
 	/**
-	 * 返回Html字符串的长度。
+	 * 默认构造函数
 	 */
-	public int length() {
-		return html.length();
+	public HtmlBuilder(StringWriter writer) {
+		this.writer = writer;
 	}
 
+	// ==============================Methods===========================================
 	/**
-	 * 返回Html字符串。
+	 * 返回HTML字符串。
 	 */
 	public String toString() {
-		return html.toString();
+		return writer.toString();
 	}
 
 	/**
@@ -36,7 +39,7 @@ public class HtmlBuilder {
 	 */
 	public HtmlBuilder append(Object text) {
 		if (text != null) {
-			html.append(text.toString());
+			writer.append(text.toString());
 		}
 		return this;
 	}
@@ -46,7 +49,7 @@ public class HtmlBuilder {
 	 */
 	public HtmlBuilder append(String text) {
 		if (text != null) {
-			html.append(text);
+			writer.append(text);
 		}
 		return this;
 	}
@@ -1120,18 +1123,6 @@ public class HtmlBuilder {
 	 */
 	public HtmlBuilder h5End() {
 		append("</h5>");
-		return this;
-	}
-
-	@Deprecated
-	public HtmlBuilder start(String tagName) {
-		append("</").append(tagName);
-		return this;
-	}
-
-	@Deprecated
-	public HtmlBuilder end(String tagName) {
-		append("</").append(tagName).append(">");
 		return this;
 	}
 
