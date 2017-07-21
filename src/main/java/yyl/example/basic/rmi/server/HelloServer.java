@@ -12,11 +12,11 @@ public class HelloServer {
 		try {
 			//创建一个远程对象 
 			HelloServiceImpl service = new HelloServiceImpl();
-			//本地主机上的远程对象注册表Registry的实例，并指定端口为8888，这一步必不可少（Java默认端口是1099），必不可缺的一步，缺少注册表创建，则无法绑定对象到远程注册表上 
-			LocateRegistry.createRegistry(8888);
+			//本地主机上的远程对象注册表Registry的实例，并指定端口为1099，这一步必不可少（Java默认端口是1099），必不可缺的一步，缺少注册表创建，则无法绑定对象到远程注册表上 
+			LocateRegistry.createRegistry(1099);
 			//把远程对象注册到RMI注册服务器上，并命名为RHello 
 			//绑定的URL标准格式为：rmi://host:port/name(其中协议名可以省略） 
-			Naming.bind("rmi://localhost:8888/hello", service);
+			Naming.bind("rmi://localhost:1099/hello", service);
 			System.out.println(">>>>>INFO:远程IHello对象绑定成功！");
 		} catch (RemoteException e) {
 			System.out.println("创建远程对象发生异常！");

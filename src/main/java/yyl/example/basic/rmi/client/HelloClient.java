@@ -11,7 +11,7 @@ public class HelloClient {
 	public static void main(String args[]) {
 		try {
 			// 在RMI服务注册表中查找名称为RHello的对象，并调用其上的方法
-			HelloService service = (HelloService) Naming.lookup("rmi://localhost:8888/hello");
+			HelloService service = (HelloService) Naming.lookup("rmi://localhost:1099/hello");
 			System.out.println(service.hello());
 			System.out.println(service.hello("I'm the king of the world!"));
 		} catch (NotBoundException e) {
