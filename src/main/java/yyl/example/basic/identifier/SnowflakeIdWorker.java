@@ -15,8 +15,8 @@ package yyl.example.basic.identifier;
 public class SnowflakeIdWorker {
 
 	// ==============================Fields===========================================
-	/** 开始时间截 (2015-01-01) */
-	private final long twepoch = 1420041600000L;
+	/** 开始时间截 (2010-11-04 09:42:54.657) */
+	private final long twepoch = 1288834974657L;
 
 	/** 机器id所占的位数 */
 	private final long workerIdBits = 5L;
