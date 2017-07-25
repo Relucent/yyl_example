@@ -283,141 +283,165 @@ public class BTree<K, V> {
 		assertState(node.keySize() >= t || node == root);
 
 		SearchResult<V> result = node.search(key);
-		/*
-		 * 因为这是查找成功的情况，0 <= result.getIndex() <= (node.size() - 1)， 因此(result.getIndex() + 1)不会溢出。
-		 */
+
+		// 查找成功的情况 index [0,size - 1]
 		if (result.isExist()) {
-			// 1.如果关键字在节点node中，并且是叶节点，则直接删除。  
-			if (node.isLeaf())
+			// 1.是叶节点，则直接删除  
+			if (node.isLeaf()) {
 				return node.removeEntry(result.getIndex());
-			else {
-				// 2.a 如果节点node中前于key的子节点包含至少t个项  
-				Node<K, V> leftChildNode = node.childAt(result.getIndex());
-				if (leftChildNode.keySize() >= t) {
-					// 使用leftChildNode中的最后一个项代替node中需要删除的项  
-					node.removeEntry(result.getIndex());
-					node.addEntry(result.getIndex(), leftChildNode.entryAt(leftChildNode.keySize() - 1));
-					// 递归删除左子节点中的最后一个项  
-					return delete(leftChildNode, leftChildNode.entryAt(leftChildNode.keySize() - 1).getKey());
-				} else {
-					// 2.b 如果节点node中后于key的子节点包含至少t个关键字  
-					Node<K, V> rightChildNode = node.childAt(result.getIndex() + 1);
-					if (rightChildNode.keySize() >= t) {
-						// 使用rightChildNode中的第一个项代替node中需要删除的项  
-						node.removeEntry(result.getIndex());
-						node.addEntry(result.getIndex(), rightChildNode.entryAt(0));
-						// 递归删除右子节点中的第一个项  
-						return delete(rightChildNode, rightChildNode.entryAt(0).getKey());
-					} else // 2.c 前于key和后于key的子节点都只包含t-1个项  
-					{
-						Entry<K, V> deletedEntry = node.removeEntry(result.getIndex());
-						node.removeChild(result.getIndex() + 1);
-						// 将node中与key关联的项和rightChildNode中的项合并进leftChildNode  
-						leftChildNode.addEntry(deletedEntry);
-						for (int i = 0; i < rightChildNode.keySize(); ++i)
-							leftChildNode.addEntry(rightChildNode.entryAt(i));
-						// 将rightChildNode中的子节点合并进leftChildNode，如果有的话  
-						if (!rightChildNode.isLeaf()) {
-							for (int i = 0; i <= rightChildNode.keySize(); ++i)
-								leftChildNode.addChild(rightChildNode.childAt(i));
-						}
-						return delete(leftChildNode, key);
-					}
+			}
+
+			//2. 不是叶节点
+
+			//3  获得index位置的node子节点 (左侧子节点)
+			Node<K, V> leftChildNode = node.childAt(result.getIndex());
+
+			//特征：非根节点中最小的键值数不能小于minKeySize，所以如果小于minKeySize，需要做处理
+
+			//3.1 节点包含至少t个项目  
+			if (leftChildNode.keySize() >= t) {
+				// 使用leftChildNode中的最后一个项代替node中需要删除的项  
+				node.removeEntry(result.getIndex());
+				Entry<K, V> filler = leftChildNode.entryAt(leftChildNode.keySize() - 1);
+				node.addEntry(result.getIndex(), filler);
+				// 递归删除左子节点中的最后一个项  
+				return delete(leftChildNode, filler.getKey());
+			}
+			//3.2  获得index+1位置的node子节点 (右侧子节点)
+			Node<K, V> rightChildNode = node.childAt(result.getIndex() + 1);
+
+			if (rightChildNode.keySize() >= t) {
+				// 使用rightChildNode中的第一个项代替node中需要删除的项  
+				node.removeEntry(result.getIndex());
+				node.addEntry(result.getIndex(), rightChildNode.entryAt(0));
+				// 递归删除右子节点中的第一个项  
+				return delete(rightChildNode, rightChildNode.entryAt(0).getKey());
+			}
+
+			//3.3 left和right 都小于t个项 (根据规定，一定是t-1个项)
+
+			Entry<K, V> deletedEntry = node.removeEntry(result.getIndex());
+			node.removeChild(result.getIndex() + 1);//rightChildNode
+
+			// 将node中与key关联的项和rightChildNode中的项合并进leftChildNode  
+
+			leftChildNode.addEntry(deletedEntry);
+			for (int i = 0; i < rightChildNode.keySize(); ++i) {
+				leftChildNode.addEntry(rightChildNode.entryAt(i));
+			}
+			// 将rightChildNode中的子节点合并进leftChildNode，如果有的话  
+			if (!rightChildNode.isLeaf()) {
+				for (int i = 0; i <= rightChildNode.keySize(); ++i) {
+					leftChildNode.addChild(rightChildNode.childAt(i));
 				}
 			}
-		} else {
-			/*
-			 * 因为这是查找失败的情况，0 <= result.getIndex() <= node.size()， 因此(result.getIndex() + 1)会溢出。
-			 */
-			if (node.isLeaf()) // 如果关键字不在节点node中，并且是叶节点，则什么都不做，因为该关键字不在该B树中  
-			{
+			// 递归删除合并的左子节点中的项
+			return delete(leftChildNode, key);
+		}
+		//
+		else {
+			//查找失败的情况 index[0,size]
+
+			//1 是叶节点 (关键字不在节点中，并且是叶节点，说明该关键字不在该树中)
+			if (node.isLeaf()) {
 				return null;
 			}
+
+			//2 获得index位置的node子节点
 			Node<K, V> childNode = node.childAt(result.getIndex());
-			if (childNode.keySize() >= t) // // 如果子节点有不少于t个项，则递归删除  
+
+			//2.1 如果子节点有不少于t个项，则递归删除
+			if (childNode.keySize() >= t) {
 				return delete(childNode, key);
-			else // 3  
-			{
-				// 先查找右边的兄弟节点  
-				Node<K, V> siblingNode = null;
-				int siblingIndex = -1;
-				if (result.getIndex() < node.keySize()) // 存在右兄弟节点  
-				{
-					if (node.childAt(result.getIndex() + 1).keySize() >= t) {
-						siblingNode = node.childAt(result.getIndex() + 1);
-						siblingIndex = result.getIndex() + 1;
+			}
+
+			//2.2 子节点少于t个项，这时候需要做合并
+
+			// 先查找右边的兄弟节点  
+			Node<K, V> siblingNode = null;
+			int siblingIndex = -1;
+
+			// 存在右兄弟节点  
+			if (result.getIndex() < node.keySize()) {
+				if (node.childAt(result.getIndex() + 1).keySize() >= t) {
+					siblingNode = node.childAt(result.getIndex() + 1);
+					siblingIndex = result.getIndex() + 1;
+				}
+			}
+			// 如果右边的兄弟节点不符合条件，则试试左边的兄弟节点  
+			if (siblingNode == null) {
+				// 存在左兄弟节点  
+				if (result.getIndex() > 0) {
+					if (node.childAt(result.getIndex() - 1).keySize() >= t) {
+						siblingNode = node.childAt(result.getIndex() - 1);
+						siblingIndex = result.getIndex() - 1;
 					}
 				}
-				// 如果右边的兄弟节点不符合条件，则试试左边的兄弟节点  
-				if (siblingNode == null) {
-					if (result.getIndex() > 0) // 存在左兄弟节点  
-					{
-						if (node.childAt(result.getIndex() - 1).keySize() >= t) {
-							siblingNode = node.childAt(result.getIndex() - 1);
-							siblingIndex = result.getIndex() - 1;
+			}
+			// 3.a 有一个相邻兄弟节点至少包含t个项  
+			if (siblingNode != null) {
+				// 左兄弟节点满足条件  
+				if (siblingIndex < result.getIndex()) {
+					childNode.addEntry(0, node.entryAt(siblingIndex));
+					node.removeEntry(siblingIndex);
+					node.addEntry(siblingIndex, siblingNode.entryAt(siblingNode.keySize() - 1));
+					siblingNode.removeEntry(siblingNode.keySize() - 1);
+					// 将左兄弟节点的最后一个孩子移到childNode  
+					if (!siblingNode.isLeaf()) {
+						childNode.addChild(0, siblingNode.childAt(siblingNode.keySize()));
+						siblingNode.removeChild(siblingNode.keySize());
+					}
+				}
+				// 右兄弟节点满足条件  
+				else {
+					childNode.addEntry(childNode.keySize() - 1, node.entryAt(result.getIndex()));
+					node.removeEntry(result.getIndex());
+					node.addEntry(result.getIndex(), siblingNode.entryAt(0));
+					siblingNode.removeEntry(0);
+					// 将右兄弟节点的第一个孩子移到childNode  
+					// childNode.insertChild(siblingNode.childAt(0), childNode.size() + 1);  
+					if (!siblingNode.isLeaf()) {
+						childNode.addChild(siblingNode.childAt(0));
+						siblingNode.removeChild(0);
+					}
+				}
+				return delete(childNode, key);
+			}
+			// left和right 都小于t个项 (根据规定，一定是t-1个项)
+			else {
+				// 存在右兄弟，直接在后面追加  
+				if (result.getIndex() < node.keySize()) {
+					Node<K, V> rightSiblingNode = node.childAt(result.getIndex() + 1);
+					childNode.addEntry(node.entryAt(result.getIndex()));
+					node.removeEntry(result.getIndex());
+					node.removeChild(result.getIndex() + 1);
+					for (int i = 0; i < rightSiblingNode.keySize(); ++i) {
+						childNode.addEntry(rightSiblingNode.entryAt(i));
+					}
+					if (!rightSiblingNode.isLeaf()) {
+						for (int i = 0; i <= rightSiblingNode.keySize(); ++i) {
+							childNode.addChild(rightSiblingNode.childAt(i));
 						}
 					}
 				}
-				// 3.a 有一个相邻兄弟节点至少包含t个项  
-				if (siblingNode != null) {
-					if (siblingIndex < result.getIndex()) // 左兄弟节点满足条件  
-					{
-						childNode.addEntry(0, node.entryAt(siblingIndex));
-						node.removeEntry(siblingIndex);
-						node.addEntry(siblingIndex, siblingNode.entryAt(siblingNode.keySize() - 1));
-						siblingNode.removeEntry(siblingNode.keySize() - 1);
-						// 将左兄弟节点的最后一个孩子移到childNode  
-						if (!siblingNode.isLeaf()) {
-							childNode.addChild(0, siblingNode.childAt(siblingNode.keySize()));
-							siblingNode.removeChild(siblingNode.keySize());
-						}
+				// 存在左节点，在前面插入 
+				else {
+					Node<K, V> leftSiblingNode = node.childAt(result.getIndex() - 1);
+					childNode.addEntry(0, node.entryAt(result.getIndex() - 1));
+					node.removeEntry(result.getIndex() - 1);
+					node.removeChild(result.getIndex() - 1);
+					for (int i = leftSiblingNode.keySize() - 1; i >= 0; --i)
+						childNode.addEntry(0, leftSiblingNode.entryAt(i));
+					if (!leftSiblingNode.isLeaf()) {
+						for (int i = leftSiblingNode.keySize(); i >= 0; --i)
+							childNode.addChild(0, leftSiblingNode.childAt(i));
 					}
-					// 右兄弟节点满足条件  
-					else {
-						childNode.addEntry(childNode.keySize() - 1, node.entryAt(result.getIndex()));
-						node.removeEntry(result.getIndex());
-						node.addEntry(result.getIndex(), siblingNode.entryAt(0));
-						siblingNode.removeEntry(0);
-						// 将右兄弟节点的第一个孩子移到childNode  
-						// childNode.insertChild(siblingNode.childAt(0), childNode.size() + 1);  
-						if (!siblingNode.isLeaf()) {
-							childNode.addChild(siblingNode.childAt(0));
-							siblingNode.removeChild(0);
-						}
-					}
-					return delete(childNode, key);
-				} else // 3.b 如果其相邻左右节点都包含t-1个项  
-				{
-					if (result.getIndex() < node.keySize()) // 存在右兄弟，直接在后面追加  
-					{
-						Node<K, V> rightSiblingNode = node.childAt(result.getIndex() + 1);
-						childNode.addEntry(node.entryAt(result.getIndex()));
-						node.removeEntry(result.getIndex());
-						node.removeChild(result.getIndex() + 1);
-						for (int i = 0; i < rightSiblingNode.keySize(); ++i)
-							childNode.addEntry(rightSiblingNode.entryAt(i));
-						if (!rightSiblingNode.isLeaf()) {
-							for (int i = 0; i <= rightSiblingNode.keySize(); ++i)
-								childNode.addChild(rightSiblingNode.childAt(i));
-						}
-					} else // 存在左节点，在前面插入  
-					{
-						Node<K, V> leftSiblingNode = node.childAt(result.getIndex() - 1);
-						childNode.addEntry(0, node.entryAt(result.getIndex() - 1));
-						node.removeEntry(result.getIndex() - 1);
-						node.removeChild(result.getIndex() - 1);
-						for (int i = leftSiblingNode.keySize() - 1; i >= 0; --i)
-							childNode.addEntry(0, leftSiblingNode.entryAt(i));
-						if (!leftSiblingNode.isLeaf()) {
-							for (int i = leftSiblingNode.keySize(); i >= 0; --i)
-								childNode.addChild(0, leftSiblingNode.childAt(i));
-						}
-					}
-					// 如果node是root并且node不包含任何项了  
-					if (node == root && node.keySize() == 0)
-						root = childNode;
-					return delete(childNode, key);
 				}
+				// 如果node是root并且node不包含任何项了 
+				if (node == root && node.keySize() == 0) {
+					root = childNode;
+				}
+				return delete(childNode, key);
 			}
 		}
 	}
@@ -433,24 +457,26 @@ public class BTree<K, V> {
 	 * @return 满节点返回true,否则返回false
 	 */
 	private boolean isFullNode(Node<K, V> node) {
-		return root.keySize() >= maxKeySize;
+		return node.keySize() >= maxKeySize;
 	}
 
 	/**
-	 * 一个简单的层次遍历B树实现，用于输出B树。
+	 * 层次遍历B树实现，用于输出B树
 	 */
-	public void output() {
+	public void print() {
 		Queue<Node<K, V>> queue = new LinkedList<Node<K, V>>();
 		queue.offer(root);
 		while (!queue.isEmpty()) {
 			Node<K, V> node = queue.poll();
-			for (int i = 0; i < node.keySize(); ++i)
+			for (int i = 0; i < node.keySize(); ++i) {
 				System.out.print(node.entryAt(i) + " ");
-			System.out.println();
-			if (!node.isLeaf()) {
-				for (int i = 0; i <= node.keySize(); ++i)
-					queue.offer(node.childAt(i));
 			}
+			if (!node.isLeaf()) {
+				for (int i = 0; i <= node.keySize(); ++i) {
+					queue.offer(node.childAt(i));
+				}
+			}
+			System.out.println();
 		}
 	}
 
@@ -708,7 +734,7 @@ public class BTree<K, V> {
 		tree.put(12, "I");
 		tree.put(13, "I");
 		tree.put(15, "I");
-		tree.output();
+		tree.print();
 	}
 }
 
