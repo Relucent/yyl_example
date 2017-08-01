@@ -28,6 +28,9 @@ public class LocalDateTest {
 		LocalDate today = LocalDate.now();
 		System.out.println("today->" + today);
 
+		//是否闰年
+		System.out.println("isLeapYear()->" + today.isLeapYear());
+
 		//取本月第1天
 		LocalDate firstDayOfThisMonth = today.with(TemporalAdjusters.firstDayOfMonth());
 		System.out.println("firstDayOfThisMonth->" + firstDayOfThisMonth);
