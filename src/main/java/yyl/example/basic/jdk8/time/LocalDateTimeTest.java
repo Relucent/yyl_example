@@ -1,7 +1,9 @@
 package yyl.example.basic.jdk8.time;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
@@ -20,10 +22,10 @@ public class LocalDateTimeTest {
 		LocalDateTime newCentury = LocalDateTime.parse("2100-01-01T00:00:00");
 		System.out.println(newCentury.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss.SSS")));
 
-		//检查闰年
-		System.out.println(now.isLeapYear);
-		
-		
+		//LocalDateTime -> LocalDate
+		LocalDate today = now.atZone(ZoneId.systemDefault()).toLocalDate();
+		System.out.println(today);
+
 		//获得下个周一
 		LocalDateTime nextWeekMonday = now.plus(1, ChronoUnit.WEEKS)//
 				.with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY))//
