@@ -1,4 +1,4 @@
-package yyl.example.basic.jdk8;
+package yyl.example.basic.jdk8.lambda;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.function.Function;
 /**
  * 几种写法的对比，在语法层面对Java8的 lambda做一个初步了解
  */
-public class LambdaStreamTest0 {
+public class LambdaStreamDemo {
 
 	public static void main(String[] args) {
 

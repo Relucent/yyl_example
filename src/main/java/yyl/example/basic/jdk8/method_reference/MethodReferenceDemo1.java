@@ -1,4 +1,4 @@
-package yyl.example.basic.jdk8;
+package yyl.example.basic.jdk8.method_reference;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.function.Supplier;
  * 方法引用提供了一个很有用的语义来直接访问类或者实例的已经存在的方法或者构造方法。<br>
  * 结合Lambda表达式，方法引用使语法结构紧凑简明。<br>
  */
-public class MethodReferenceTest0 {
+public class MethodReferenceDemo1 {
 
 	public static void main(String[] args) {
 
