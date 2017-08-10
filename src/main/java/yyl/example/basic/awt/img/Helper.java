@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 class Helper {
 	public static InputStream openInputStream() throws IOException {
-		return Helper.class.getResourceAsStream("image.png");
+		return Helper.class.getResourceAsStream("world.png");
 	}
 
 	public static Image getImage() throws IOException {
