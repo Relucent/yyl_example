@@ -162,6 +162,9 @@ public class JedisTest {
 		System.out.println("> SADD myset \"World\"");
 		System.out.println(jedis.sadd("myset", "World"));
 
+		//获取集合成员个数
+		System.out.println(jedis.scard("myset"));
+
 		//获取集合成员(元素)
 		System.out.println("> SMEMBERS myset");
 		System.out.println(jedis.smembers("myset"));
