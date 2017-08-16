@@ -5,8 +5,18 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 
 public class Streams {
+
+	public static String getResourceString(Class<?> anchor, String path) {
+		try {
+			return new String(toByteArray(anchor.getResourceAsStream(path), true), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public static byte[] toByteArray(InputStream from, boolean close) {
 		try {
