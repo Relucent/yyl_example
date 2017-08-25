@@ -7,7 +7,7 @@ import javax.script.ScriptEngineManager;
 
 import yyl.example.basic.util.Streams;
 
-public class RunScript {
+public class ScriptRun {
 
 	public static void main(String[] args) throws Throwable {
 		String script = getScript("demo.js");
@@ -24,7 +24,7 @@ public class RunScript {
 	}
 
 	private static String getScript(String path) throws IOException {
-		return Streams.getResourceString(RunScript.class, path);
+		return Streams.getResourceString(ScriptRun.class, path);
 	}
 
 	private static Object getPrimaryLibrary() {
