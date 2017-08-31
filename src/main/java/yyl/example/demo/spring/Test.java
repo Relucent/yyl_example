@@ -4,6 +4,7 @@ import yyl.example.demo.spring.component.Component2;
 import yyl.example.demo.spring.component.Component3;
 import yyl.example.demo.spring.component.Component4;
 import yyl.example.demo.spring.component.Component5;
+import yyl.example.demo.spring.dynamic.DynamicRegistryComponent.SampleBean;
 import yyl.example.demo.spring.env.SpringEnv;
 
 public class Test {
@@ -24,5 +25,8 @@ public class Test {
 
 		Component5 component5 = env.getBean(Component5.class);
 		component5.method();
+
+		SampleBean sample = env.getBean(SampleBean.class);
+		System.out.println(sample.value);
 	}
 }

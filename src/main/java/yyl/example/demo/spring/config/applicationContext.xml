@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:cache="http://www.springframework.org/schema/cache"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
@@ -7,12 +9,16 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-	<context:component-scan base-package="yyl.example.demo.spring.component,yyl.example.demo.spring.aspectj,yyl.example.demo.spring.configuration" />
+	<context:component-scan
+		base-package="yyl.example.demo.spring.component,yyl.example.demo.spring.aspectj,yyl.example.demo.spring.configuration" />
 
 	<bean id="component1" class="yyl.example.demo.spring.component.Component1" />
 	<bean id="component2" class="yyl.example.demo.spring.component.Component2">
 		<property name="component1" ref="component1" />
 	</bean>
+
+	<bean id="hookComponent" class="yyl.example.demo.spring.dynamic.HookComponent" />
+	<bean class="yyl.example.demo.spring.dynamic.DynamicRegistryComponent" />
 
 	<context:annotation-config />
 
@@ -20,9 +26,10 @@
 
 	<cache:annotation-driven cache-manager="cacheManager" />
 
-	<!--[<bean id="cacheManager" class="org.springframework.cache.guava.GuavaCacheManager" />] -->
-	<!--[<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" />] -->
+	<!--[<bean id="cacheManager" class="org.springframework.cache.guava.GuavaCacheManager" 
+		/>] -->
+	<!--[<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" 
+		/>] -->
 	<bean id="cacheManager" class="yyl.example.demo.spring.cache.CustomCacheManager" />
 
 </beans>
-
