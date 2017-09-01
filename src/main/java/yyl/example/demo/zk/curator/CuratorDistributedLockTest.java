@@ -1,5 +1,6 @@
 package yyl.example.demo.zk.curator;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.curator.framework.CuratorFramework;
@@ -59,12 +60,25 @@ public class CuratorDistributedLockTest {
 
 		InterProcessMutex lock = new InterProcessMutex(client, ZK_LOCK_PATH);
 
-		for (int i = 0; i < 3; i++) {
+		int threadCount = 3;
+		CountDownLatch latch = new CountDownLatch(threadCount);
+		for (int i = 0; i < threadCount; i++) {
 			new Thread(() -> {
 				doWithLock(client, lock);
+
+				latch.countDown();// 线程结束时计数器减1
+
 			}, "Thread-" + i).start();
 		}
 
+		try {
+			// 等待所有子线程执行完
+			latch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		//关闭客户端
+		client.close();
 	}
 
 	private static void doWithLock(CuratorFramework client, InterProcessMutex lock) {

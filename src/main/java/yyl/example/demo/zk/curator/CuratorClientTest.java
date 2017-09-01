@@ -60,6 +60,8 @@ public class CuratorClientTest {
 		client.delete().forPath(ZK_PATH);
 		print("ls", "/");
 		print(client.getChildren().forPath("/"));
+		
+		client.close();
 	}
 
 	private static void print(String... cmds) {

@@ -1,4 +1,4 @@
-package yyl.example.basic.thread;
+package yyl.example.basic.runtime;
 
 import java.util.Scanner;
 

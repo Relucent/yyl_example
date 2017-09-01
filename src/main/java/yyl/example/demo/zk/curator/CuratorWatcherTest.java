@@ -48,6 +48,9 @@ public class CuratorWatcherTest {
 		client.delete().deletingChildrenIfNeeded().forPath(ZK_CHILDREN_PATH);
 
 		watcher.close();
+
+		Thread.sleep(100);
+		client.close();
 	}
 
 }
