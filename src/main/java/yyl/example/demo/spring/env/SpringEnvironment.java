@@ -3,23 +3,23 @@ package yyl.example.demo.spring.env;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class SpringEnv {
+public class SpringEnvironment {
 
 	// @Fields:
-	private static volatile SpringEnv INSTANCE;
+	private static volatile SpringEnvironment INSTANCE;
 	private final ConfigurableApplicationContext applicationcontext;
 
 	// @Constructors:
-	public SpringEnv() {
+	public SpringEnvironment() {
 		applicationcontext = new ClassPathXmlApplicationContext("classpath:yyl/example/demo/spring/config/applicationContext.xml");
 		applicationcontext.start();
 	}
 
-	public static SpringEnv getInstance() {
+	public static SpringEnvironment getInstance() {
 		if (INSTANCE == null) {
-			synchronized (SpringEnv.class) {
+			synchronized (SpringEnvironment.class) {
 				if (INSTANCE == null) {
-					INSTANCE = new SpringEnv();
+					INSTANCE = new SpringEnvironment();
 				}
 			}
 		}
@@ -40,4 +40,7 @@ public class SpringEnv {
 		return (T) applicationcontext.getBean(beanName);
 	}
 
+	public void registerSingleton(String beanName, Object singletonObject) {
+		applicationcontext.getBeanFactory().registerSingleton(beanName, singletonObject);
+	}
 }

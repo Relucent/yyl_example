@@ -17,8 +17,8 @@
 		<property name="component1" ref="component1" />
 	</bean>
 
-	<bean id="hookComponent" class="yyl.example.demo.spring.dynamic.HookComponent" />
-	<bean class="yyl.example.demo.spring.dynamic.DynamicRegistryComponent" />
+	<bean class="yyl.example.demo.spring.dynamic.HookComponent" />
+	<bean class="yyl.example.demo.spring.dynamic.RegistryComponent" />
 
 	<context:annotation-config />
 

@@ -17,20 +17,21 @@ import org.springframework.context.annotation.ScopeMetadataResolver;
 /**
  * 动态注册Bean
  */
-public class DynamicRegistryComponent implements BeanDefinitionRegistryPostProcessor {
+public class RegistryComponent implements BeanDefinitionRegistryPostProcessor {
 
 	private ScopeMetadataResolver scopeMetadataResolver = new AnnotationScopeMetadataResolver();
 	private BeanNameGenerator beanNameGenerator = new AnnotationBeanNameGenerator();
 
 	@Override
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-		registerBean(registry, "sampleBean", SampleBean.class);
+		registerBean(registry, "sampleBean", InnerSampleBean.class);
 	}
 
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		SampleBean sample = beanFactory.getBean(SampleBean.class);
-		sample.value = "dynamic registered sampleBean";
+		//此处可以修改或者设置Bean的属性
+		InnerSampleBean bean = beanFactory.getBean(InnerSampleBean.class);
+		bean.value = "dynamic registered sample";
 	}
 
 	private void registerBean(BeanDefinitionRegistry registry, String name, Class<?> beanClass) {
@@ -53,8 +54,12 @@ public class DynamicRegistryComponent implements BeanDefinitionRegistryPostProce
 
 	}
 
-	public static class SampleBean {
+	public static class InnerSampleBean {
 		public String value;
-	}
 
+		@Override
+		public String toString() {
+			return super.toString() + "[value=" + value + "]";
+		}
+	}
 }

@@ -4,14 +4,14 @@ import yyl.example.demo.spring.component.Component2;
 import yyl.example.demo.spring.component.Component3;
 import yyl.example.demo.spring.component.Component4;
 import yyl.example.demo.spring.component.Component5;
-import yyl.example.demo.spring.dynamic.DynamicRegistryComponent.SampleBean;
-import yyl.example.demo.spring.env.SpringEnv;
+import yyl.example.demo.spring.dynamic.RegistryComponent.InnerSampleBean;
+import yyl.example.demo.spring.env.SpringEnvironment;
 
 public class Test {
 
 	// @Main:
 	public static void main(String[] args) {
-		SpringEnv env = SpringEnv.getInstance();
+		SpringEnvironment env = SpringEnvironment.getInstance();
 
 		Component2 component2 = env.getBean("component2");
 		component2.method();
@@ -26,7 +26,13 @@ public class Test {
 		Component5 component5 = env.getBean(Component5.class);
 		component5.method();
 
-		SampleBean sample = env.getBean(SampleBean.class);
-		System.out.println(sample.value);
+		InnerSampleBean sample = env.getBean(InnerSampleBean.class);
+		System.out.println(sample);
+
+		env.registerSingleton("dynamicallyAddedBean", "I'm a dynamically added bean.");
+		Object object = env.getBean("dynamicallyAddedBean");
+		System.out.println(object);
+
+		env.stop();
 	}
 }
