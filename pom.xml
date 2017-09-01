@@ -34,6 +34,7 @@
 		<zookeeper.version>3.4.9</zookeeper.version>
 		<curator.version>2.11.1</curator.version>
 		<hibernate.version>4.3.11.Final</hibernate.version>
+		<HikariCP.version>2.6.3</HikariCP.version>
 		<snakeyaml.version>1.17</snakeyaml.version>
 		<disruptor.version>3.3.6</disruptor.version>
 		<jedis.version>2.9.0</jedis.version>
@@ -218,6 +219,12 @@
 			<version>${h2.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- [ <dependency>] -->
+		<!-- [ <groupId>com.zaxxer</groupId>] -->
+		<!-- [ <artifactId>HikariCP</artifactId>] -->
+		<!-- [ <version>${HikariCP.version}</version>] -->
+		<!-- [ </dependency>] -->
 
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
