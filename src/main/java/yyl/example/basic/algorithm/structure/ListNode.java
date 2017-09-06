@@ -1,5 +1,8 @@
 package yyl.example.basic.algorithm.structure;
 
+/**
+ * Definition for singly-linked list.
+ */
 public class ListNode {
 
 	int value;
@@ -14,11 +17,14 @@ public class ListNode {
 		StringBuilder sb = new StringBuilder();
 		sb.append('[');
 		ListNode l = this;
-		for (;;) {
+		for (int i = 0;; i++) {
 			sb.append(l.value);
 			l = l.next;
 			if (l == null) {
 				sb.append(']');
+				break;
+			} else if (i == 31) {
+				sb.append(", ...]");
 				break;
 			}
 			sb.append(',').append(' ');
