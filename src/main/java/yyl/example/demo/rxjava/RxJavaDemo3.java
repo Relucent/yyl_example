@@ -14,7 +14,6 @@ import io.reactivex.FlowableOnSubscribe;
 public class RxJavaDemo3 {
 
 	public static void main(String[] args) {
-
 		// 1  初始化订阅者(观察者)
 		Subscriber<String> subscriber = new Subscriber<String>() {
 			@Override

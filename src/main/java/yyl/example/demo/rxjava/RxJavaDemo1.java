@@ -13,23 +13,7 @@ public class RxJavaDemo1 {
 
 	public static void main(String[] args) {
 
-		//1.初始化被观察对象 Observable
-		Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
-			@Override
-			public void subscribe(ObservableEmitter<Integer> e) throws Exception {
-
-				System.out.println("<");
-
-				for (int i = 0; i < 10; i++) {
-					e.onNext(i);
-				}
-				e.onComplete();
-
-				System.out.println("/>");
-			}
-		});
-
-		// 2.初始化观察员 Observer
+		// 创建 Observable
 		Observer<Integer> observer = new Observer<Integer>() {
 			protected Disposable disposable;
 
@@ -60,7 +44,23 @@ public class RxJavaDemo1 {
 			}
 		};
 
-		// 3.建立订阅关系 
+		// 创建 Observer
+		Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
+			@Override
+			public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+
+				System.out.println("<");
+
+				for (int i = 0; i < 10; i++) {
+					e.onNext(i);
+				}
+				e.onComplete();
+
+				System.out.println("/>");
+			}
+		});
+
+		// 订阅
 		observable.subscribe(observer);
 	}
 }
