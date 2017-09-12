@@ -1,8 +1,7 @@
 package yyl.example.exercise.swt;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Button;
+import java.awt.Toolkit;
+
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -11,11 +10,9 @@ public class SWT_HelloWorld {
 	public static void main(String[] args) {
 		Display display = Display.getDefault();
 		Shell shell = new Shell();
-		shell.setLayout(new FillLayout());
-
-		Button button = new Button(shell, SWT.NONE);
-		button.setText("HelloWorld");
-
+		shell.setText("Hello");
+		shell.setSize(300, 200);
+		setCenter(shell);
 		shell.layout();
 		shell.open();
 		while (!shell.isDisposed()) {
@@ -23,5 +20,20 @@ public class SWT_HelloWorld {
 				display.sleep();
 			}
 		}
+		display.dispose();
+	}
+
+	private static void setCenter(Shell shell) {
+		int screenH = Toolkit.getDefaultToolkit().getScreenSize().height;
+		int screenW = Toolkit.getDefaultToolkit().getScreenSize().width;
+		int shellH = shell.getBounds().height;
+		int shellW = shell.getBounds().width;
+		if (shellH > screenH) {
+			shellH = screenH;
+		}
+		if (shellW > screenW) {
+			shellW = screenW;
+		}
+		shell.setLocation(((screenW - shellW) / 2), ((screenH - shellH) / 2));
 	}
 }
