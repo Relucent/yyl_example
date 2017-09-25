@@ -5,7 +5,9 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 
 public class Streams {
 
@@ -47,6 +49,14 @@ public class Streams {
 		int n = 0;
 		while (-1 != (n = input.read(buffer))) {
 			output.write(buffer, 0, n);
+		}
+	}
+
+	public static void copy(Reader reader, Writer writer) throws IOException {
+		char[] buffer = new char[4096];
+		int n = 0;
+		while (-1 != (n = reader.read(buffer))) {
+			writer.write(buffer, 0, n);
 		}
 	}
 

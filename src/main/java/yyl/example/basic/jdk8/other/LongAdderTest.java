@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.LongAdder;
 
 /**
+ * <h1>并发加法器</h1><br>
  * Java 8另一个出色的功能是并发“加法器”，它对大规模运行的代码尤其有意义。<br>
  * 在Java 8之前，这个问题是用原子类（Atomics）来解决的，它直接利用了CPU的“比较并交换”指令（CAS）来测试并设置计数器的值。<br>
  * 当一条CAS指令因为竞争而失败的时候，AtomicInteger类会死等，在无限循环中不断尝试CAS指令，直到成功为止。<br>
