@@ -11,6 +11,10 @@ import java.io.Writer;
 
 public class Streams {
 
+	public static String getResourceString(Object anchor, String path) {
+		return getResourceString(anchor.getClass(), path);
+	}
+
 	public static String getResourceString(Class<?> anchor, String path) {
 		try {
 			return new String(toByteArray(anchor.getResourceAsStream(path), true), "UTF-8");
