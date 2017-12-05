@@ -1,6 +1,7 @@
 package yyl.example.basic.jdbc;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,10 +16,72 @@ import javax.sql.DataSource;
  * JDBC支持类,用于获得数据库连接<br>
  * 为方便使用采用静态调用<br>
  */
-public class DBUtil {
+public class DbUtil {
+
+	// ==============================Fields===========================================
+	private static final String MYSQL_CLASS_LOAD = "com.mysql.jdbc.Driver";
+	private static final String ORACLE_CLASS_LOAD = "oracle.jdbc.driver.OracleDriver";
+	private static final String DB2_CLASS_LOAD = "com.ibm.db2.jcc.DB2Driver";
+	private static final String MSSQL_2000_CLASS_LOAD = "com.microsoft.jdbc.sqlserver.SQLServerDriver";
+	private static final String MSSQL_2008_CLASS_LOAD = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	private static final String POSTGRESQL_CLASS_LOAD = "org.postgresql.Driver";
+
+	private static final String MYSQL_URL_PREFIX = "jdbc:mysql:";
+	private static final String ORACLE_URL_PREFIX = "jdbc:oracle:";
+	private static final String DB2_URL_PREFIX = "jdbc:db2:";
+	private static final String MSSQL_2000_URL_PREFIX = "jdbc:microsoft:sqlserver:";
+	private static final String MSSQL_2008_URL_PREFIX = "jdbc:sqlserver";
+	private static final String POSTGRESQL_URL_PREFIX = "jdbc:postgresql:";
+
+	// ==============================Methods==========================================
+	/**
+	 * 获得数据库连接
+	 * @param url 数据库连接地址
+	 * @param username 用户名
+	 * @param password 密码
+	 * @return 数据库连接
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws Exception
+	 */
+	public static Connection getConnection(String url, String username, String password) throws SQLException, ClassNotFoundException {
+		String driver;
+		if (url.startsWith(MYSQL_URL_PREFIX)) {
+			driver = MYSQL_CLASS_LOAD;
+		} else if (url.startsWith(ORACLE_URL_PREFIX)) {
+			driver = ORACLE_CLASS_LOAD;
+		} else if (url.startsWith(DB2_URL_PREFIX)) {
+			driver = DB2_CLASS_LOAD;
+		} else if (url.startsWith(MSSQL_2000_URL_PREFIX)) {
+			driver = MSSQL_2000_CLASS_LOAD;
+		} else if (url.startsWith(MSSQL_2008_URL_PREFIX)) {
+			driver = MSSQL_2008_CLASS_LOAD;
+		} else if (url.startsWith(POSTGRESQL_URL_PREFIX)) {
+			driver = POSTGRESQL_CLASS_LOAD;
+		} else {
+			throw new SQLException("unrecognized jdbc url!");
+		}
+		return getConnection(driver, url, username, password);
+	}
 
 	/**
 	 * 获得数据库连接
+	 * @param driver 驱动类名称
+	 * @param url 数据库连接地址
+	 * @param username 用户名
+	 * @param password 密码
+	 * @return 数据库连接
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static Connection getConnection(String driver, String url, String username, String password) throws ClassNotFoundException, SQLException {
+		Class.forName(driver);
+		return DriverManager.getConnection(url, username, password);
+	}
+
+	/**
+	 * 获得数据库连接
+	 * @param dataSource 数据源
 	 * @return 数据库连接
 	 * @throws SQLException
 	 */
@@ -40,7 +103,7 @@ public class DBUtil {
 		Connection conn = null;
 		try {
 			conn = getConnection(dataSource);
-			DBUtil.setAutoCommit(conn, autoCommit);
+			DbUtil.setAutoCommit(conn, autoCommit);
 			return conn;
 		} catch (SQLException e) {
 			throw e;
@@ -149,13 +212,13 @@ public class DBUtil {
 	public boolean execute(Connection conn, String sql) {
 		Statement ps = null;
 		try {
-			DBUtil.setAutoCommit(conn, false);
+			DbUtil.setAutoCommit(conn, false);
 			ps = conn.createStatement();
 			boolean result = ps.execute(sql);
-			DBUtil.commit(conn);
+			DbUtil.commit(conn);
 			return result;
 		} catch (Exception e) {
-			DBUtil.rollback(conn);
+			DbUtil.rollback(conn);
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -225,7 +288,7 @@ public class DBUtil {
 		}
 	}
 
-	//----------------------------Constructors--------------------------------
-	private DBUtil() {
+	// ==============================Constructors=====================================
+	protected DbUtil() {
 	}
 }

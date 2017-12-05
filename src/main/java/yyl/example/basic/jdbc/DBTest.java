@@ -30,9 +30,9 @@ public class DBTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeQuietly(rs);
-			DBUtil.closeQuietly(st);
-			DBUtil.closeQuietly(conn);
+			DbUtil.closeQuietly(rs);
+			DbUtil.closeQuietly(st);
+			DbUtil.closeQuietly(conn);
 		}
 	}
 }

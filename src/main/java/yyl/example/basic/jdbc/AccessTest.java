@@ -8,6 +8,10 @@ import java.sql.Statement;
 
 import yyl.example.basic.util.ClassPath;
 
+/**
+ * JDK7
+ */
+//从Java SE 8起，JDK中将不再包含JDBC-ODBC桥
 public class AccessTest {
 	public static void main(String args[]) throws Exception {
 		String mdbsrc = new File(ClassPath.getPathFromClass(AccessTest.class)).getParent() + "/test.mdb";
