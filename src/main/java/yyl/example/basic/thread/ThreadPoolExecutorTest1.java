@@ -18,14 +18,14 @@ public class ThreadPoolExecutorTest1 {
 	 * 以下例子，因为任务数没有超过队列的限制，所以不会启用新的线程。(永远单线程)
 	 */
 	public static void main(String[] args) throws InterruptedException {
-		ThreadPoolExecutor executor = new ThreadPoolExecutor(//
+		ThreadPoolExecutor pool = new ThreadPoolExecutor(//
 				1, // 核心线程数
 				100, // 最大允许的线程数(补偿)
 				60, TimeUnit.SECONDS, //
 				new ArrayBlockingQueue<Runnable>(200));
 
 		for (int i = 0; i < 100; i++) {
-			executor.submit(new Callable<Object>() {
+			pool.submit(new Callable<Object>() {
 				@Override
 				public Object call() throws Exception {
 					Thread.sleep(1 * 1000);
@@ -35,7 +35,7 @@ public class ThreadPoolExecutorTest1 {
 			});
 		}
 
-		executor.awaitTermination(1 * 1000 * 100, TimeUnit.SECONDS);
-		executor.shutdown();
+		pool.awaitTermination(1 * 1000 * 100, TimeUnit.SECONDS);
+		pool.shutdown();
 	}
 }

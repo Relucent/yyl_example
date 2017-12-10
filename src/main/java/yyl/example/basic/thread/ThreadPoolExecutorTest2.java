@@ -19,7 +19,7 @@ public class ThreadPoolExecutorTest2 {
 
 		int cpu = Runtime.getRuntime().availableProcessors();
 
-		ThreadPoolExecutor executor = new ThreadPoolExecutor(//
+		ThreadPoolExecutor pool = new ThreadPoolExecutor(//
 				0, cpu * 2, //
 				60, TimeUnit.SECONDS, //
 				new SynchronousQueue<Runnable>(), //
@@ -33,7 +33,7 @@ public class ThreadPoolExecutorTest2 {
 					}
 				});
 		for (int i = 0; i < 100; i++) {
-			executor.submit(new Callable<Object>() {
+			pool.submit(new Callable<Object>() {
 				@Override
 				public Object call() throws Exception {
 					Thread.sleep(1 * 1000);
@@ -44,7 +44,7 @@ public class ThreadPoolExecutorTest2 {
 
 		}
 
-		executor.awaitTermination(1 * 1000 * 100, TimeUnit.SECONDS);
-		executor.shutdown();
+		pool.awaitTermination(1 * 1000 * 100, TimeUnit.SECONDS);
+		pool.shutdown();
 	}
 }
