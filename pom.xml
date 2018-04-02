@@ -49,6 +49,7 @@
 		<quartz.version>2.2.3</quartz.version>
 		<jsqlparser.version>1.1</jsqlparser.version>
 		<elasticsearch.version>6.2.3</elasticsearch.version>
+		<jaque.version>2.1.2</jaque.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
@@ -56,9 +57,9 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>asm</groupId>
+			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm</artifactId>
-			<version>3.3.1</version>
+			<version>5.0.4</version>
 		</dependency>
 
 		<dependency>
@@ -403,6 +404,13 @@
 			<groupId>org.elasticsearch.client</groupId>
 			<artifactId>elasticsearch-rest-client</artifactId>
 			<version>${elasticsearch.version}</version>
+		</dependency>
+
+		<!-- _jaque -->
+		<dependency>
+			<groupId>com.trigersoft</groupId>
+			<artifactId>jaque</artifactId>
+			<version>${jaque.version}</version>
 		</dependency>
 
 	</dependencies>

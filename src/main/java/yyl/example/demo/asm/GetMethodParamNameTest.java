@@ -5,12 +5,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-import org.objectweb.asm.ClassAdapter;
 import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodAdapter;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 /**
@@ -48,20 +48,18 @@ public class GetMethodParamNameTest {
 
 		ClassReader cr = new ClassReader(className);
 		ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
-		cr.accept(new ClassAdapter(cw) {
+
+		ClassVisitor cv = new ClassVisitor(Opcodes.ASM5, cw) {
 			public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-
 				MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions);
-
 				final Type[] argTypes = Type.getArgumentTypes(desc);
-
-				//参数类型不一致
+				// 参数类型不一致
 				if (!methodName.equals(name) || !matchTypes(argTypes, methodParameterTypes)) {
 					return mv;
 				}
-				return new MethodAdapter(mv) {
+				return new MethodVisitor(Opcodes.ASM5, mv) {
 					public void visitLocalVariable(String name, String desc, String signature, Label start, Label end, int index) {
-						//如果是静态方法，第一个参数就是方法参数，非静态方法，则第一个参数是 this ,然后才是方法的参数
+						// 如果是静态方法，第一个参数就是方法参数，非静态方法，则第一个参数是 this ,然后才是方法的参数
 						int methodParameterIndex = isStatic ? index : index - 1;
 						if (0 <= methodParameterIndex && methodParameterIndex < methodParameterCount) {
 							methodParametersNames[methodParameterIndex] = name;
@@ -70,7 +68,9 @@ public class GetMethodParamNameTest {
 					}
 				};
 			}
-		}, 0);
+		};
+
+		cr.accept(cv, 0);
 		return methodParametersNames;
 	}
 

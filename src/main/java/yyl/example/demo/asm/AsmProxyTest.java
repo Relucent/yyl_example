@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.objectweb.asm.ClassAdapter;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
@@ -13,6 +12,7 @@ import org.objectweb.asm.Opcodes;
 
 /**
  * 使用 ASM 修改字节码，在类方法前增加操作<br>
+ * ASM 版本 5.x <br>
  */
 public class AsmProxyTest {
 
@@ -20,7 +20,7 @@ public class AsmProxyTest {
 			SecurityException, InstantiationException, NoSuchMethodException {
 		ClassReader cr = new ClassReader(TargetClass.class.getName());
 		ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
-		CustomClassVisitor cv = new CustomClassVisitor(cw);
+		ClassVisitor cv = new CustomClassVisitor(Opcodes.ASM5, cw);
 		cr.accept(cv, 0);
 
 		byte[] code = cw.toByteArray();
@@ -48,24 +48,25 @@ public class AsmProxyTest {
 		}
 	}
 
-	private static class CustomClassVisitor extends ClassAdapter {
+	// ASM 3.x 中的 ClassAdapter 在 ASM4.x 中已经被  ClassVisitor 替代
+	private static class CustomClassVisitor extends ClassVisitor {
 
-		public CustomClassVisitor(ClassVisitor cv) {
-			super(cv);
+		public CustomClassVisitor(int api, ClassWriter cw) {
+			super(api, cw);
 		}
 
-		public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-			MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions);
+		@Override
+		public MethodVisitor visitMethod(final int access, final String name, final String desc, final String signature, final String[] exceptions) {
+			MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
 			if (name.equals("say")) {
 				// # System.out.println(System.currentTimeMillis());
 				mv.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-				mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J");
-				mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(J)V");
+				mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
+				mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(J)V", false);
 				// # MyInject.invoke();
-				mv.visitMethodInsn(Opcodes.INVOKESTATIC, "yyl/example/demo/asm/AsmProxyTest$MyInject", "invoke", "()V");
+				mv.visitMethodInsn(Opcodes.INVOKESTATIC, "yyl/example/demo/asm/AsmProxyTest$MyInject", "invoke", "()V", false);
 			}
 			return mv;
 		}
 	}
-
 }
