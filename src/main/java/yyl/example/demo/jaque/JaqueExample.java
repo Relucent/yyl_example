@@ -17,7 +17,8 @@ public class JaqueExample {
 
 	public static void main(String[] args) {
 		JaqueExample.<Bean>property(Bean::getName);
-		JaqueExample.<Bean>property(obj -> obj.getValue() == "John");
+		JaqueExample.<Bean>property(obj -> obj.getName() == "java");
+		JaqueExample.<Bean>property(obj -> obj.getValue() == "sun" || obj.getValue() == "orcale");
 	}
 
 	public static <T> void property(Property<T, ?> propertyRef) {
