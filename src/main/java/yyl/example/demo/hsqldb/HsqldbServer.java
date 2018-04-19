@@ -8,8 +8,11 @@ import java.sql.Statement;
 import org.hsqldb.Server;
 
 /**
- * HSQLDB服务
+ * HSQLDB服务<br>
  */
+// #內存模式# jdbc:hsqldb:mem:myDbName
+// #文件模式# jdbc:hsqldb:file:/C:/mydb/myDbName
+// #服务模式# jdbc:hsqldb:hsql://localhost:9001/myDbName
 public class HsqldbServer {
 	// ==============================Fields===========================================
 	/** 等待数据库停止的最大时间 */
