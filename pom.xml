@@ -429,6 +429,14 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- _jasypt -->
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<!--<([mvn clean package])> -->
