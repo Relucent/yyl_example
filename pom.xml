@@ -400,28 +400,28 @@
 			<version>${quartz.version}</version>
 		</dependency>
 
-		<!-- _net.sf.jsqlparser -->
+		<!-- _net.sf.jsqlparser| -->
 		<dependency>
 			<groupId>com.github.jsqlparser</groupId>
 			<artifactId>jsqlparser</artifactId>
 			<version>${jsqlparser.version}</version>
 		</dependency>
 
-		<!-- _elasticsearch -->
+		<!-- _elasticsearch| -->
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
 			<artifactId>elasticsearch-rest-client</artifactId>
 			<version>${elasticsearch.version}</version>
 		</dependency>
 
-		<!-- _jaque -->
+		<!-- _jaque| -->
 		<dependency>
 			<groupId>com.trigersoft</groupId>
 			<artifactId>jaque</artifactId>
 			<version>${jaque.version}</version>
 		</dependency>
 
-		<!-- _mockito -->
+		<!-- _mockito| -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
@@ -429,13 +429,19 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- _jasypt -->
+		<!-- _jasypt| -->
 		<dependency>
 			<groupId>org.jasypt</groupId>
 			<artifactId>jasypt</artifactId>
 			<version>1.9.2</version>
 		</dependency>
 
+		<!-- _zip4j| -->
+		<dependency>
+			<groupId>net.lingala.zip4j</groupId>
+			<artifactId>zip4j</artifactId>
+			<version>1.3.2</version>
+		</dependency>
 
 	</dependencies>
 
