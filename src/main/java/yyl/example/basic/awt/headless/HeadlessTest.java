@@ -29,6 +29,6 @@ public class HeadlessTest {
 		g.drawString(new String(s.getBytes(), "UTF-8"), 50, 50);
 
 		//输出文件
-		ImageIO.write(bi, "jpeg", new File("hello_headless.jpg"));
+		ImageIO.write(bi, "jpeg", new File("D:/hello_headless_"+ System.currentTimeMillis() +".jpg"));
 	}
 }

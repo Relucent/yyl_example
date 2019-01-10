@@ -14,7 +14,7 @@ public class H2MemTest {
 
 	public static void main(String[] a) throws Exception {
 		Class.forName("org.h2.Driver");
-		try (Connection conn = DriverManager.getConnection("jdbc:h2:mem:test ", "sa", "")) {
+		try (Connection conn = DriverManager.getConnection("jdbc:h2:mem:test", "sa", "")) {
 			initializeTable(conn);
 			initializeData(conn);
 			query(conn);
