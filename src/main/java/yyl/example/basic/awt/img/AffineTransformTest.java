@@ -39,11 +39,11 @@ public class AffineTransformTest {
             xform.setTransform(original);//
             // 位移
             xform.concatenate(AffineTransform.getTranslateInstance(x, y));
-            // 旋转
-            double theta = Math.toRadians(angle);// 角度转弧度
-            xform.concatenate(AffineTransform.getRotateInstance(theta, (img.getWidth() / 2) * scale, (img.getHeight() / 2) * scale));
             // 缩放
             xform.concatenate(AffineTransform.getScaleInstance(scale, scale));
+            // 旋转
+            double theta = Math.toRadians(angle);// 角度转弧度
+            xform.concatenate(AffineTransform.getRotateInstance(theta, (img.getWidth() / 2), (img.getHeight() / 2)));
             graphics.drawImage(img, xform, null);
         } finally {
             graphics.setTransform(original);
