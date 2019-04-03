@@ -11,40 +11,72 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-
+/**
+ * AffineTransform 类表示 2D 仿射变换
+ */
 public class AffineTransformTest {
 
     public static void main(String[] args) throws IOException {
 
         BufferedImage image = Helper.getImage();
-        int width = image.getWidth();
-        int height = image.getHeight();
+        int w = image.getWidth();
+        int h = image.getHeight();
 
-        BufferedImage canvas = createTranslucentImage(width * 2, height * 2);
+        BufferedImage canvas = createTranslucentImage(w * 2, h * 2);
         Graphics2D graphics = canvas.createGraphics();
 
-        drawImage(image, 0, 0, 1.0, 0, graphics);
-        drawImage(image, width, 0, 0.5, 90, graphics);
-        drawImage(image, 0, height, 0.5, 180, graphics);
-        drawImage(image, width, height, 1.0, 270, graphics);
+        drawImage(image, 0, 0, w, h, 1.0, 0, graphics);
+        drawImage(image, w, 0, w, h, 0.5, 90, graphics);
+        drawImage(image, 0, h, w, h, 0.5, 180, graphics);
+        drawImage(image, w, h, w, h, 1.0, 270, graphics);
 
         graphics.dispose();
 
         write(canvas);
     }
 
-    private static void drawImage(BufferedImage img, int x, int y, double scale, double angle, Graphics2D graphics) {
+    private static void drawImage(BufferedImage img, int x, int y, int w, int h, double scale, double angle, Graphics2D graphics) {
 
-        // 旋转
-        img = rotate(img, angle);
-        // 缩放
-        img = scale(img, scale);
+        // 获得缩放后的图片
+        img = scale(img, w, h, scale);
 
-        graphics.drawImage(img, x, y, null);
+        // 新图片宽高
+        int w1 = img.getWidth();
+        int h1 = img.getHeight();
+
+        // 计算缩放后产生的坐标偏移
+        int xOffset = (int) ((w - w * scale) / 2);
+        int yOffset = (int) ((h - h * scale) / 2);
+
+        // 新图片坐标
+        int x1 = (int) (x + xOffset);
+        int y1 = (int) (y + yOffset);
+
+        // 角度转弧度
+        double theta = toRadians(angle);
+
+        // 旋转圆心坐标
+        double anchorx = x1 + (w1 / 2);
+        double anchory = y1 + (h1 / 2);
+
+        // 仿射变换
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(theta, anchorx, anchory);
+        transform.translate(x1, y1);
+
+        graphics.drawImage(img, transform, null);
     }
 
-    // 旋转
-    private static BufferedImage rotate(BufferedImage img, double degree) {
+    // 缩放
+    private static BufferedImage scale(BufferedImage src, int w, int h, double scale) {
+        double sx = w * scale / src.getWidth();
+        double sy = h * scale / src.getHeight();
+        AffineTransformOp op = new AffineTransformOp(AffineTransform.getScaleInstance(sx, sy), null);
+        return op.filter(src, null);
+    }
+
+    // 将角度转为弧度
+    private static double toRadians(double degree) {
 
         // 将角度转换到0-360度之间
         degree = degree % 360;
@@ -52,50 +84,7 @@ public class AffineTransformTest {
             degree = 360 + degree;
         }
         // 将角度转为弧度
-        double theta = Math.toRadians(degree);
-
-        int w = img.getWidth();
-        int h = img.getHeight();
-        int sw = 0;
-        int sh = 0;
-
-        // 确定旋转后的宽和高(计算原点)
-        if (degree == 180 || degree == 0 || degree == 360) {
-            sw = w;
-            sh = h;
-        } else if (degree == 90 || degree == 270) {
-            sw = h;
-            sh = w;
-        } else {
-            sw = sh = (int) (Math.sqrt(w * w + h * h));
-        }
-        int x = (sw / 2) - (w / 2);
-        int y = (sh / 2) - (h / 2);
-
-        AffineTransform at = new AffineTransform();
-        at.rotate(theta, sw / 2, sh / 2);
-        at.translate(x, y);
-        AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
-        return op.filter(img, null);
-    }
-
-    // 缩放
-    private static BufferedImage scale(BufferedImage img, double scale) {
-        int w = (int) (img.getWidth() * scale);
-        int h = (int) (img.getHeight() * scale);
-        return zoom(img, w, h);
-    }
-
-    // 缩放
-    private static BufferedImage zoom(BufferedImage img, int width, int height) {
-        double sx = 0.0;
-        double sy = 0.0;
-
-        sx = (double) width / img.getWidth();
-        sy = (double) height / img.getHeight();
-
-        AffineTransformOp op = new AffineTransformOp(AffineTransform.getScaleInstance(sx, sy), null);
-        return op.filter(img, null);
+        return Math.toRadians(degree);
     }
 
     private static BufferedImage createTranslucentImage(int width, int height) {
