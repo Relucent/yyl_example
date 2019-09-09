@@ -50,6 +50,7 @@
 		<rxjava.version>2.1.3</rxjava.version>
 		<quartz.version>2.2.3</quartz.version>
 		<sqlite-jdbc.version>3.25.2</sqlite-jdbc.version>
+		<jjwt.version>0.9.0</jjwt.version>
 		<jsqlparser.version>1.1</jsqlparser.version>
 		<elasticsearch.version>6.2.3</elasticsearch.version>
 		<jaque.version>2.1.2</jaque.version>
@@ -448,6 +449,13 @@
 			<groupId>net.lingala.zip4j</groupId>
 			<artifactId>zip4j</artifactId>
 			<version>1.3.2</version>
+		</dependency>
+
+		<!-- _jwt| -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jjwt.version}</version>
 		</dependency>
 
 	</dependencies>
