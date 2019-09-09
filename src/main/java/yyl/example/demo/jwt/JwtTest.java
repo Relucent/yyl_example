@@ -17,6 +17,18 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * 该token被设计为紧凑且安全的，特别适用于分布式站点的单点登录(SSO)场景。<br>
  * JWT的声明一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其它业务逻辑所必须的声明信息，该token也可直接被用于认证，也可被加密。<br>
  * 加密后JWT信息由.分割的三部分组成，分别为Header、Payload、Signature (头、载荷、签名)<br>
+ * Header 主要包含两个部分,alg指加密类型，可选值为HS256、RSA等等，typ=JWT为固定值，表示token的类型<br>
+ * { "alg": "HS256", "typ": "JWT" } <br>
+ * Payload 也被称为Claims. 包含要签署的任何信息，格式为JSON： { "sub": "subject"} <br>
+ * 其中有一部分预定义的标准属性(推荐，但不强制使用)<br>
+ * iss (issuer)发布者的url地址<br>
+ * sub (subject)该JWT所面向的用户，用于处理特定应用，不是常用的字段<br>
+ * aud (audience)接受者的url地址<br>
+ * exp (expiration) 该jwt销毁的时间；unix时间戳<br>
+ * nbf (not before) 该jwt的使用时间不能早于该时间；unix时间戳<br>
+ * iat (issued at) 该jwt的发布时间；unix 时间戳<br>
+ * JWT的标准属性使用三个字母的原因是保证 JWT的紧凑 。<br>
+ * Signature 是为对Header、Payload的签名<br>
  */
 public class JwtTest {
 
@@ -39,14 +51,13 @@ public class JwtTest {
         JwtBuilder builder = Jwts.builder();
         builder.setHeaderParam(JwsHeader.TYPE, JwsHeader.JWT_TYPE);
         builder.setHeaderParam(JwsHeader.ALGORITHM, algorithm.getValue());
-        builder.setId("1");// JWT ID // JWT_ID
+        builder.setId("1");// JWT ID 可选
         builder.setSubject("MySubject"); // 主题
         builder.claim("custom", "CustomClaim");// 自定义属性;如果属性名与标准属性一致，会覆盖前面的标准属性
         builder.setIssuedAt(iat);// 签发时间
         builder.setExpiration(exp); // 过期时间
         builder.signWith(algorithm, encodedKey); // 签名算法以及密匙
-
-        String token = builder.compact();
+        String token = builder.compact(); // 生成Token
         System.out.println(token);
 
         // 获得JWT解析器
