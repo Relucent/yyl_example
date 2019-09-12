@@ -1,2 +1,27 @@
-/target/
-/.vertx/
+# compile files
+*.class
+*.jar
+*.war
+*.ear
+.idea
+*.iml
+target
+
+# eclipse
+.classpath
+.project
+.settings/
+.factorypath
+
+# idea
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# log file
+*.log
+*.log.*
+
+# other
+.vertx

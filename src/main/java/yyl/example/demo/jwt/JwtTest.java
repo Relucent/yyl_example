@@ -63,8 +63,8 @@ public class JwtTest {
         // 获得JWT解析器
         JwtParser parser = Jwts.parser().setSigningKey(encodedKey);
         // 解析载荷为Claims
-        Jws<Claims> jwt = parser.parseClaimsJws(token);
-        Claims claims = jwt.getBody();
+        Jws<Claims> jws = parser.parseClaimsJws(token);
+        Claims claims = jws.getBody();
         System.out.println(claims);
 
         // 等待5秒

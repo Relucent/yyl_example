@@ -54,6 +54,7 @@
 		<jsqlparser.version>1.1</jsqlparser.version>
 		<elasticsearch.version>6.2.3</elasticsearch.version>
 		<jaque.version>2.1.2</jaque.version>
+		<icu4j.version>64.2</icu4j.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
@@ -457,6 +458,14 @@
 			<artifactId>jjwt</artifactId>
 			<version>${jjwt.version}</version>
 		</dependency>
+
+		<!-- _icu4j| -->
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+			<version>${icu4j.version}</version>
+		</dependency>
+
 
 	</dependencies>
 
