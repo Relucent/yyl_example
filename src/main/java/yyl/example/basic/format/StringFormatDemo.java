@@ -1,4 +1,4 @@
-package yyl.example.basic.lang;
+package yyl.example.basic.format;
 
 import java.util.Date;
 import java.util.IllegalFormatFlagsException;
