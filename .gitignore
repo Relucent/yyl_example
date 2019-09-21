@@ -1,27 +1,36 @@
-# compile files
+# Compile files
 *.class
 *.jar
 *.war
 *.ear
-.idea
-*.iml
-target
 
-# eclipse
+
+# Maven
+target/
+*.ser
+*.ec
+
+# Eclipse
 .classpath
 .project
 .settings/
+.metadata/
 .factorypath
 
-# idea
+# IntelliJ Idea
 .idea/
-*.iml
+out/
 *.ipr
 *.iws
+*.iml
 
-# log file
+# OS X
+.DS_Store
+
+# Window
+Thumbs.db
+
+# Log File
 *.log
 *.log.*
 
-# other
-.vertx
