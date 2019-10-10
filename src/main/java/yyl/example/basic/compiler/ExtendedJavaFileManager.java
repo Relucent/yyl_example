@@ -2,13 +2,12 @@ package yyl.example.basic.compiler;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.tools.FileObject;
 import javax.tools.ForwardingJavaFileManager;
 import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
-
-import org.jboss.netty.util.internal.ConcurrentHashMap;
 
 /**
  * 源文件和类文件之上进行操作的工具的文件管理器实现类
