@@ -1,6 +1,7 @@
 package yyl.example.basic.compiler;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,7 +13,7 @@ import javax.tools.JavaFileObject;
 /**
  * 源文件和类文件之上进行操作的工具的文件管理器实现类
  */
-public class ExtendedJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
+public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
 
     /** 编译的类文件对象列表 */
     private final Map<String, JavaClassFileObject> compiledClassFileStore = new ConcurrentHashMap<String, JavaClassFileObject>();
@@ -21,7 +22,7 @@ public class ExtendedJavaFileManager extends ForwardingJavaFileManager<JavaFileM
      * 构造函数
      * @param javaFileManager 委托转发的文件管理器
      */
-    protected ExtendedJavaFileManager(JavaFileManager javaFileManager) {
+    protected DynamicJavaFileManager(JavaFileManager javaFileManager) {
         super(javaFileManager);
     }
 
@@ -51,5 +52,13 @@ public class ExtendedJavaFileManager extends ForwardingJavaFileManager<JavaFileM
      */
     public JavaClassFileObject getJavaClassFileObject(String className) {
         return compiledClassFileStore.get(className);
+    }
+
+    /**
+     * 获得编译的类名称集合
+     * @return 编译的类名称集合
+     */
+    public Collection<String> getCompiledClassNames() {
+        return compiledClassFileStore.keySet();
     }
 }

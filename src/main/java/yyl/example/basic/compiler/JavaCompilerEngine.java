@@ -1,6 +1,5 @@
 package yyl.example.basic.compiler;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -60,15 +59,9 @@ public class JavaCompilerEngine {
             throw new CompilationException("No source code to compile");
         }
 
-        List<String> compiledNames = new ArrayList<String>();
-
-        for (JavaSourceFileObject jsfo : compilationUnits) {
-            compiledNames.add(jsfo.getName());
-        }
-
         StandardJavaFileManager standardJavaFileManager = javac.getStandardFileManager(null, null, null);
         DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<>();
-        ExtendedJavaFileManager fileManager = new ExtendedJavaFileManager(standardJavaFileManager);
+        DynamicJavaFileManager fileManager = new DynamicJavaFileManager(standardJavaFileManager);
 
         JavaCompiler.CompilationTask task = javac.getTask(null, fileManager, collector, options, null, compilationUnits);
 
@@ -100,7 +93,8 @@ public class JavaCompilerEngine {
             }
         }
         Map<String, Class<?>> classes = new HashMap<String, Class<?>>();
-        for (String className : compiledNames) {
+
+        for (String className : fileManager.getCompiledClassNames()) {
             JavaClassFileObject jcfo = fileManager.getJavaClassFileObject(className);
             String name = jcfo.getName();
             byte[] code = jcfo.getContentByteArray();
