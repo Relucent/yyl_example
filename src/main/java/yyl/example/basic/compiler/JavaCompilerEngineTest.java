@@ -14,10 +14,10 @@ public class JavaCompilerEngineTest {
         JavaCompilerEngine compileEngine = new JavaCompilerEngine();
 
         // 自定义类名
-        String name = "Hello";
+        String name = "yyl.example.basic.jdk6.Hello";
         // 源码
         String source = ""//
-                // + "package yyl.example.basic.jdk6;\n"//
+                + "package yyl.example.basic.jdk6;\n"//
                 + "public class Hello{\n"//
                 + "    public static void main(String[] args) {\n"//
                 + "        System.out.println(\"Hello, World\");\n"//
