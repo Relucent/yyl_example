@@ -61,7 +61,7 @@ public class JavaCompilerEngine {
 
         StandardJavaFileManager standardJavaFileManager = javac.getStandardFileManager(null, null, null);
         DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<>();
-        DynamicJavaFileManager fileManager = new DynamicJavaFileManager(standardJavaFileManager);
+        ForwardingStandardJavaFileManager fileManager = new ForwardingStandardJavaFileManager(standardJavaFileManager);
 
         JavaCompiler.CompilationTask task = javac.getTask(null, fileManager, collector, options, null, compilationUnits);
 
@@ -71,8 +71,8 @@ public class JavaCompilerEngine {
             exceptionMsg.append("Unable to compile the source");
             boolean hasWarnings = false;
             boolean hasErrors = false;
-            for (Diagnostic<? extends JavaFileObject> d : collector.getDiagnostics()) {
-                switch (d.getKind()) {
+            for (Diagnostic<? extends JavaFileObject> diagnostic : collector.getDiagnostics()) {
+                switch (diagnostic.getKind()) {
                     case NOTE:
                     case MANDATORY_WARNING:
                     case WARNING:
@@ -84,9 +84,11 @@ public class JavaCompilerEngine {
                         hasErrors = true;
                         break;
                 }
-                exceptionMsg.append("\n").append("[kind=").append(d.getKind());
-                exceptionMsg.append(", ").append("line=").append(d.getLineNumber());
-                exceptionMsg.append(", ").append("message=").append(d.getMessage(Locale.US)).append("]");
+                JavaFileObject source = diagnostic.getSource();
+                exceptionMsg.append("\n").append(source);
+                exceptionMsg.append("\n").append("[kind=").append(diagnostic.getKind());
+                exceptionMsg.append(", ").append("line=").append(diagnostic.getLineNumber());
+                exceptionMsg.append(", ").append("message=").append(diagnostic.getMessage(Locale.US)).append("]");
             }
             if ((hasWarnings && !ignoreWarnings) || hasErrors) {
                 throw new CompilationException(exceptionMsg.toString());

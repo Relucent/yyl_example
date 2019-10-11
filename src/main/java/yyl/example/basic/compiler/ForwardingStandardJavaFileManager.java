@@ -13,7 +13,7 @@ import javax.tools.JavaFileObject;
 /**
  * 源文件和类文件之上进行操作的工具的文件管理器实现类
  */
-public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
+public class ForwardingStandardJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
 
     /** 编译的类文件对象列表 */
     private final Map<String, JavaClassFileObject> compiledClassFileStore = new ConcurrentHashMap<String, JavaClassFileObject>();
@@ -22,7 +22,7 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
      * 构造函数
      * @param javaFileManager 委托转发的文件管理器
      */
-    protected DynamicJavaFileManager(JavaFileManager javaFileManager) {
+    protected ForwardingStandardJavaFileManager(JavaFileManager javaFileManager) {
         super(javaFileManager);
     }
 
