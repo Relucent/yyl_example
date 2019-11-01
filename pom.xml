@@ -52,7 +52,7 @@
 		<sqlite-jdbc.version>3.25.2</sqlite-jdbc.version>
 		<jjwt.version>0.9.0</jjwt.version>
 		<jsqlparser.version>1.1</jsqlparser.version>
-		<elasticsearch.version>6.2.3</elasticsearch.version>
+		<elasticsearch.version>7.4.0</elasticsearch.version>
 		<jaque.version>2.1.2</jaque.version>
 		<icu4j.version>64.2</icu4j.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
