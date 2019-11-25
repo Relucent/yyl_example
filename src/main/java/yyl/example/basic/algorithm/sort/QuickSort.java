@@ -1,17 +1,16 @@
 package yyl.example.basic.algorithm.sort;
 
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * 快速排序（Quicksort）是对冒泡排序的一种改进。<br>
  * 它的基本思想是：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。
  */
-public class Quicksort {
+public class QuickSort {
 
     public static void main(String[] args) {
 
-        int[] array = generate(10);
+        int[] array = Helper.generate(10);
         System.out.println(Arrays.toString(array));
 
         srot(array, 0, array.length - 1);
@@ -53,18 +52,5 @@ public class Quicksort {
         array[i] = array[j];
         array[j] = temp;
         System.out.println(Arrays.toString(array) + " |*" + i + "<=>*" + j);
-    }
-
-    // 用来生成测试数据的
-    private static int[] generate(int size) {
-        int[] array = new int[size];
-        for (int i = 0; i < size; i++) {
-            array[i] = i;
-        }
-        Random rnd = new Random();
-        for (int i = size - 1; i >= 0; i--) {
-            swap(array, i, rnd.nextInt(i + 1));
-        }
-        return array;
     }
 }
