@@ -1,6 +1,5 @@
 package yyl.example.basic.algorithm.sort;
 
-import java.util.Arrays;
 import java.util.Random;
 
 class Helper {
@@ -22,7 +21,6 @@ class Helper {
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
-        System.out.println(Arrays.toString(array) + " |*" + i + "<=>*" + j);
     }
 
 }

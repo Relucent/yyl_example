@@ -4,7 +4,10 @@ import java.util.Arrays;
 
 /**
  * 快速排序（Quicksort）是对冒泡排序的一种改进。<br>
- * 它的基本思想是：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。
+ * 它的基本思想是：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 冒泡排序是不稳定的排序<br>
+ * 时间复杂度：<br>
+ * 最好情况：O(n*log2(n)) 最差情况：O(n^2) 平均情况：O(n*log2(n)) <br>
+ * 空间复杂度：O(n*log2(n)) <br>
  */
 public class QuickSort {
 
@@ -13,12 +16,15 @@ public class QuickSort {
         int[] array = Helper.generate(10);
         System.out.println(Arrays.toString(array));
 
-        srot(array, 0, array.length - 1);
+        srot(array);
         System.out.println(Arrays.toString(array));
     }
 
+    public static void srot(int[] array) {
+        srot(array, 0, array.length - 1);
+    }
 
-    public static void srot(int[] array, int left, int right) {
+    private static void srot(int[] array, int left, int right) {
         if (left < right) {
             int i = left;
             int j = right;
