@@ -19,18 +19,18 @@ public class FullPermutation {
 
     public static List<Object[]> permute(Object[] arrays) {
         List<Object[]> result = new ArrayList<Object[]>();
-        permute(arrays, 0, result);
+        permute(arrays, 0, arrays.length - 1, result);
         return result;
     }
 
-    protected static void permute(Object[] arrays, int level, List<Object[]> result) {
-        if (level == arrays.length - 1) {
+    protected static void permute(Object[] arrays, int begin, int end, List<Object[]> result) {
+        if (begin == end) {
             result.add(arrays.clone());
         } else {
-            for (int i = level; i < arrays.length; i++) {
-                swap(arrays, level, i);
-                permute(arrays, level + 1, result);
-                swap(arrays, level, i);
+            for (int i = begin; i <= end; i++) {
+                swap(arrays, begin, i);
+                permute(arrays, begin + 1, end, result);
+                swap(arrays, begin, i);
             }
         }
     }
