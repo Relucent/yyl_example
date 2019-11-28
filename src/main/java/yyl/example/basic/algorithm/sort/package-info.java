@@ -26,6 +26,6 @@
  * 冒泡排序：BubbleSort<br>
  * 快速排序：QuickSort<br>
  * 归并排序：MergeSort<br>
- * 基数排序：BucketSort<br>
+ * 基数排序：RadixSort<br>
  */
 package yyl.example.basic.algorithm.sort;
