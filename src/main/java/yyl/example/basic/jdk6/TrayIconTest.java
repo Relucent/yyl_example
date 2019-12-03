@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
-import yyl.example.basic.util.Streams;
+import yyl.example.basic.util.IoUtil;
 
 /**
  * 在JDK1.6中，AWT新增加了两个类：Desktop和SystemTray。<br>
@@ -29,7 +29,7 @@ public class TrayIconTest {
 		}
 
 		// 获得Image对象
-		byte[] imagedata = Streams.toByteArray(TrayIconTest.class.getResourceAsStream("ICO128.png"), true);
+		byte[] imagedata = IoUtil.toByteArray(TrayIconTest.class.getResourceAsStream("ICO128.png"), true);
 		Image image = Toolkit.getDefaultToolkit().createImage(imagedata);
 
 		// 创建托盘图标

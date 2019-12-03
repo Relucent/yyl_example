@@ -16,7 +16,6 @@ import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.model.SharedStringsTable;
-import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -112,7 +111,7 @@ public class XlsxParser {
 			if (isSST) {
 				try {
 					int idx = Integer.parseInt(buffer.toString());
-					buffer = new StringBuilder(new XSSFRichTextString(table.getEntryAt(idx)).toString());
+                    buffer = new StringBuilder(table.getItemAt(idx).getString());
 				} catch (Exception e) {
 				}
 			}

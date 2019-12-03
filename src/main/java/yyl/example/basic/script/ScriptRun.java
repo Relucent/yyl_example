@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
-import yyl.example.basic.util.Streams;
+import yyl.example.basic.util.IoUtil;
 
 public class ScriptRun {
 
@@ -24,7 +24,7 @@ public class ScriptRun {
 	}
 
 	private static String getScript(String path) throws IOException {
-		return Streams.getResourceString(ScriptRun.class, path);
+		return IoUtil.getResourceAsString(ScriptRun.class, path);
 	}
 
 	private static Object getPrimaryLibrary() {

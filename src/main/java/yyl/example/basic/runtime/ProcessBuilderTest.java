@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import yyl.example.basic.util.Streams;
+import yyl.example.basic.util.IoUtil;
 
 public class ProcessBuilderTest {
 	public static void main(String[] args) throws Exception {
@@ -46,7 +46,7 @@ public class ProcessBuilderTest {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
-				Streams.closeQuietly(reader);
+				IoUtil.closeQuietly(reader);
 			}
 		}
 	}

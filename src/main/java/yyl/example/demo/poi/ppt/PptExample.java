@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.poi.sl.usermodel.PictureData.PictureType;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFPictureData;
 import org.apache.poi.xslf.usermodel.XSLFPictureShape;
@@ -21,23 +22,23 @@ public class PptExample {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
-        XMLSlideShow ppt = new XMLSlideShow();
-        XSLFSlide slide = ppt.createSlide();// 创建幻灯片
-        XSLFTextBox textBox = slide.createTextBox();
-        textBox.setAnchor(new Rectangle2D.Double(10, 10, 0, 0));
-        textBox.addNewTextParagraph().addNewTextRun().setText("创建幻灯片");
+        try (XMLSlideShow ppt = new XMLSlideShow()) {
+            XSLFSlide slide = ppt.createSlide();// 创建幻灯片
+            XSLFTextBox textBox = slide.createTextBox();
+            textBox.setAnchor(new Rectangle2D.Double(10, 10, 0, 0));
+            textBox.addNewTextParagraph().addNewTextRun().setText("创建幻灯片");
 
-        // reading an image
-        File image = new File("D:/1.png");
-        BufferedImage img = ImageIO.read(image);
-        byte[] picture = IOUtils.toByteArray(new FileInputStream(image));
-        int idx = ppt.addPicture(picture, XSLFPictureData.PICTURE_TYPE_PNG);
-        XSLFPictureShape pic = slide.createPicture(idx);
+            // reading an image
+            File image = new File("D:/1.png");
+            BufferedImage img = ImageIO.read(image);
+            byte[] picture = IOUtils.toByteArray(new FileInputStream(image));
+            XSLFPictureData idx = ppt.addPicture(picture, PictureType.PNG);
+            XSLFPictureShape pic = slide.createPicture(idx);
 
-        // 设置当前图片在ppt中的位置，以及图片的宽高
-        pic.setAnchor(new java.awt.Rectangle(0, 0, img.getWidth(), img.getHeight()));
+            // 设置当前图片在ppt中的位置，以及图片的宽高
+            pic.setAnchor(new java.awt.Rectangle(0, 0, img.getWidth(), img.getHeight()));
 
-        ppt.write(new FileOutputStream("D:/1.pptx"));
-
+            ppt.write(new FileOutputStream("D:/1.pptx"));
+        }
     }
 }
