@@ -11,7 +11,7 @@ import yyl.example.basic.util.IoUtil;
 public class JsonPathTest {
     public static void main(String[] args) {
 
-        String json = IoUtil.getResourceAsString(JsonPathTest.class, "example.json");
+        String json = IoUtil.getResourceAsString(JsonPathTest.class, "sample.json");
 
         readAndPrint(json, "$.store.book[0].title");
         readAndPrint(json, "$.store.book[*].title");

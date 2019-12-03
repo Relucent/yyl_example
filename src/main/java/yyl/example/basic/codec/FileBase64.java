@@ -13,7 +13,7 @@ public class FileBase64 {
     public static void main(String[] args) {
         InputStream input = null;
         try {
-            input = FileBase64.class.getResourceAsStream("img.png");
+            input = FileBase64.class.getResourceAsStream("sample.png");
             String result = getBase64(input);
             System.out.println(result);
         } catch (Exception e) {

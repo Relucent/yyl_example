@@ -11,7 +11,7 @@ import yyl.example.basic.util.IoUtil;
 
 public class XpathParserExample {
     public static void main(String[] args) throws DocumentException {
-        String xml = IoUtil.getResourceAsString(XpathParserExample.class, "demo.xml");
+        String xml = IoUtil.getResourceAsString(XpathParserExample.class, "sample.xml");
         Document document = DocumentHelper.parseText(xml);
         List<Node> nodes = document.selectNodes("/root/node[1]/node[@name='node1.2']");
         for (Node node : nodes) {

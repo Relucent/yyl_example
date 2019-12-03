@@ -15,7 +15,7 @@ import org.w3c.dom.Text;
 public class XmlParserExample {
 
     public static void main(String[] args) throws Exception {
-        try (InputStream input = XmlParserExample.class.getResourceAsStream("demo.xml")) {
+        try (InputStream input = XmlParserExample.class.getResourceAsStream("sample.xml")) {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(input);
