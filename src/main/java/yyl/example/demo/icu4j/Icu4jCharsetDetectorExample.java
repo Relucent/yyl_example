@@ -1,19 +1,18 @@
 package yyl.example.demo.icu4j;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Comparator;
-
-import org.apache.commons.io.IOUtils;
 
 import com.ibm.icu.text.CharsetDetector;
 import com.ibm.icu.text.CharsetMatch;
 
+import yyl.example.basic.util.IoUtil;
+
 /**
  * 使用ICU4J检测文本编码
  */
-public class Icu4jCharsetDetectorDemo {
+public class Icu4jCharsetDetectorExample {
 
     public static void main(String[] args) throws IOException {
         test("GBK_SAMPLE");
@@ -22,19 +21,14 @@ public class Icu4jCharsetDetectorDemo {
 
     private static void test(String path) {
         try {
-            byte[] data = getClassPathResourceData(path);
+            byte[] data = IoUtil.getResourceAsByteArray(Icu4jCharsetDetectorExample.class, path);
             String encoding = getEncoding(data);
-            System.out.println(path);
-            System.out.println(encoding);
-            System.out.println(new String(data, encoding));
+            System.out.println("path     : " + path);
+            System.out.println("encoding : " + encoding);
+            System.out.println("content  : " + new String(data, encoding));
+            System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private static byte[] getClassPathResourceData(String path) throws IOException {
-        try (InputStream input = Icu4jCharsetDetectorDemo.class.getResourceAsStream(path)) {
-            return IOUtils.toByteArray(input);
         }
     }
 
