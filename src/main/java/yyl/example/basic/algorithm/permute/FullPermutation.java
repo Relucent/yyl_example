@@ -36,8 +36,8 @@ public class FullPermutation {
     }
 
     protected static void swap(Object[] arrays, int i, int j) {
-        Object obj = arrays[i];
-        arrays[j] = arrays[i];
-        arrays[j] = obj;
+        Object temp = arrays[i];
+        arrays[i] = arrays[j];
+        arrays[j] = temp;
     }
 }
