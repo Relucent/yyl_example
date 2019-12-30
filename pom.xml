@@ -38,7 +38,7 @@
 		<vertx.version>3.5.4</vertx.version>
 		<zookeeper.version>3.4.14</zookeeper.version>
 		<curator.version>2.11.1</curator.version>
-		<hibernate.version>4.3.11.Final</hibernate.version>
+		<hibernate.version>5.4.10.Final</hibernate.version>
 		<HikariCP.version>2.6.3</HikariCP.version>
 		<snakeyaml.version>1.17</snakeyaml.version>
 		<disruptor.version>3.3.6</disruptor.version>

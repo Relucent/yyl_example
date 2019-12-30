@@ -12,56 +12,57 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "table2")
+@Table(name = "table_2")
 public class Table2 {
-	@Id
-	@Column(name = "id")
-	private String id;
 
-	@Column(name = "name")
-	private String name;
+    @Id
+    @Column(name = "id")
+    private String id;
 
-	@Column(name = "time")
-	private Date time;
+    @Column(name = "name")
+    private String name;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "table1_id", referencedColumnName = "id")
-	private Table1 table1;
+    @Column(name = "time")
+    private Date time;
 
-	public String getId() {
-		return id;
-	}
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "table1_id", referencedColumnName = "id")
+    private Table1 table1;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Date getTime() {
-		return time;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setTime(Date time) {
-		this.time = time;
-	}
+    public Date getTime() {
+        return time;
+    }
 
-	public Table1 getTable1() {
-		return table1;
-	}
+    public void setTime(Date time) {
+        this.time = time;
+    }
 
-	public void setTable1(Table1 table1) {
-		this.table1 = table1;
-	}
+    public Table1 getTable1() {
+        return table1;
+    }
 
-	@Override
-	public String toString() {
-		return "Table2 [id=" + id + ", name=" + name + ", time=" + time + ", table1=" + (table1 == null ? null : table1.getId()) + "]";
-	}
+    public void setTable1(Table1 table1) {
+        this.table1 = table1;
+    }
+
+    @Override
+    public String toString() {
+        return "Table2 [id=" + id + ", name=" + name + ", time=" + time + ", table1=" + (table1 == null ? null : table1.getId()) + "]";
+    }
 }
