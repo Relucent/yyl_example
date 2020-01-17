@@ -1,5 +1,12 @@
 package yyl.example.basic.identifier;
 
+import java.lang.management.ManagementFactory;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.regex.Pattern;
+
 /**
  * Twitter_Snowflake<br>
  * SnowFlake的结构如下(每部分用-分开):<br>
@@ -14,133 +21,216 @@ package yyl.example.basic.identifier;
  */
 public class SnowflakeIdWorker {
 
-	// ==============================Fields===========================================
-	/** 开始时间截 (2010-11-04 09:42:54.657) */
-	private final long twepoch = 1288834974657L;
+    // ==============================Constants========================================
+    /** 回送地址(本机地址 ) */
+    public static final String LOCALHOST_IPV4 = "127.0.0.1";
+    /** 通配地址(所有主机) */
+    public static final String ANYHOST_IPV4 = "0.0.0.0";
+    /** 限制广播地址(所有主机) */
+    public static final String BROADCAST_IPV4 = "255.255.255.255";
+    /** IPv4 正则 */
+    private static final Pattern IPV4_PATTERN = Pattern.compile(//
+            "^(2(5[0-5]{1}|[0-4]\\d{1})|[0-1]?\\d{1,2})(\\.(2(5[0-5]{1}|[0-4]\\d{1})|[0-1]?\\d{1,2})){3}$"//
+    );
 
-	/** 机器id所占的位数 */
-	private final long workerIdBits = 5L;
+    // ==============================Fields===========================================
+    /** 开始时间截 (2010-11-04 09:42:54.657) */
+    private final long twepoch = 1288834974657L;
 
-	/** 数据标识id所占的位数 */
-	private final long datacenterIdBits = 5L;
+    /** 机器id所占的位数 */
+    private final long workerIdBits = 5L;
 
-	/** 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数) */
-	private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
+    /** 数据标识id所占的位数 */
+    private final long datacenterIdBits = 5L;
 
-	/** 支持的最大数据标识id，结果是31 */
-	private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
+    /** 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数) */
+    private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
 
-	/** 序列在id中占的位数 */
-	private final long sequenceBits = 12L;
+    /** 支持的最大数据标识id，结果是31 */
+    private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
 
-	/** 机器ID向左移12位 */
-	private final long workerIdShift = sequenceBits;
+    /** 序列在id中占的位数 */
+    private final long sequenceBits = 12L;
 
-	/** 数据标识id向左移17位(12+5) */
-	private final long datacenterIdShift = sequenceBits + workerIdBits;
+    /** 机器ID向左移12位 */
+    private final long workerIdShift = sequenceBits;
 
-	/** 时间截向左移22位(5+5+12) */
-	private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
+    /** 数据标识id向左移17位(12+5) */
+    private final long datacenterIdShift = sequenceBits + workerIdBits;
 
-	/** 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095) */
-	private final long sequenceMask = -1L ^ (-1L << sequenceBits);
+    /** 时间截向左移22位(5+5+12) */
+    private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
 
-	/** 工作机器ID(0~31) */
-	private long workerId;
+    /** 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095) */
+    private final long sequenceMask = -1L ^ (-1L << sequenceBits);
 
-	/** 数据中心ID(0~31) */
-	private long datacenterId;
+    /** 工作机器ID(0~31) */
+    private long workerId;
 
-	/** 毫秒内序列(0~4095) */
-	private long sequence = 0L;
+    /** 数据中心ID(0~31) */
+    private long datacenterId;
 
-	/** 上次生成ID的时间截 */
-	private long lastTimestamp = -1L;
+    /** 毫秒内序列(0~4095) */
+    private long sequence = 0L;
 
-	//==============================Constructors=====================================
-	/**
-	 * 构造函数
-	 * @param workerId 工作ID (0~31)
-	 * @param datacenterId 数据中心ID (0~31)
-	 */
-	public SnowflakeIdWorker(long workerId, long datacenterId) {
-		if (workerId > maxWorkerId || workerId < 0) {
-			throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
-		}
-		if (datacenterId > maxDatacenterId || datacenterId < 0) {
-			throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
-		}
-		this.workerId = workerId;
-		this.datacenterId = datacenterId;
-	}
+    /** 上次生成ID的时间截 */
+    private long lastTimestamp = -1L;
 
-	// ==============================Methods==========================================
-	/**
-	 * 获得下一个ID (该方法是线程安全的)
-	 * @return SnowflakeId
-	 */
-	public synchronized long nextId() {
-		long timestamp = timeGen();
+    // ==============================Constructors=====================================
+    /**
+     * 构造函数
+     */
+    public SnowflakeIdWorker() {
+        this.datacenterId = getDatacenterId(maxDatacenterId);
+        this.workerId = getMaxWorkerId(datacenterId, maxWorkerId);
+    }
 
-		//如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
-		if (timestamp < lastTimestamp) {
-			throw new RuntimeException(
-					String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
-		}
+    /**
+     * 构造函数
+     * @param workerId 工作ID (0~31)
+     * @param datacenterId 数据中心ID (0~31)
+     */
+    public SnowflakeIdWorker(long workerId, long datacenterId) {
+        if (workerId > maxWorkerId || workerId < 0) {
+            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+        }
+        if (datacenterId > maxDatacenterId || datacenterId < 0) {
+            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
+        }
+        this.workerId = workerId;
+        this.datacenterId = datacenterId;
+    }
 
-		//如果是同一时间生成的，则进行毫秒内序列
-		if (lastTimestamp == timestamp) {
-			sequence = (sequence + 1) & sequenceMask;
-			//毫秒内序列溢出
-			if (sequence == 0) {
-				//阻塞到下一个毫秒,获得新的时间戳
-				timestamp = tilNextMillis(lastTimestamp);
-			}
-		}
-		//时间戳改变，毫秒内序列重置
-		else {
-			sequence = 0L;
-		}
+    // ==============================Methods==========================================
+    /**
+     * 获得下一个ID (该方法是线程安全的)
+     * @return SnowflakeId
+     */
+    public synchronized long nextId() {
+        long timestamp = timeGen();
 
-		//上次生成ID的时间截
-		lastTimestamp = timestamp;
+        // 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
+        if (timestamp < lastTimestamp) {
+            throw new RuntimeException(
+                    String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+        }
 
-		//移位并通过或运算拼到一起组成64位的ID
-		return ((timestamp - twepoch) << timestampLeftShift) //
-				| (datacenterId << datacenterIdShift) //
-				| (workerId << workerIdShift) //
-				| sequence;
-	}
+        // 如果是同一时间生成的，则进行毫秒内序列
+        if (lastTimestamp == timestamp) {
+            sequence = (sequence + 1) & sequenceMask;
+            // 毫秒内序列溢出
+            if (sequence == 0) {
+                // 阻塞到下一个毫秒,获得新的时间戳
+                timestamp = tilNextMillis(lastTimestamp);
+            }
+        }
+        // 时间戳改变，毫秒内序列重置
+        else {
+            sequence = 0L;
+        }
 
-	/**
-	 * 阻塞到下一个毫秒，直到获得新的时间戳
-	 * @param lastTimestamp 上次生成ID的时间截
-	 * @return 当前时间戳
-	 */
-	protected long tilNextMillis(long lastTimestamp) {
-		long timestamp = timeGen();
-		while (timestamp <= lastTimestamp) {
-			timestamp = timeGen();
-		}
-		return timestamp;
-	}
+        // 上次生成ID的时间截
+        lastTimestamp = timestamp;
 
-	/**
-	 * 返回以毫秒为单位的当前时间
-	 * @return 当前时间(毫秒)
-	 */
-	protected long timeGen() {
-		return System.currentTimeMillis();
-	}
+        // 移位并通过或运算拼到一起组成64位的ID
+        return ((timestamp - twepoch) << timestampLeftShift) //
+                | (datacenterId << datacenterIdShift) //
+                | (workerId << workerIdShift) //
+                | sequence;
+    }
 
-	//==============================Test=============================================
-	/** 测试 */
-	public static void main(String[] args) {
-		SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
-		for (int i = 0; i < 1000; i++) {
-			long id = idWorker.nextId();
-			System.out.println(Long.toBinaryString(id));
-			System.out.println(id);
-		}
-	}
+    /**
+     * 阻塞到下一个毫秒，直到获得新的时间戳
+     * @param lastTimestamp 上次生成ID的时间截
+     * @return 当前时间戳
+     */
+    protected long tilNextMillis(long lastTimestamp) {
+        long timestamp = timeGen();
+        while (timestamp <= lastTimestamp) {
+            timestamp = timeGen();
+        }
+        return timestamp;
+    }
+
+    /**
+     * 返回以毫秒为单位的当前时间
+     * @return 当前时间(毫秒)
+     */
+    protected long timeGen() {
+        return System.currentTimeMillis();
+    }
+
+    /**
+     * 根据MAC地址获得数据中心ID
+     * @param maxDatacenterId 最大数据中心ID
+     * @return 数据中心ID
+     */
+    protected long getDatacenterId(long maxDatacenterId) {
+        long id = 0L;
+        try {
+            byte[] mac = getHardwareAddress();
+            if (mac != null && mac.length != 0) {
+                id = (((0x000000FF & (long) mac[mac.length - 1])//
+                        | (0x0000FF00 & (((long) mac[mac.length - 2]) << 8)) //
+                ) >> 6) % (maxDatacenterId + 1);
+            }
+        } catch (Exception e) {
+            // Ignore
+        }
+        return id;
+    }
+
+    /**
+     * 根据进程获得工作机器ID
+     * @param datacenterId 数据中心ID
+     * @param maxWorkerId 最大工作机器ID
+     * @return 工作机器ID
+     */
+    protected long getMaxWorkerId(long datacenterId, long maxWorkerId) {
+        StringBuilder mpid = new StringBuilder();
+        mpid.append(datacenterId);
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        if (name != null) {
+            mpid.append(name.split("@")[0]);// jvmPid
+        }
+        // MAC+PID 的 HASHCODE 取16个低位
+        return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
+    }
+
+    /**
+     * 获得本机 MAC地址
+     * @return 本机MAC地址
+     */
+    protected final byte[] getHardwareAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface networkInterface = en.nextElement();
+                for (Enumeration<InetAddress> addrs = networkInterface.getInetAddresses(); addrs.hasMoreElements();) {
+                    String ip = addrs.nextElement().getHostAddress();
+                    if (ip != null //
+                            && !LOCALHOST_IPV4.equals(ip) //
+                            && !ANYHOST_IPV4.equals(ip) //
+                            && !BROADCAST_IPV4.equals(ip)//
+                            && IPV4_PATTERN.matcher(ip).matches()//
+                    ) {
+                        return networkInterface.getHardwareAddress();
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            // Ignore
+        }
+        return new byte[0];
+    }
+
+    // ==============================Test=============================================
+    /** 测试 */
+    public static void main(String[] args) {
+        SnowflakeIdWorker idWorker = new SnowflakeIdWorker();
+        for (int i = 0; i < 1000; i++) {
+            long id = idWorker.nextId();
+            System.out.println(Long.toBinaryString(id));
+            System.out.println(id);
+        }
+    }
 }
