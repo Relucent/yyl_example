@@ -20,13 +20,13 @@ public class BinaryNodeTest {
     public static void main(String[] args) {
         BinaryNode root = BinaryNode.create(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-        BinaryNode.preorder(root, n -> System.out.print(n.val));
+        BinaryNode.preorderTraversal(root, n -> System.out.print(n.val));
         System.out.println();
 
-        BinaryNode.inorder(root, n -> System.out.print(n.val));
+        BinaryNode.inorderTraversal(root, n -> System.out.print(n.val));
         System.out.println();
 
-        BinaryNode.postorder(root, n -> System.out.print(n.val));
+        BinaryNode.postorderTraversal(root, n -> System.out.print(n.val));
         System.out.println();
     }
 }

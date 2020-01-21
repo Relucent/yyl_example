@@ -48,11 +48,11 @@ public class BinaryNode {
      * @param root 根节点
      * @param action 回调动作
      */
-    public static void preorder(BinaryNode root, Consumer<BinaryNode> action) {
+    public static void preorderTraversal(BinaryNode root, Consumer<BinaryNode> action) {
         if (root != null) {
             action.accept(root);
-            preorder(root.left, action);
-            preorder(root.right, action);
+            preorderTraversal(root.left, action);
+            preorderTraversal(root.right, action);
         }
     }
 
@@ -61,11 +61,11 @@ public class BinaryNode {
      * @param root 根节点
      * @param action 回调动作
      */
-    public static void inorder(BinaryNode root, Consumer<BinaryNode> action) {
+    public static void inorderTraversal(BinaryNode root, Consumer<BinaryNode> action) {
         if (root != null) {
-            preorder(root.left, action);
+            preorderTraversal(root.left, action);
             action.accept(root);
-            preorder(root.right, action);
+            preorderTraversal(root.right, action);
         }
     }
 
@@ -74,10 +74,10 @@ public class BinaryNode {
      * @param root 根节点
      * @param action 回调动作
      */
-    public static void postorder(BinaryNode root, Consumer<BinaryNode> action) {
+    public static void postorderTraversal(BinaryNode root, Consumer<BinaryNode> action) {
         if (root != null) {
-            preorder(root.left, action);
-            preorder(root.right, action);
+            preorderTraversal(root.left, action);
+            preorderTraversal(root.right, action);
             action.accept(root);
         }
     }
