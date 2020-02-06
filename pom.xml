@@ -13,7 +13,7 @@
 		<java.version>1.8</java.version>
 		<springframework.version>4.2.6.RELEASE</springframework.version>
 		<spring-data-redis.version>1.8.3.RELEASE</spring-data-redis.version>
-
+		<redisson.version>3.11.4</redisson.version>
 		<aspectj.version>1.8.10</aspectj.version>
 		<commons-io.version>2.5</commons-io.version>
 		<commons-lang3.version>3.6</commons-lang3.version>
@@ -36,6 +36,7 @@
 		<org.eclipse.swt.version>4.3</org.eclipse.swt.version>
 		<DJNativeSwing.version> 1.0.0</DJNativeSwing.version>
 		<crawler4j.version>4.4.0</crawler4j.version>
+		<spatial4j.version>0.7</spatial4j.version>
 		<vertx.version>3.5.4</vertx.version>
 		<zookeeper.version>3.4.14</zookeeper.version>
 		<curator.version>2.11.1</curator.version>
@@ -328,6 +329,11 @@
 			<artifactId>crawler4j</artifactId>
 			<version>${crawler4j.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.locationtech.spatial4j</groupId>
+			<artifactId>spatial4j</artifactId>
+			<version>${spatial4j.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>io.vertx</groupId>
@@ -374,6 +380,15 @@
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
 		</dependency>
+
+		<!-- _redisson -->
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<version>${redisson.version}</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
@@ -504,7 +519,6 @@
 			<artifactId>icu4j</artifactId>
 			<version>${icu4j.version}</version>
 		</dependency>
-
 
 	</dependencies>
 
