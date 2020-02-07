@@ -37,6 +37,7 @@
 		<DJNativeSwing.version> 1.0.0</DJNativeSwing.version>
 		<crawler4j.version>4.4.0</crawler4j.version>
 		<spatial4j.version>0.7</spatial4j.version>
+		<geohash.version>1.4.0</geohash.version>
 		<vertx.version>3.5.4</vertx.version>
 		<zookeeper.version>3.4.14</zookeeper.version>
 		<curator.version>2.11.1</curator.version>
@@ -329,12 +330,18 @@
 			<artifactId>crawler4j</artifactId>
 			<version>${crawler4j.version}</version>
 		</dependency>
+		<!-- spatial4j -->
 		<dependency>
 			<groupId>org.locationtech.spatial4j</groupId>
 			<artifactId>spatial4j</artifactId>
 			<version>${spatial4j.version}</version>
 		</dependency>
-
+		<!-- _geohash -->
+		<dependency>
+			<groupId>ch.hsr</groupId>
+			<artifactId>geohash</artifactId>
+			<version>${geohash.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-core</artifactId>
