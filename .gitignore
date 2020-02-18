@@ -16,6 +16,7 @@ target/
 .settings/
 .metadata/
 .factorypath
+bin/
 
 # IntelliJ Idea
 .idea/
