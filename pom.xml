@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>yyl.example</groupId>
 	<artifactId>yyl_example</artifactId>
@@ -56,6 +58,7 @@
 		<sqlite-jdbc.version>3.25.2</sqlite-jdbc.version>
 		<poi.version>4.1.0</poi.version>
 		<jjwt.version>0.9.0</jjwt.version>
+		<java-jwt.version>3.1.0</java-jwt.version>
 		<jsqlparser.version>1.1</jsqlparser.version>
 		<elasticsearch.version>7.4.0</elasticsearch.version>
 		<jaque.version>2.1.2</jaque.version>
@@ -518,6 +521,11 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>${jjwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${java-jwt.version}</version>
 		</dependency>
 
 		<!-- _icu4j| -->

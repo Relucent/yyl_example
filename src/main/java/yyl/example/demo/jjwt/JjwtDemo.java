@@ -1,4 +1,4 @@
-package yyl.example.demo.jwt;
+package yyl.example.demo.jjwt;
 
 import java.util.Base64;
 import java.util.Date;
@@ -30,7 +30,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * JWT的标准属性使用三个字母的原因是保证 JWT的紧凑 。<br>
  * Signature 是为对Header、Payload的签名<br>
  */
-public class JwtTest {
+public class JjwtDemo {
 
     public static void main(String[] args) throws Exception {
 
