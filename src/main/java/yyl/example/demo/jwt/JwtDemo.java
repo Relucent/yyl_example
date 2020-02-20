@@ -60,7 +60,7 @@ public class JwtDemo {
 		System.out.println(token);
 
 		// 解密
-		JWTVerifier verifier = JWT.require(algorithm).build();
+		JWTVerifier verifier = JWT.require(algorithm).withIssuer(issuer).build();
 		DecodedJWT jwt = verifier.verify(token);
 		Map<String, Claim> claims = jwt.getClaims();
 
