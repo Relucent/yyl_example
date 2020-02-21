@@ -63,6 +63,7 @@
 		<elasticsearch.version>7.4.0</elasticsearch.version>
 		<jaque.version>2.1.2</jaque.version>
 		<icu4j.version>64.2</icu4j.version>
+		<mockito-all.version>1.10.19</mockito-all.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
 		<jsp.version>2.0</jsp.version>
 	</properties>
@@ -533,6 +534,13 @@
 			<groupId>com.ibm.icu</groupId>
 			<artifactId>icu4j</artifactId>
 			<version>${icu4j.version}</version>
+		</dependency>
+
+		<!-- _mockito-all -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito-all.version}</version>
 		</dependency>
 
 	</dependencies>
