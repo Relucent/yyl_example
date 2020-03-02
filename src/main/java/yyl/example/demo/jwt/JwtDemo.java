@@ -7,11 +7,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.impl.NullClaim;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-
-import io.jsonwebtoken.JwtException;
 
 /**
  * JSON Web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准(RFC 7519)。<br>
@@ -74,7 +73,7 @@ public class JwtDemo {
 		try {
 			// 这时候Token已经超时了，会抛出异常
 			verifier.verify(token);
-		} catch (JwtException e) {
+		} catch (JWTVerificationException e) {
 			System.err.println(e);
 		}
 	}
