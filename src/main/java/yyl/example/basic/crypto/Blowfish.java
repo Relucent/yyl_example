@@ -1,4 +1,4 @@
-package yyl.example.basic.encrypt;
+package yyl.example.basic.crypto;
 
 import java.security.MessageDigest;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package yyl.example.basic.encrypt;
+package yyl.example.basic.crypto;
 
 import java.security.SecureRandom;
 
@@ -11,7 +11,7 @@ import javax.crypto.spec.DESKeySpec;
 /**
  * DES加密
  */
-public class DES_Encrypt {
+public class DesExample {
 
 	/** 获得一个密匙数据* */
 	public static byte[] getKeyDate() throws Exception {

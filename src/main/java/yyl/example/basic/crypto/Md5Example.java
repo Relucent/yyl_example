@@ -1,8 +1,8 @@
-package yyl.example.basic.encrypt;
+package yyl.example.basic.crypto;
 
 import java.security.MessageDigest;
 
-public class Md5 {
+public class Md5Example {
 
 	public static void main(String[] args) throws Throwable {
 

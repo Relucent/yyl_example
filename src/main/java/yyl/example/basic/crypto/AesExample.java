@@ -1,4 +1,4 @@
-package yyl.example.basic.encrypt;
+package yyl.example.basic.crypto;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -7,7 +7,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * AES加密解密
  */
-public class AES {
+public class AesExample {
 
 	//=================================Constants==============================================
 	/** 16进制字符数组 */
@@ -26,21 +26,21 @@ public class AES {
 	/**
 	 * 构造函数
 	 */
-	public AES() {
+	public AesExample() {
 		this(DEFAULT_KEY_BYTE);
 	}
 	/**
 	 * 构造函数
 	 * @param key
 	 */
-	public AES(String key) {
+	public AesExample(String key) {
 		this(key.getBytes());
 	}
 	/**
 	 * 构造函数
 	 * @param keyByte 16字节的密钥
 	 */
-	public AES(byte[] keyByte) {
+	public AesExample(byte[] keyByte) {
 		this.keyByte = DEFAULT_KEY_BYTE.clone();
 		for (int i = 0, len = Math.min(keyByte.length, KEY_BYTE_LENGTH); i < len; i++) {
 			this.keyByte[i] = keyByte[i];
@@ -157,7 +157,7 @@ public class AES {
 		try {
 			String key = "key";
 			String str = "password";
-			AES en = new AES(key);
+			AesExample en = new AesExample(key);
 			String encryptString = en.encrypt(str);
 			System.out.println("AES加密后为：" + encryptString);
 			System.out.println("AES解密后为：" + en.decrypt(encryptString));

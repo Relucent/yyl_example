@@ -1,4 +1,4 @@
-package yyl.example.basic.encrypt;
+package yyl.example.basic.crypto;
 
 import java.security.Key;
 import java.security.KeyFactory;
@@ -13,8 +13,7 @@ import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
 
-@SuppressWarnings("restriction")
-public class Rsa {
+public class RsaExample {
 
 	/**
 	 * 得到公钥

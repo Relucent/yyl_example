@@ -1,4 +1,4 @@
-package yyl.example.basic.encrypt;
+package yyl.example.basic.crypto;
 
 import java.util.Random;
 import java.util.StringTokenizer;
@@ -12,12 +12,12 @@ import javax.crypto.spec.PBEParameterSpec;
 /**
  * PBEWithMD5AndDES算法加密解密
  */
-public class PBEWithMD5AndDES_Encrypt {
+public class PbeWithMd5AndDesExample {
 
 	private final String password = "e_f_codd";
 	private final String encoding = "UTF-8";
 
-	public PBEWithMD5AndDES_Encrypt() {
+	public PbeWithMd5AndDesExample() {
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class PBEWithMD5AndDES_Encrypt {
 	}
 	public static void main(String[] args) {
 		try {
-			PBEWithMD5AndDES_Encrypt en = new PBEWithMD5AndDES_Encrypt();
+			PbeWithMd5AndDesExample en = new PbeWithMd5AndDesExample();
 			String str = "password";
 			System.out.println("PBEWithMD5AndDES加密后为：" + en.encrypt(str));
 			System.out.println("PBEWithMD5AndDES解密后为：" + en.decrypt(en.encrypt(str)));
