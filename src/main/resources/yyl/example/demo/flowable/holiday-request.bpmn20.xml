@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:activiti="http://activiti.org/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+	targetNamespace="http://www.flowable.org/processdef">
+
+	<process id="holidayRequest" name="Holiday Request" isExecutable="true">
+
+		<startEvent id="startEvent" />
+		<userTask id="approveTask" name="Approve or reject request" activiti:candidateGroups="managers" />
+		<userTask id="holidayApprovedTask" name="Holiday approved" activiti:assignee="${employee}" />
+		<serviceTask id="externalSystemCall" name="Enter holidays in external system" activiti:class="yyl.example.demo.flowable.delegate.CallExternalSystemDelegate" />
+		<serviceTask id="sendRejectionMail" name="Send out rejection email" activiti:class="yyl.example.demo.flowable.delegate.SendRejectionMailDelegate" />
+		<endEvent id="approveEnd" />
+		<endEvent id="rejectEnd" />
+
+		<sequenceFlow sourceRef="startEvent" targetRef="approveTask" />
+		<sequenceFlow sourceRef="approveTask" targetRef="decision" />
+		<exclusiveGateway id="decision" />
+		<sequenceFlow sourceRef="decision" targetRef="externalSystemCall">
+			<conditionExpression xsi:type="tFormalExpression">
+                <![CDATA[
+                  ${approved}
+                ]]>
+			</conditionExpression>
+		</sequenceFlow>
+		<sequenceFlow sourceRef="decision" targetRef="sendRejectionMail">
+			<conditionExpression xsi:type="tFormalExpression">
+                <![CDATA[
+                  ${!approved}
+                ]]>
+			</conditionExpression>
+		</sequenceFlow>
+		<sequenceFlow sourceRef="externalSystemCall" targetRef="holidayApprovedTask" />
+		<sequenceFlow sourceRef="holidayApprovedTask" targetRef="approveEnd" />
+		<sequenceFlow sourceRef="sendRejectionMail" targetRef="rejectEnd" />
+
+	</process>
+</definitions>
