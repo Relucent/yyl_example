@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="sample">
+	<select id="selectList" parameterType="map">
+		select id,name,value from where 1=1
+		<if test=" id != null and id !='' ">
+			and id = #{id}
+		</if>
+		<if test=" name != null and name !='' ">
+			and name = #{name}
+		</if>
+	</select>
+</mapper>
