@@ -60,6 +60,7 @@
 		<jsqlparser.version>1.1</jsqlparser.version>
 		<elasticsearch.version>7.4.0</elasticsearch.version>
 		<jaque.version>2.1.2</jaque.version>
+		<groovy.version>2.4.12</groovy.version>
 		<icu4j.version>64.2</icu4j.version>
 		<flowable.version>6.5.0</flowable.version>
 		<mockito-all.version>1.10.19</mockito-all.version>
@@ -425,6 +426,12 @@
 			<groupId>us.codecraft</groupId>
 			<artifactId>webmagic-selenium</artifactId>
 			<version>${webmagic.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>${groovy.version}</version>
 		</dependency>
 
 		<!-- [ <dependency>] -->
