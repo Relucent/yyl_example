@@ -10,6 +10,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 
 import javax.crypto.Cipher;
 
@@ -21,9 +22,7 @@ public class RsaExample {
 	 * @throws Exception
 	 */
 	public static PublicKey getPublicKey(String key) throws Exception {
-		byte[] keyBytes;
-		keyBytes = (new sun.misc.BASE64Decoder()).decodeBuffer(key);
-
+		byte[] keyBytes = Base64.getDecoder().decode(key.getBytes());
 		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		PublicKey publicKey = keyFactory.generatePublic(keySpec);
@@ -36,9 +35,7 @@ public class RsaExample {
 	 * @throws Exception
 	 */
 	public static PrivateKey getPrivateKey(String key) throws Exception {
-		byte[] keyBytes;
-		keyBytes = (new sun.misc.BASE64Decoder()).decodeBuffer(key);
-
+		byte[] keyBytes = Base64.getDecoder().decode(key.getBytes());
 		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
@@ -51,8 +48,7 @@ public class RsaExample {
 	 */
 	public static String getKeyString(Key key) throws Exception {
 		byte[] keyBytes = key.getEncoded();
-		String s = (new sun.misc.BASE64Encoder()).encode(keyBytes);
-		return s;
+		return Base64.getEncoder().encodeToString(keyBytes);
 	}
 
 	public static void main(String[] args) throws Exception {
