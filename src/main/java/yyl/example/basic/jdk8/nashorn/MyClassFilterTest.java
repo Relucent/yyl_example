@@ -8,7 +8,6 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 /**
  * 类的过滤器
  */
-@SuppressWarnings("restriction")
 public class MyClassFilterTest {
 
 	class MyCF implements ClassFilter {

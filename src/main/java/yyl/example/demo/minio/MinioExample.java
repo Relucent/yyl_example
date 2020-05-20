@@ -7,13 +7,14 @@ import org.apache.commons.io.IOUtils;
 
 import io.minio.MinioClient;
 import io.minio.ObjectStat;
+import io.minio.PutObjectOptions;
 import io.minio.errors.MinioException;
 
 public class MinioExample {
 
 	public static void main(String[] args) throws Exception {
 		try {
-			MinioClient minioClient = new MinioClient("http://localhost:9000", "admin", "password");
+			MinioClient minioClient = new MinioClient("http://localhost:9000", "minioadmin", "minioadmin");
 
 			String bucketName = "test";
 			String objectName = "hello.txt";
@@ -26,7 +27,9 @@ public class MinioExample {
 			}
 
 			try (InputStream input = new ByteArrayInputStream(content)) {
-				minioClient.putObject(bucketName, objectName, input, contentType);
+				PutObjectOptions options = new PutObjectOptions(input.available(), -1);
+				options.setContentType(contentType);
+				minioClient.putObject(bucketName, objectName, input, options);
 			}
 
 			ObjectStat stat = minioClient.statObject(bucketName, objectName);

@@ -4,8 +4,8 @@ import java.util.Set;
 
 import jdk.nashorn.api.scripting.ClassFilter;
 
-@SuppressWarnings("restriction")
 public class SandboxClassFilter implements ClassFilter {
+
 	private final Set<String> allowed;
 
 	@Override
