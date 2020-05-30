@@ -44,7 +44,7 @@
 		<curator.version>2.11.1</curator.version>
 		<hibernate.version>5.4.10.Final</hibernate.version>
 		<HikariCP.version>2.6.3</HikariCP.version>
-		<snakeyaml.version>1.17</snakeyaml.version>
+		<snakeyaml.version>1.23</snakeyaml.version>
 		<disruptor.version>3.3.6</disruptor.version>
 		<jedis.version>2.9.0</jedis.version>
 		<mongodb.version>3.4.2</mongodb.version>
