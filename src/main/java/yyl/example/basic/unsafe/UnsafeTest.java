@@ -8,7 +8,6 @@ import io.netty.channel.Channel.Unsafe;
  * Unsafe <br>
  * 测试JDK1.7
  */
-@SuppressWarnings("restriction")
 public class UnsafeTest {
 
 	private static final sun.misc.Unsafe UNSAFE;
