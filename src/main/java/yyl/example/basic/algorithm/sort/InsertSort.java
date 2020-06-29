@@ -16,12 +16,12 @@ public class InsertSort {
         int[] array = Helper.generate(10);
         System.out.println(Arrays.toString(array));
 
-        srot(array);
+        sort(array);
         System.out.println(Arrays.toString(array));
     }
 
     // 这个算法是直接插入排序
-    public static void srot(int[] array) {
+    public static void sort(int[] array) {
 
         // 整个排序过程为 n-1 趟插入，即将第1个记录看做有序子序列，然后从第2个记录开始，逐个进行插入，直至整个序列有序
         for (int i = 1; i < array.length; i++) {

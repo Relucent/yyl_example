@@ -55,12 +55,12 @@ public class HeapSort {
         int[] array = Helper.generate(10);
         System.out.println(Arrays.toString(array));
 
-        srot(array);
+        sort(array);
         System.out.println(Arrays.toString(array));
     }
 
     // 排序
-    public static void srot(int[] array) {
+    public static void sort(int[] array) {
 
         // 数组元素个数(二叉树节点个数)
         int length = array.length;

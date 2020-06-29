@@ -17,15 +17,15 @@ public class QuickSort {
         int[] array = Helper.generate(10);
         System.out.println(Arrays.toString(array));
 
-        srot(array);
+        sort(array);
         System.out.println(Arrays.toString(array));
     }
-
-    public static void srot(int[] array) {
-        srot(array, 0, array.length - 1);
+    
+    public static void sort(int[] array) {
+    	sort(array, 0, array.length - 1);
     }
 
-    private static void srot(int[] array, int left, int right) {
+    private static void sort(int[] array, int left, int right) {
         if (left < right) {
             int i = left;
             int j = right;
@@ -49,8 +49,8 @@ public class QuickSort {
             System.out.println("i=" + i);
 
             // 递归
-            srot(array, left, i - 1);
-            srot(array, i + 1, right);
+            sort(array, left, i - 1);
+            sort(array, i + 1, right);
         }
     }
 

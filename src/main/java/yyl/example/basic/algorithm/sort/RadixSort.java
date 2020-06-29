@@ -27,11 +27,11 @@ public class RadixSort {
         int[] array = Helper.generate(100);
         System.out.println(Arrays.toString(array));
 
-        srot(array);
+        sort(array);
         System.out.println(Arrays.toString(array));
     }
 
-    public static void srot(int[] array) {
+    public static void sort(int[] array) {
 
         // 查找排序列最大值
         int max = array[0];

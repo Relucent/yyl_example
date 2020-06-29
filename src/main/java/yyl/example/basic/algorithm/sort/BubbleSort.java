@@ -12,11 +12,11 @@ public class BubbleSort {
         int[] array = Helper.generate(10);
         System.out.println(Arrays.toString(array));
 
-        srot(array);
+        sort(array);
         System.out.println(Arrays.toString(array));
     }
 
-    public static void srot(int[] array) {
+    public static void sort(int[] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = i + 1; j < array.length; j++) {
                 if (array[i] > array[j]) {
