@@ -64,6 +64,7 @@
 		<jaque.version>2.1.2</jaque.version>
 		<groovy.version>2.4.12</groovy.version>
 		<icu4j.version>64.2</icu4j.version>
+		<jol.version>0.10</jol.version>
 		<flowable.version>6.5.0</flowable.version>
 		<mockito-all.version>1.10.19</mockito-all.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
@@ -560,6 +561,13 @@
 			<groupId>com.ibm.icu</groupId>
 			<artifactId>icu4j</artifactId>
 			<version>${icu4j.version}</version>
+		</dependency>
+
+		<!-- _openjdk_jol -->
+		<dependency>
+			<groupId>org.openjdk.jol</groupId>
+			<artifactId>jol-core</artifactId>
+			<version>${jol.version}</version>
 		</dependency>
 
 		<!-- _flowable -->
