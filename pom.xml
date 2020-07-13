@@ -65,6 +65,7 @@
 		<groovy.version>2.4.12</groovy.version>
 		<icu4j.version>64.2</icu4j.version>
 		<jol.version>0.10</jol.version>
+		<undertow.version>2.1.3.Final</undertow.version>
 		<flowable.version>6.5.0</flowable.version>
 		<mockito-all.version>1.10.19</mockito-all.version>
 		<javax.servlet.version>3.0.1</javax.servlet.version>
@@ -581,6 +582,13 @@
 					<artifactId>slf4j-log4j12</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<!-- _undertow -->
+		<dependency>
+			<groupId>io.undertow</groupId>
+			<artifactId>undertow-core</artifactId>
+			<version>${undertow.version}</version>
 		</dependency>
 
 		<!-- _mockito-all -->
