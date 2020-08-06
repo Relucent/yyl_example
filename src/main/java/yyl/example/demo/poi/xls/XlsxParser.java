@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -35,7 +34,9 @@ public class XlsxParser {
 	}
 
 	public void parse(File file) throws IOException {
-		parse(FileUtils.openInputStream(file));
+		try (InputStream input = FileUtils.openInputStream(file)) {
+			parse(FileUtils.openInputStream(file));
+		}
 	}
 
 	public void parse(InputStream input) throws IOException {
@@ -45,8 +46,6 @@ public class XlsxParser {
 			throw e;
 		} catch (Throwable e) {
 			throw new IOException(e);
-		} finally {
-			IOUtils.closeQuietly(input);
 		}
 	}
 
@@ -111,17 +110,17 @@ public class XlsxParser {
 			if (isSST) {
 				try {
 					int idx = Integer.parseInt(buffer.toString());
-                    buffer = new StringBuilder(table.getItemAt(idx).getString());
+					buffer = new StringBuilder(table.getItemAt(idx).getString());
 				} catch (Exception e) {
 				}
 			}
-			// v => 单元格的值，如果单元格是字符串则v标签的值为该字符串在SST中的索引    
-			// 将单元格内容加入rowlist中，在这之前先去掉字符串前后的空白符    
+			// v => 单元格的值，如果单元格是字符串则v标签的值为该字符串在SST中的索引
+			// 将单元格内容加入rowlist中，在这之前先去掉字符串前后的空白符
 			if (name.equals("v")) {
 				String value = StringUtils.defaultString(buffer.toString().trim(), " ");
 				rowData.add(value);
 			} else {
-				// 如果标签名称为 row ，这说明已到行尾，调用 optRows() 方法    
+				// 如果标签名称为 row ，这说明已到行尾，调用 optRows() 方法
 				if (name.equals("row")) {
 					reader.readRow(row, rowData);
 					row++;

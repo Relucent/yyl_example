@@ -61,7 +61,7 @@ public class CreateSimpleBeanTest {
 			cc.addConstructor(cons);
 		}
 		cc.detach();
-		return cc.toClass();
+		return (Class<? extends SimpleBean>) cc.toClass();
 	}
 
 	public static interface SimpleBean {
@@ -91,7 +91,7 @@ public class CreateSimpleBeanTest {
 		System.out.println(bean.get("v3"));
 	}
 
-	//使用新类中生成的get-set方法
+	// 使用新类中生成的get-set方法
 	private static void test1(Class<? extends SimpleBean> clazz) throws InstantiationException, IllegalAccessException {
 		long l = System.currentTimeMillis();
 		for (int i = 0; i < 100000000; i++) {
@@ -102,7 +102,7 @@ public class CreateSimpleBeanTest {
 		System.out.println("-> " + (System.currentTimeMillis() - l));
 	}
 
-	//使用反射读写字段
+	// 使用反射读写字段
 	private static void test2(Class<? extends SimpleBean> clazz)
 			throws NoSuchFieldException, SecurityException, InstantiationException, IllegalAccessException {
 		Field field1 = clazz.getDeclaredField("v1");
@@ -120,7 +120,7 @@ public class CreateSimpleBeanTest {
 		System.out.println("-> " + (System.currentTimeMillis() - l));
 	}
 
-	//使用MAP类替代
+	// 使用MAP类替代
 	private static void test3() {
 		long l = System.currentTimeMillis();
 		for (int i = 0; i < 100000000; i++) {

@@ -12,7 +12,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class HtmlUnitTest2 {
 
 	public static void main(String[] args) throws Exception {
-		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_52);
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_68);
 		webClient.setCssErrorHandler(new SilentCssErrorHandler());
 		webClient.setAjaxController(new NicelyResynchronizingAjaxController());
 		webClient.getOptions().setCssEnabled(true);
@@ -21,7 +21,7 @@ public class HtmlUnitTest2 {
 		webClient.getOptions().setJavaScriptEnabled(true);
 		webClient.getOptions().setPopupBlockerEnabled(true);
 		webClient.getOptions().setTimeout(10000);
-		webClient.getOptions().setThrowExceptionOnScriptError(false); //JS运行错误时，是否抛出异常
+		webClient.getOptions().setThrowExceptionOnScriptError(false); // JS运行错误时，是否抛出异常
 		HtmlPage page = webClient.getPage("http://huaban.com/favorite/home/");
 		System.out.println(page.asXml());
 		webClient.close();

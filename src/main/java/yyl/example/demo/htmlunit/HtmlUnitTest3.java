@@ -17,7 +17,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class HtmlUnitTest3 {
 
 	public static void main(String[] args) throws Exception {
-		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_52);
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_68);
 		try {
 			webClient.setCssErrorHandler(new SilentCssErrorHandler());
 			webClient.setAjaxController(new NicelyResynchronizingAjaxController());
@@ -27,8 +27,8 @@ public class HtmlUnitTest3 {
 			webClient.getOptions().setJavaScriptEnabled(true);
 			webClient.getOptions().setPopupBlockerEnabled(true);
 			webClient.getOptions().setTimeout(10000);
-			webClient.getOptions().setThrowExceptionOnScriptError(false); //JS运行错误时，是否抛出异常
-			//webClient.waitForBackgroundJavaScript(10 * 1000);
+			webClient.getOptions().setThrowExceptionOnScriptError(false); // JS运行错误时，是否抛出异常
+			// webClient.waitForBackgroundJavaScript(10 * 1000);
 			HtmlPage page = webClient.getPage("https://www.baidu.com/");
 
 			WebWindow webWindow = page.getEnclosingWindow();
@@ -45,7 +45,7 @@ public class HtmlUnitTest3 {
 
 			System.out.println("# 触发回车事件");
 			Thread.sleep(1000);
-			kw.type(13);//Enter
+			kw.type(13);// Enter
 
 			System.out.println("# 等待页面跳转");
 			Thread.sleep(1000);

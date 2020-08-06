@@ -18,18 +18,13 @@ import javassist.util.HotSwapper;
  */
 public class JdwpTest {
 
-	public static void main(String[] args)
-			throws IOException, IllegalConnectorArgumentsException, CannotCompileException, NotFoundException {
-
+	public static void main(String[] args) throws CannotCompileException, NotFoundException, IOException, IllegalConnectorArgumentsException {
 		ClassPool pool = ClassPool.getDefault();
 		CtClass cc = pool.makeClass("yyl.test.TestClass");
-
 		CtField cf = new CtField(pool.get("java.lang.String"), "name", cc);
 		cc.addField(cf);
-
 		HotSwapper hs = new HotSwapper(1234);
 		hs.reload(cc.getName(), cc.toBytecode());
 		cc.toClass();
-
 	}
 }
