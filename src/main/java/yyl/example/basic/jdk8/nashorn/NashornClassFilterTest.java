@@ -1,5 +1,9 @@
 package yyl.example.basic.jdk8.nashorn;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.script.ScriptEngine;
 
 import jdk.nashorn.api.scripting.ClassFilter;
@@ -8,22 +12,16 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 /**
  * 类的过滤器
  */
-public class MyClassFilterTest {
+@SuppressWarnings("restriction")
+public class NashornClassFilterTest {
+	public static void main(String[] args) {
 
-	class MyCF implements ClassFilter {
-		@Override
-		public boolean exposeToScripts(String s) {
-			System.out.println("--- " + s);
-			if (s.compareTo("java.io.File") == 0) {
-				return false;
-			}
-			return true;
-		}
-	}
+		Set<String> allowed = new HashSet<>();
+		allowed.add("java.lang.System");
+		allowed.add("java.lang.Class");
 
-	public void testClassFilter() {
 		NashornScriptEngineFactory factory = new NashornScriptEngineFactory();
-		ScriptEngine engine = factory.getScriptEngine(new MyClassFilterTest.MyCF());
+		ScriptEngine engine = factory.getScriptEngine(new SandboxClassFilter(allowed));
 		try {
 			engine.eval(""//
 					+ "print(java.lang.System.getProperty(\"java.home\"));" //
@@ -32,7 +30,6 @@ public class MyClassFilterTest {
 		} catch (Exception e) {
 			System.out.println("Exception caught: " + e.toString());
 		}
-
 		try {
 			engine.eval("new java.io.File(\"\");");
 		} catch (Exception e) {
@@ -45,8 +42,17 @@ public class MyClassFilterTest {
 		}
 	}
 
-	public static void main(String[] args) {
-		MyClassFilterTest myApp = new MyClassFilterTest();
-		myApp.testClassFilter();
+	private static class SandboxClassFilter implements ClassFilter {
+		private final Set<String> allowed;
+
+		public SandboxClassFilter(Collection<String> allowed) {
+			(this.allowed = new HashSet<>()).addAll(allowed);
+		}
+
+		@Override
+		public boolean exposeToScripts(String className) {
+			System.out.println("className->{" + className + "}");
+			return this.allowed.contains(className);
+		}
 	}
 }
