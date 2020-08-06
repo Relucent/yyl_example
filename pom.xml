@@ -20,7 +20,7 @@
 		<crawler4j.version>4.4.0</crawler4j.version>
 		<curator.version>2.11.1</curator.version>
 		<disruptor.version>3.3.6</disruptor.version>
-		<dom4j.version>2.1.1</dom4j.version>
+		<dom4j.version>2.1.3</dom4j.version>
 		<DJNativeSwing.version> 1.0.0</DJNativeSwing.version>
 		<elasticsearch.version>7.8.1</elasticsearch.version>
 		<fastjson.version>1.2.73</fastjson.version>
