@@ -3,7 +3,7 @@ package yyl.example.demo.groovy;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyObject;
 
-public class GroovyExample {
+public class GroovyClassExample {
 
 	public static void main(String[] args) throws Exception {
 		try (GroovyClassLoader loader = new GroovyClassLoader()) {
