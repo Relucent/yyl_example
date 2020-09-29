@@ -1,72 +1,68 @@
 package yyl.example.demo.netty.client;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
+import java.nio.charset.Charset;
 
-import org.jboss.netty.bootstrap.ClientBootstrap;
-import org.jboss.netty.channel.ChannelFuture;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.channel.ChannelPipeline;
-import org.jboss.netty.channel.ChannelPipelineFactory;
-import org.jboss.netty.channel.ChannelStateEvent;
-import org.jboss.netty.channel.Channels;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.channel.SimpleChannelHandler;
-import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
-import org.jboss.netty.handler.codec.string.StringDecoder;
-import org.jboss.netty.handler.codec.string.StringEncoder;
+import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.string.StringEncoder;
 
 /**
- * Netty客户端例子
+ * _Netty客户端例子
  */
 public class NettyClient {
 
-	public static void main(String[] args) {
-		ClientBootstrap bootstrap = new ClientBootstrap(new NioClientSocketChannelFactory(//
-				Executors.newCachedThreadPool(), //
-				Executors.newCachedThreadPool()//
-		));
+    public static void main(String[] args) throws InterruptedException {
 
-		// Set up the default event pipeline.
-		bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
-			@Override
-			public ChannelPipeline getPipeline() throws Exception {
-				return Channels.pipeline(new StringDecoder(), new StringEncoder(), new ClientHandler());
-			}
-		});
+        // 1、创建客户端启动类
+        Bootstrap client = new Bootstrap();
 
-		// Start the connection attempt.
-		ChannelFuture future = bootstrap.connect(new InetSocketAddress("localhost", 8000));
+        // 2、定义线程组，处理读写和链接事件，没有了accept事件
+        EventLoopGroup group = new NioEventLoopGroup();
+        client.group(group);
 
-		// Wait until the connection is closed or the connection attempt fails.
-		future.getChannel().getCloseFuture().awaitUninterruptibly();
+        // 3、绑定客户端通道
+        client.channel(NioSocketChannel.class);
 
-		// Shut down thread pools to exit.
-		bootstrap.releaseExternalResources();
-	}
+        // 4、给NIoSocketChannel初始化handler， 处理读写事件
+        client.handler(new ChannelInitializer<NioSocketChannel>() {
+            @Override
+            protected void initChannel(NioSocketChannel ch) throws Exception {
+                // 字符串编码器，一定要加在SimpleClientHandler 的上面
+                ch.pipeline().addLast(new StringEncoder());
+                // 基于分隔符的帧解码器
+                ch.pipeline().addLast(new DelimiterBasedFrameDecoder(Integer.MAX_VALUE, Delimiters.lineDelimiter()[0]));
+                // 通道入站处理器（用来处理服务端返回的数据）
+                ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+                    @Override
+                    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+                        if (msg instanceof ByteBuf) {
+                            String value = ((ByteBuf) msg).toString(Charset.defaultCharset());
+                            System.out.println("Server=>" + value);
+                        }
+                        // 把客户端的通道关闭
+                        ctx.channel().close();
+                    }
+                });
+            }
+        });
 
-	private static class ClientHandler extends SimpleChannelHandler {
-		private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        // 5、连接服务器
+        ChannelFuture future = client.connect("localhost", 8080).sync();
 
-		@Override
-		public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
-			if (e.getMessage() instanceof String) {
-				Object message = e.getMessage();
-				System.out.println("server -> " + message);
-				e.getChannel().write(reader.readLine());
-				System.out.println("\nWait for client input:");
-			}
-			super.messageReceived(ctx, e);
-		}
-
-		@Override
-		public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-			System.out.println("connection");
-			System.out.println("\nWait for client input:");
-			super.channelConnected(ctx, e);
-			e.getChannel().write(reader.readLine());
-		}
-	}
+        // 6、推送数据
+        for (int i = 0; i < 5; i++) {
+            future.channel().writeAndFlush("hello-" + i + "\r\n");
+        }
+        //
+        future.channel().closeFuture().sync();
+    }
 }
