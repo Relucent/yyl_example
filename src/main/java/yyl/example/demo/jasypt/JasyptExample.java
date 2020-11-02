@@ -7,7 +7,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
  * 包括：密码Digest认证，文本和对象加密，它可与Spring Framework、Hibernate和Acegi Security集成。<br>
  * @author Administrator
  */
-public class JasyptSample {
+public class JasyptExample {
     public static void main(String[] args) {
 
         BasicTextEncryptor encryptor = new BasicTextEncryptor();

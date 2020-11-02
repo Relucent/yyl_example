@@ -8,7 +8,7 @@ import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.update.Update;
 
-public class JsqlparserTest {
+public class JsqlparserExample {
 	public static void main(String[] args) throws Exception {
 		String sql = "update demo_table t1 set "//
 				+ "  column1 = '1' "//
@@ -20,7 +20,7 @@ public class JsqlparserTest {
 		Statement statement = pm.parse(new StringReader(sql));
 		if (statement instanceof Update) {
 			Update updateStatement = (Update) statement;
-			System.out.println(updateStatement.getTables());
+			System.out.println(updateStatement.getTable());
 			Expression where = updateStatement.getWhere();
 			if (where instanceof BinaryExpression) {
 				BinaryExpression expression = (BinaryExpression) where;

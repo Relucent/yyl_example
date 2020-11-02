@@ -52,7 +52,7 @@
 		<jol.version>0.10</jol.version>
 		<jsoup.version>1.9.2</jsoup.version>
 		<jsp.version>2.0</jsp.version>
-		<jsqlparser.version>1.1</jsqlparser.version>
+		<jsqlparser.version>3.0</jsqlparser.version>
 		<jxl.version>2.6.12</jxl.version>
 		<minio.version>7.0.2</minio.version>
 		<mockito.version>2.20.1</mockito.version>
