@@ -17,6 +17,7 @@ import org.redisson.codec.JsonJacksonCodec.ThrowableMixIn;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerator.Feature;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.datatype.jsr310.deser.DurationDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -35,9 +37,9 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 
 /**
- * 使用_Jackson进行序列化与反序列化
+ * 使用_Jackson对处理YAML格式
  */
-public class JacksonTypeFactoryExample {
+public class YamlFactoryExample {
 
     public static void main(String[] args) throws Throwable {
         ObjectMapper om = createObjectMapper();
@@ -50,9 +52,9 @@ public class JacksonTypeFactoryExample {
         sample.put("bigint", BigInteger.ZERO);
         sample.put("duration", Duration.parse("PT1H"));
         sample.put("custom", new CustomBean());
-        String json = om.writeValueAsString(sample);
-        System.out.println(json);
-        Object object = om.readValue(json, Object.class);
+        String yaml = om.writeValueAsString(sample);
+        System.out.println(yaml);
+        Object object = om.readValue(yaml, Object.class);
         @SuppressWarnings("unchecked")
         Map<String, Object> result = (Map<String, Object>) object;
         for (Map.Entry<String, Object> entry : result.entrySet()) {
@@ -62,8 +64,9 @@ public class JacksonTypeFactoryExample {
         }
     }
 
-    private static ObjectMapper createObjectMapper() {
-        ObjectMapper om = new ObjectMapper();
+    private static ObjectMapper createObjectMapper() throws JsonProcessingException {
+
+        ObjectMapper om = new ObjectMapper(new YAMLFactory());
 
         TypeFactory tf = TypeFactory.defaultInstance();
         VisibilityChecker<?> visibility = om.getSerializationConfig().getDefaultVisibilityChecker();

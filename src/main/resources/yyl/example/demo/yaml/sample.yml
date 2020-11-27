@@ -9,6 +9,10 @@ sample:
   - a
   - b
   - c
+ text: |-
+  <p style="color: red">
+    hello world
+  </p>
 
 #END
 ...
