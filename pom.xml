@@ -12,7 +12,7 @@
 		<!-- Dependency versions -->
 		<asm.version>8.0.1</asm.version>
 		<aspectj.version>1.8.10</aspectj.version>
-		<bouncycastle.version>1.64</bouncycastle.version>
+		<bouncycastle.version>1.67</bouncycastle.version>
 		<cglib-nodep.version>3.3.0</cglib-nodep.version>
 		<commons-dbcp2.version>2.7.0</commons-dbcp2.version>
 		<commons-io.version>2.7</commons-io.version>
