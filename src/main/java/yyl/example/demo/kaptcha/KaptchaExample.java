@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import javax.swing.JFrame;
 
+import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 
@@ -21,22 +22,25 @@ public class KaptchaExample {
 
     private static DefaultKaptcha build() {
         DefaultKaptcha kaptcha = new DefaultKaptcha();
-        Properties properties = new Properties();
-        properties.setProperty("kaptcha.border", "no");
-        properties.setProperty("kaptcha.textproducer.font.color", "white");
-        properties.setProperty("kaptcha.textproducer.char.space", "5");
-        properties.setProperty("kaptcha.background.clear.from", "54,153,214");
-        properties.setProperty("kaptcha.background.clear.to", "54,153,214");
-        properties.setProperty("kaptcha.textproducer.char.string", "0123456789ABCEFGHIJKLMNOPQRSTUVWXYZ");
-        properties.setProperty("kaptcha.textproducer.char.length", "4");
-        properties.setProperty("kaptcha.noise.impl", "com.google.code.kaptcha.impl.NoNoise");
-        properties.setProperty("kaptcha.image.width", "250");
-        properties.setProperty("kaptcha.image.height", "120");
-        properties.setProperty("kaptcha.textproducer.font.size", "80");
-        properties.setProperty("kaptcha.noise.color", "white");
-        Config config = new Config(properties);
-        kaptcha.setConfig(config);
+        kaptcha.setConfig(getConfig());
         return kaptcha;
+    }
+
+    private static Config getConfig() {
+        Properties properties = new Properties();
+        properties.put(Constants.KAPTCHA_BORDER, "no");// kaptcha.border
+        properties.put(Constants.KAPTCHA_TEXTPRODUCER_FONT_COLOR, "237,247,255");// kaptcha.textproducer.font.color
+        properties.put(Constants.KAPTCHA_BACKGROUND_CLR_FROM, "75,177,255");// kaptcha.background.clear.form
+        properties.put(Constants.KAPTCHA_BACKGROUND_CLR_TO, "75,177,255");// kaptcha.background.clear.to
+        properties.put(Constants.KAPTCHA_NOISE_COLOR, "white");// kaptcha.noise.color
+        properties.put(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, "com.google.code.kaptcha.impl.WaterRipple");
+        properties.put(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");// kaptcha.textproducer.char.length
+        properties.put(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "5");// kaptcha.textproducer.char.space
+        properties.put(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "Arial,Courier");// kaptcha.textproducer.font.names
+        properties.put(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "150");// kaptcha.textproducer.font.size
+        properties.put(Constants.KAPTCHA_IMAGE_WIDTH, "500");// kaptcha.image.width
+        properties.put(Constants.KAPTCHA_IMAGE_HEIGHT, "230");// kaptcha.image.height
+        return new Config(properties);
     }
 
     @SuppressWarnings("serial")
@@ -49,7 +53,7 @@ public class KaptchaExample {
             }
         };
         frame.getContentPane().add(canvas);
-        frame.setBounds(100, 100, 250, 150);
+        frame.setBounds(100, 100, 600, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Hello World");
         frame.setResizable(false);
