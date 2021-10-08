@@ -55,6 +55,7 @@
 		<jsoup.version>1.9.2</jsoup.version>
 		<jsp.version>2.0</jsp.version>
 		<jsqlparser.version>3.0</jsqlparser.version>
+		<jts.version>1.18.2</jts.version>
 		<jxl.version>2.6.12</jxl.version>
 		<kaptcha.version>2.3.2</kaptcha.version>
 		<minio.version>7.0.2</minio.version>
@@ -392,6 +393,11 @@
 			<groupId>com.github.jsqlparser</groupId>
 			<artifactId>jsqlparser</artifactId>
 			<version>${jsqlparser.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.locationtech.jts</groupId>
+			<artifactId>jts-core</artifactId>
+			<version>${jts.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sourceforge.jexcelapi</groupId>
