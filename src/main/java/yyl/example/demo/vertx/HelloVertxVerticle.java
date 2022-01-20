@@ -19,29 +19,29 @@ import io.vertx.ext.web.handler.BodyHandler;
  */
 public class HelloVertxVerticle extends AbstractVerticle {
 
-	/** 运行 */
-	@Override
-	public void start() throws Exception {
+    /** 运行 */
+    @Override
+    public void start() throws Exception {
 
-		Router router = Router.router(vertx);
+        Router router = Router.router(vertx);
 
-		router.route().handler(BodyHandler.create());
+        router.route().handler(BodyHandler.create());
 
-		router.get("/hello").handler(new Handler<RoutingContext>() {
-			public void handle(RoutingContext event) {
-				event.response().putHeader("content-type", "text/html").end("Hello Vert.x");
-			}
-		});
+        router.get("/hello").handler(new Handler<RoutingContext>() {
+            public void handle(RoutingContext event) {
+                event.response().putHeader("content-type", "text/html").end("Hello Vert.x");
+            }
+        });
 
-		vertx.createHttpServer().requestHandler(new Handler<HttpServerRequest>() {
-			public void handle(HttpServerRequest event) {
-				router.accept(event);
-			}
-		}).listen(8080);//监听端口号
-	}
+        vertx.createHttpServer().requestHandler(new Handler<HttpServerRequest>() {
+            public void handle(HttpServerRequest event) {
+                router.handle(event);
+            }
+        }).listen(8080);// 监听端口号
+    }
 
-	public static void main(String[] args) throws IOException {
-		Vertx vertx = Vertx.vertx();
-		vertx.deployVerticle(HelloVertxVerticle.class.getName());
-	}
+    public static void main(String[] args) throws IOException {
+        Vertx vertx = Vertx.vertx();
+        vertx.deployVerticle(HelloVertxVerticle.class.getName());
+    }
 }
