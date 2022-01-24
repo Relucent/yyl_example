@@ -1,5 +1,7 @@
 package yyl.example.demo.oshi;
 
+import java.text.DecimalFormat;
+
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;
@@ -15,6 +17,8 @@ import oshi.software.os.OperatingSystem;
  * 获得操作系统和硬件信息
  */
 public class OshiExample {
+
+    private static final DecimalFormat LOAD_FORMAT = new DecimalFormat("#.00");
 
     public static void main(String[] args) {
         SystemInfo si = new SystemInfo();
@@ -54,24 +58,30 @@ public class OshiExample {
     private static void infoCpu(SystemInfo si) {
         println("CPU");
         CentralProcessor cpu = si.getHardware().getProcessor();
-        long[] prevTicks = cpu.getSystemCpuLoadTicks();
+        int cores = cpu.getLogicalProcessorCount();
+        // 系统范围的CPU负载滴答计数器
+        long[] previousTicks = cpu.getSystemCpuLoadTicks();
+        // 等待一定时间
         sleep(1000L);
-        long[] ticks = cpu.getSystemCpuLoadTicks();
-        long nice = ticks[TickType.NICE.getIndex()] - prevTicks[TickType.NICE.getIndex()];
-        long irq = ticks[TickType.IRQ.getIndex()] - prevTicks[TickType.IRQ.getIndex()];
-        long softirq = ticks[TickType.SOFTIRQ.getIndex()] - prevTicks[TickType.SOFTIRQ.getIndex()];
-        long steal = ticks[TickType.STEAL.getIndex()] - prevTicks[TickType.STEAL.getIndex()];
-        long system = ticks[TickType.SYSTEM.getIndex()] - prevTicks[TickType.SYSTEM.getIndex()];
-        long user = ticks[TickType.USER.getIndex()] - prevTicks[TickType.USER.getIndex()];
-        long iowait = ticks[TickType.IOWAIT.getIndex()] - prevTicks[TickType.IOWAIT.getIndex()];
-        long idle = ticks[TickType.IDLE.getIndex()] - prevTicks[TickType.IDLE.getIndex()];
-        long totalCpu = user + nice + system + idle + iowait + irq + softirq + steal;
-        println("   CpuNum:     " + cpu.getLogicalProcessorCount());// 核心数
-        println("   Total:      " + totalCpu);// CPU总的使用率
-        println("   System:     " + system);// CPU系统使用率
-        println("   User:       " + user);// CPU用户使用率
-        println("   Wait:       " + iowait);// CPU当前等待率
-        println("   Free:       " + idle);// CPU当前空闲率
+        long[] currentTicks = cpu.getSystemCpuLoadTicks();
+        // 获取一段时间内的CPU负载标记差
+
+        long user = getTickDifference(previousTicks, currentTicks, TickType.USER);
+        long nice = getTickDifference(previousTicks, currentTicks, TickType.NICE);
+        long system = getTickDifference(previousTicks, currentTicks, TickType.SYSTEM);
+        long idle = getTickDifference(previousTicks, currentTicks, TickType.IDLE);
+        long iowait = getTickDifference(previousTicks, currentTicks, TickType.IOWAIT);
+        long irq = getTickDifference(previousTicks, currentTicks, TickType.IRQ);
+        long softIrq = getTickDifference(previousTicks, currentTicks, TickType.SOFTIRQ);
+        long steal = getTickDifference(previousTicks, currentTicks, TickType.STEAL);
+        long total = Math.max(user + nice + system + idle + iowait + irq + softIrq + steal, 0);
+
+        println(cpu.toString());// CPU信息
+        println("   Cores:   " + cores);// 核心数
+        println("   Sys:     " + percentage(system, total));// 系统使用率
+        println("   Used:    " + percentage(user, total));// 用户使用率
+        println("   Wait:    " + percentage(iowait, total));// 当前等待率
+        println("   Free:    " + percentage(idle, total));// 当前空闲率
     }
 
     private static void infoMemory(GlobalMemory memory) {
@@ -114,6 +124,18 @@ public class OshiExample {
             println("   used:   " + used);// 已经使用量
             println("   usage:   " + usage);// 资源的使用率
         }
+    }
+
+    private static double percentage(long tick, long total) {
+        if (0 == total) {
+            return 0D;
+        }
+        // 获取每个CPU核心的tick百分比，需要转成Double计算(tick * 100/ total)
+        return Double.parseDouble(LOAD_FORMAT.format(tick <= 0 ? 0 : (tick * 100D / total)));
+    }
+
+    private static long getTickDifference(long[] previousTicks, long[] currentTicks, CentralProcessor.TickType tickType) {
+        return currentTicks[tickType.getIndex()] - previousTicks[tickType.getIndex()];
     }
 
     private static void sleep(long millis) {
