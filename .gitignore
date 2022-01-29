@@ -17,6 +17,7 @@ target/
 .metadata/
 .factorypath
 bin/
+.sts4-cache/
 
 # IntelliJ Idea
 .idea/

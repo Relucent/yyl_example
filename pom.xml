@@ -58,6 +58,7 @@
 		<jts.version>1.18.2</jts.version>
 		<jxl.version>2.6.12</jxl.version>
 		<kaptcha.version>2.3.2</kaptcha.version>
+		<lettuce.version>6.1.6.RELEASE</lettuce.version>
 		<minio.version>7.0.2</minio.version>
 		<mockito.version>2.20.1</mockito.version>
 		<mongodb.version>3.4.2</mongodb.version>
@@ -409,6 +410,11 @@
 			<groupId>com.github.penggle</groupId>
 			<artifactId>kaptcha</artifactId>
 			<version>${kaptcha.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.lettuce</groupId>
+			<artifactId>lettuce-core</artifactId>
+			<version>${lettuce.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.minio</groupId>
