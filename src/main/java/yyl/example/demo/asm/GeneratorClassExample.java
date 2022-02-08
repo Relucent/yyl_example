@@ -8,7 +8,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 
 //通过ASM生成类的字节码
-public class GeneratorClassTest {
+public class GeneratorClassExample {
 
 	public static void main(String[] args) throws IOException {
 		// 生成一个类只需要ClassWriter组件即可

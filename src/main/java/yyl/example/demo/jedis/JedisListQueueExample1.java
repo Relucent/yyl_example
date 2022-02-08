@@ -1,4 +1,4 @@
-package yyl.example.demo.redis;
+package yyl.example.demo.jedis;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -9,7 +9,7 @@ import redis.clients.jedis.Jedis;
 /**
  * 使用JedisList模拟生产者消费者模式
  */
-public class JedisListQueueTest {
+public class JedisListQueueExample1 {
 
 	private static final String QUEUE_KEY = "my-test-queue";
 

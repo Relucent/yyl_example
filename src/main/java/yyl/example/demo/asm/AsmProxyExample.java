@@ -14,7 +14,7 @@ import org.objectweb.asm.Opcodes;
  * 使用 ASM 修改字节码，在类方法前增加操作<br>
  * ASM 版本 5.x <br>
  */
-public class AsmProxyTest {
+public class AsmProxyExample {
 
 	public static void main(String[] args) throws IOException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			SecurityException, InstantiationException, NoSuchMethodException {

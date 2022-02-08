@@ -1,4 +1,4 @@
-package yyl.example.demo.redis;
+package yyl.example.demo.jedis;
 
 import java.text.ParseException;
 
@@ -8,7 +8,7 @@ import redis.clients.jedis.JedisPubSub;
 /**
  * Jedis 发布订阅
  */
-public class JedisPublishTest {
+public class JedisPublishExample {
 
 	private static final String CHANNEL_KEY = "my-test-channel";
 

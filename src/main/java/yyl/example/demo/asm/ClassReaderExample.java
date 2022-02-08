@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.objectweb.asm.ClassReader;
 
 //通过ASM读取类的字节码
-public class ClassReaderTest {
+public class ClassReaderExample {
 
 	public static void main(String[] args) throws IOException {
 		ClassReader reader = new ClassReader(code);

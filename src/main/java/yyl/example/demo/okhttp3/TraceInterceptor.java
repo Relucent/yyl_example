@@ -12,39 +12,39 @@ import okio.Buffer;
 
 public class TraceInterceptor implements Interceptor {
 
-	@Override
-	public Response intercept(Chain chain) throws IOException {
-		Request request = chain.request();
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        Request request = chain.request();
 
-		System.out.println("/==========TraceInterceptor==========");
-		System.out.println("\nRequest:");
-		System.out.println(request.method());
-		System.out.println(request.url());
-		System.out.println(request.headers());
+        System.out.println("/==========TraceInterceptor==========");
+        System.out.println("\nRequest:");
+        System.out.println(request.method());
+        System.out.println(request.url());
+        System.out.println(request.headers());
 
-		RequestBody requestBody = request.body();
+        RequestBody requestBody = request.body();
 
-		if (requestBody != null) {
-			try (Buffer buffer = new Buffer()) {
-				requestBody.writeTo(buffer);
-				String content = buffer.readUtf8();
-				System.out.println(content);
-				requestBody = RequestBody.create(requestBody.contentType(), content);
-			}
-		}
+        if (requestBody != null) {
+            try (Buffer buffer = new Buffer()) {
+                requestBody.writeTo(buffer);
+                String content = buffer.readUtf8();
+                System.out.println(content);
+                requestBody = RequestBody.create(content, requestBody.contentType());
+            }
+        }
 
-		request = request.newBuilder().method(request.method(), requestBody).build();
+        request = request.newBuilder().method(request.method(), requestBody).build();
 
-		Response response = chain.proceed(request);
-		MediaType mediaType = response.body().contentType();
-		String content = response.body().string();
+        Response response = chain.proceed(request);
+        MediaType mediaType = response.body().contentType();
+        String content = response.body().string();
 
-		System.out.println("\nResponse:");
-		System.out.println(response.headers());
-		System.out.println(content);
-		System.out.println("==========TraceInterceptor==========/\n\n\n\n\n");
+        System.out.println("\nResponse:");
+        System.out.println(response.headers());
+        System.out.println(content);
+        System.out.println("==========TraceInterceptor==========/\n\n\n\n\n");
 
-		return response.newBuilder().body(ResponseBody.create(mediaType, content)).build();
-	}
+        return response.newBuilder().body(ResponseBody.create(content, mediaType)).build();
+    }
 
 }

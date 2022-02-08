@@ -19,7 +19,7 @@ import org.objectweb.asm.Type;
  * 在Java1.8之后，可以通过反射API java.lang.reflect.Executable.getParameters来获取到方法参数的元信息<br>
  * 但是要求在使用编译器时加上-parameters参数，它会在生成的.class文件中额外存储参数的元信息，这会增加class文件的大小<br>
  */
-public class GetMethodParamNameTest {
+public class GetMethodParamNameExample {
 
 	static class Test {
 		void method(String name, Object value) {

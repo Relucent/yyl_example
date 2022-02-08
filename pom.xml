@@ -59,12 +59,12 @@
 		<jxl.version>2.6.12</jxl.version>
 		<kaptcha.version>2.3.2</kaptcha.version>
 		<lettuce.version>6.1.6.RELEASE</lettuce.version>
-		<minio.version>7.0.2</minio.version>
+		<minio.version>8.3.0</minio.version>
 		<mockito.version>2.20.1</mockito.version>
 		<mongodb.version>3.4.2</mongodb.version>
 		<netty.version>4.1.52.Final</netty.version>
 		<mysql.version>8.0.17</mysql.version>
-		<okhttp.version>3.3.1</okhttp.version>
+		<okhttp.version>4.8.1</okhttp.version>
 		<org.eclipse.swt.version>4.3</org.eclipse.swt.version>
 		<oshi.version>6.0.0</oshi.version>
 		<poi.version>4.1.0</poi.version>

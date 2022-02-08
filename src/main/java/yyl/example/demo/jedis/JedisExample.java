@@ -1,4 +1,4 @@
-package yyl.example.demo.redis;
+package yyl.example.demo.jedis;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import redis.clients.jedis.Jedis;
 /**
  * Jedis 基本用法
  */
-public class JedisTest {
+public class JedisExample {
 
 	public static void main(String[] args) {
 		Jedis jedis = new Jedis("localhost", 6379);

@@ -1,4 +1,4 @@
-package yyl.example.demo.jedis;
+package yyl.example.demo.jedis.extend;
 
 import java.util.concurrent.CompletableFuture;
 

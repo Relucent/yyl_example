@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class SqliteTest {
+public class SqliteExample {
 
 	public static void main(String[] args) throws Exception {
 		File dbFile = new File(System.getProperty("user.dir"), "/sqlite-test" + System.currentTimeMillis() + ".db");

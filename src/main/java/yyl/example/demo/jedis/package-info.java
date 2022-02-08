@@ -9,4 +9,4 @@
  * 
  * Jedis 是 Redis 官方首选的 Java 客户端开发包 (redis的java版本的客户端实现)
  */
-package yyl.example.demo.redis;
+package yyl.example.demo.jedis;

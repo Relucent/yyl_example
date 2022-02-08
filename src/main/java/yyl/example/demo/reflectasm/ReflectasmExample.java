@@ -7,7 +7,7 @@ import com.esotericsoftware.reflectasm.MethodAccess;;
 /**
  * ReflectASM 使用字节码生成的方式实现了更为高效的反射机制。<br>
  */
-public class ReflectasmTest {
+public class ReflectasmExample {
 
     static class A {
 
