@@ -86,7 +86,7 @@
 		<validation-api.version>2.0.1.Final</validation-api.version>
 		<vertx.version>4.2.3</vertx.version>
 		<webmagic.version>0.7.0</webmagic.version>
-		<zip4j.version>2.6.1</zip4j.version>
+		<zip4j.version>2.9.1</zip4j.version>
 		<zookeeper.version>3.4.14</zookeeper.version>
 	</properties>
 	<profiles>
