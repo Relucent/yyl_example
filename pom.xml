@@ -33,7 +33,7 @@
 		<guice.version>4.2.3</guice.version>
 		<h2.version>2.1.210</h2.version>
 		<hsqldb.version>2.5.1</hsqldb.version>
-		<hibernate.version>5.4.10.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
 		<HikariCP.version>2.6.3</HikariCP.version>
 		<htmlunit.version>2.38.0</htmlunit.version>
@@ -63,6 +63,7 @@
 		<mockito.version>2.20.1</mockito.version>
 		<mongodb.version>3.4.2</mongodb.version>
 		<netty.version>4.1.52.Final</netty.version>
+		<metrics.version>4.2.8</metrics.version>
 		<mysql.version>8.0.17</mysql.version>
 		<okhttp.version>4.8.1</okhttp.version>
 		<org.eclipse.swt.version>4.3</org.eclipse.swt.version>
@@ -86,7 +87,7 @@
 		<validation-api.version>2.0.1.Final</validation-api.version>
 		<vertx.version>4.2.3</vertx.version>
 		<webmagic.version>0.7.0</webmagic.version>
-		<zip4j.version>2.6.1</zip4j.version>
+		<zip4j.version>2.9.1</zip4j.version>
 		<zookeeper.version>3.4.14</zookeeper.version>
 	</properties>
 	<profiles>
@@ -435,6 +436,11 @@
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
 			<version>${netty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-core</artifactId>
+			<version>${metrics.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
