@@ -33,7 +33,7 @@
 		<guice.version>4.2.3</guice.version>
 		<h2.version>2.1.210</h2.version>
 		<hsqldb.version>2.5.1</hsqldb.version>
-		<hibernate.version>5.4.24.Final</hibernate.version>
+		<hibernate.version>5.6.5.Final</hibernate.version>
 		<hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
 		<HikariCP.version>2.6.3</HikariCP.version>
 		<htmlunit.version>2.38.0</htmlunit.version>
@@ -59,6 +59,7 @@
 		<jxl.version>2.6.12</jxl.version>
 		<kaptcha.version>2.3.2</kaptcha.version>
 		<lettuce.version>6.1.6.RELEASE</lettuce.version>
+		<log4j-slf4j-impl.version>2.17.2</log4j-slf4j-impl.version>
 		<minio.version>8.3.0</minio.version>
 		<mockito.version>2.20.1</mockito.version>
 		<mongodb.version>3.4.2</mongodb.version>
@@ -68,8 +69,8 @@
 		<okhttp.version>4.8.1</okhttp.version>
 		<org.eclipse.swt.version>4.3</org.eclipse.swt.version>
 		<oshi.version>6.0.0</oshi.version>
-		<poi.version>4.1.0</poi.version>
-		<poi-tl.version>1.7.3</poi-tl.version>
+		<poi.version>5.2.0</poi.version>
+		<poi-tl.version>1.11.1</poi-tl.version>
 		<protostuff.version>1.3.5</protostuff.version>
 		<reactor.version>3.4.8</reactor.version>
 		<redisson.version>3.11.4</redisson.version>
@@ -416,6 +417,11 @@
 			<groupId>io.lettuce</groupId>
 			<artifactId>lettuce-core</artifactId>
 			<version>${lettuce.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j-slf4j-impl.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.minio</groupId>

@@ -10,7 +10,6 @@ import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.FileMagic;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
-import org.apache.xmlbeans.XmlException;
 
 import yyl.example.basic.util.IoUtil;
 
@@ -18,7 +17,7 @@ public class WordExample {
 
     public static void main(String[] args) throws IOException {
 
-        String[] samples = {"sample_doc", "sample_docx"};
+        String[] samples = { "sample_doc", "sample_docx" };
         for (String sample : samples) {
             byte[] content = IoUtil.getResourceAsByteArray(WordExample.class, sample);
             System.out.println("Name    : " + sample + "");
@@ -42,7 +41,7 @@ public class WordExample {
             try (POIXMLTextExtractor extractor = new XWPFWordExtractor(opcPackage)) {
                 return extractor.getText();
             }
-        } catch (XmlException | OpenXML4JException e) {
+        } catch (OpenXML4JException e) {
             throw new IOException(e);
         }
     }
