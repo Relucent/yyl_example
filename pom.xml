@@ -39,7 +39,7 @@
 		<htmlunit.version>2.38.0</htmlunit.version>
 		<httpclient.version>4.5.13</httpclient.version>
 		<icu4j.version>67.1</icu4j.version>
-		<jackson.version>2.11.2</jackson.version>
+		<jackson.version>2.12.6.1</jackson.version>
 		<jacob.version>1.14.3</jacob.version>
 		<jakarta-el.version>3.0.3</jakarta-el.version>
 		<jaque.version>2.1.2</jaque.version>
