@@ -65,7 +65,7 @@
 		<mongodb.version>3.4.2</mongodb.version>
 		<netty.version>4.1.52.Final</netty.version>
 		<metrics.version>4.2.8</metrics.version>
-		<mysql.version>8.0.17</mysql.version>
+		<mysql.version>8.0.28</mysql.version>
 		<okhttp.version>4.8.1</okhttp.version>
 		<org.eclipse.swt.version>4.3</org.eclipse.swt.version>
 		<oshi.version>6.0.0</oshi.version>
