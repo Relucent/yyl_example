@@ -8,8 +8,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-//异步模式
-public class OkhttpTest2 {
+/**
+ * OkHttp 示例： 异步模式
+ */
+public class OkhttpExample2 {
 	public static void main(String[] args) throws IOException {
 		OkHttpClient client;
 		(client = new OkHttpClient.Builder()//
@@ -17,7 +19,7 @@ public class OkhttpTest2 {
 		).newCall(//
 				new Request.Builder()//
 						.url("https://www.baidu.com/")//
-						.header("Connection", "close")//close | keep-alive
+						.header("Connection", "close")// close | keep-alive
 						.get()//
 						.build()//
 		).enqueue(new Callback() {
@@ -31,8 +33,7 @@ public class OkhttpTest2 {
 				e.printStackTrace();
 			}
 		});
-
-		//应用关闭时候需要关闭线程池
+		// 应用关闭时候需要关闭线程池
 		client.dispatcher().executorService().shutdown();
 	}
 }
