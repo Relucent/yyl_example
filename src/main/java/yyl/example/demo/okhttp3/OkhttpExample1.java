@@ -5,7 +5,10 @@ import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class OkhttpTest {
+/**
+ * OkHttp 示例
+ */
+public class OkhttpExample1 {
 	public static void main(String[] args) throws IOException {
 		System.out.println(//
 				new OkHttpClient.Builder()//
