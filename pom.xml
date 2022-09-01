@@ -54,7 +54,7 @@
 		<jjwt.version>0.9.0</jjwt.version>
 		<joda-time.version>2.9.4</joda-time.version>
 		<jol.version>0.10</jol.version>
-		<jsoup.version>1.14.2</jsoup.version>
+		<jsoup.version>1.15.3</jsoup.version>
 		<jsp.version>2.0</jsp.version>
 		<jsqlparser.version>3.0</jsqlparser.version>
 		<jts.version>1.18.2</jts.version>
