@@ -19,21 +19,21 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
  */
 public class Sm3Example {
 
-	private static final String ALGORITHM = "SM3";
-	static {
-		if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
-			Security.addProvider(new BouncyCastleProvider());
-		}
-	}
+    private static final String ALGORITHM = "SM3";
+    static {
+        if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
+    }
 
-	public static void main(String[] args) throws Exception {
-		String sample = "hello world";
-		byte[] input = sample.getBytes(StandardCharsets.UTF_8);
-		MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
-		messageDigest.update(input);
-		byte[] hash = messageDigest.digest();
-		messageDigest.reset();
-		String digest = Hex.encodeHexString(hash);
-		System.out.println(digest);
-	}
+    public static void main(String[] args) throws Exception {
+        String sample = "hello world";
+        byte[] input = sample.getBytes(StandardCharsets.UTF_8);
+        MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
+        messageDigest.update(input);
+        byte[] hash = messageDigest.digest();
+        messageDigest.reset();
+        String digest = Hex.encodeHexString(hash);
+        System.out.println(digest);
+    }
 }
