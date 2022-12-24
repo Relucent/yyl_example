@@ -27,6 +27,7 @@
 		<elasticsearch.version>7.8.1</elasticsearch.version>
 		<fastjson.version>1.2.83</fastjson.version>
 		<flowable.version>6.5.0</flowable.version>
+		<fst.version>2.57</fst.version>
 		<geohash.version>1.4.0</geohash.version>
 		<geodesy.version>1.1.3</geodesy.version>
 		<groovy.version>2.4.12</groovy.version>
@@ -233,6 +234,17 @@
 				<exclusion>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>de.ruedigermoeller</groupId>
+			<artifactId>fst</artifactId>
+			<version>${fst.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-core</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
