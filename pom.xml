@@ -15,6 +15,7 @@
 		<asm.version>8.0.1</asm.version>
 		<aspectj.version>1.8.10</aspectj.version>
 		<bouncycastle.version>1.67</bouncycastle.version>
+		<caffeine.version>2.9.3</caffeine.version>
 		<cglib-nodep.version>3.3.0</cglib-nodep.version>
 		<commons-dbcp2.version>2.7.0</commons-dbcp2.version>
 		<commons-io.version>2.7</commons-io.version>
@@ -153,6 +154,11 @@
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
 			<version>${bouncycastle.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>${caffeine.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>cglib</groupId>
