@@ -90,7 +90,7 @@
 		<thumbnailator.version>0.4.14</thumbnailator.version>
 		<undertow.version>2.2.19.Final</undertow.version>
 		<validation-api.version>2.0.1.Final</validation-api.version>
-		<vertx.version>4.2.3</vertx.version>
+		<vertx.version>4.3.8</vertx.version>
 		<webmagic.version>0.7.0</webmagic.version>
 		<zip4j.version>2.10.0</zip4j.version>
 		<zookeeper.version>3.4.14</zookeeper.version>
