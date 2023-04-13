@@ -89,7 +89,7 @@
 		<quartz.version>2.3.2</quartz.version>
 		<sqlite-jdbc.version>3.25.2</sqlite-jdbc.version>
 		<thumbnailator.version>0.4.14</thumbnailator.version>
-		<undertow.version>2.2.19.Final</undertow.version>
+		<undertow.version>2.2.24.Final</undertow.version>
 		<validation-api.version>2.0.1.Final</validation-api.version>
 		<vertx.version>4.4.0</vertx.version>
 		<webmagic.version>0.7.0</webmagic.version>
