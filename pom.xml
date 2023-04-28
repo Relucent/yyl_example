@@ -60,6 +60,7 @@
 		<jsp.version>2.0</jsp.version>
 		<jsqlparser.version>3.0</jsqlparser.version>
 		<jts.version>1.18.2</jts.version>
+		<jvppeteer.version>1.1.5</jvppeteer.version>
 		<jxl.version>2.6.12</jxl.version>
 		<kaptcha.version>2.3.2</kaptcha.version>
 		<lettuce.version>6.1.6.RELEASE</lettuce.version>
@@ -87,6 +88,7 @@
 		<springframework.version>4.2.6.RELEASE</springframework.version>
 		<thrift.version>0.14.0</thrift.version>
 		<quartz.version>2.3.2</quartz.version>
+		<slf4j.version>2.0.7</slf4j.version>
 		<sqlite-jdbc.version>3.25.2</sqlite-jdbc.version>
 		<thumbnailator.version>0.4.14</thumbnailator.version>
 		<undertow.version>2.2.24.Final</undertow.version>
@@ -430,6 +432,11 @@
 			<version>${jts.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>io.github.fanyong920</groupId>
+			<artifactId>jvppeteer</artifactId>
+			<version>${jvppeteer.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>net.sourceforge.jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
 			<version>${jxl.version}</version>
@@ -592,17 +599,23 @@
 		<dependency>
 			<groupId>net.javacrumbs.shedlock</groupId>
 			<artifactId>shedlock-core</artifactId>
-			<version>${shedlock.version}</version>  <exclusions>
-    <exclusion>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </exclusion>
-  </exclusions>
+			<version>${shedlock.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>net.javacrumbs.shedlock</groupId>
 			<artifactId>shedlock-provider-jdbc</artifactId>
 			<version>${shedlock.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.xerial</groupId>
