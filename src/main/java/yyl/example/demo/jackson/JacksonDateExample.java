@@ -17,7 +17,7 @@ public class JacksonDateExample {
         ObjectMapper mapper = new ObjectMapper()//
                 .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)// 不转换为UTC零时区
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)// 不转换为时间戳
-                .registerModule(new JavaTimeModule());
+                .registerModule(new JavaTimeModule());// 可以用 findAndRegisterModules();
 
         ZonedDateTime sample = ZonedDateTime.now();
         String json = mapper.writeValueAsString(sample);
