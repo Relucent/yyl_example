@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>yyl.example</groupId>
@@ -99,41 +100,15 @@
 		<zip4j.version>2.11.5</zip4j.version>
 		<zookeeper.version>3.4.14</zookeeper.version>
 	</properties>
-	<profiles>
-		<profile>
-			<id>default-tools</id>
-			<activation>
-				<jdk>[,1.8]</jdk>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>com.sun</groupId>
-					<artifactId>tools</artifactId>
-					<version>${java.version}</version>
-					<scope>system</scope>
-					<optional>true</optional>
-					<systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>java9-tools</id>
-			<activation>
-				<jdk>[1.9,]</jdk>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>com.sun</groupId>
-					<artifactId>tools</artifactId>
-					<version>${java.version}</version>
-					<scope>system</scope>
-					<optional>true</optional>
-					<systemPath>${JAVA_HOME}/lib/jrt-fs.jar</systemPath>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
 	<dependencies>
+		<dependency>
+			<groupId>com.sun</groupId>
+			<artifactId>tools</artifactId>
+			<version>${java.version}</version>
+			<scope>system</scope>
+			<optional>true</optional>
+			<systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+		</dependency>
 		<dependency>
 			<groupId>org.owasp.antisamy</groupId>
 			<artifactId>antisamy</artifactId>
@@ -319,12 +294,6 @@
 			<artifactId>javax.el-api</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-
-		<!-- [ <dependency>] -->
-		<!-- [ <groupId>com.zaxxer</groupId>] -->
-		<!-- [ <artifactId>HikariCP</artifactId>] -->
-		<!-- [ <version>${HikariCP.version}</version>] -->
-		<!-- [ </dependency>] -->
 		<dependency>
 			<groupId>net.sourceforge.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
