@@ -12,7 +12,7 @@
 		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
 		<java.version>1.8</java.version>
 		<!-- Dependency versions -->
-		<antisamy.version>1.7.2</antisamy.version>
+		<antisamy.version>1.7.5</antisamy.version>
 		<asm.version>8.0.1</asm.version>
 		<aspectj.version>1.8.10</aspectj.version>
 		<bouncycastle.version>1.67</bouncycastle.version>
