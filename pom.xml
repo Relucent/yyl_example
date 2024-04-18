@@ -98,7 +98,7 @@
 		<vertx.version>4.5.3</vertx.version>
 		<webmagic.version>0.7.0</webmagic.version>
 		<zip4j.version>2.11.5</zip4j.version>
-		<zookeeper.version>3.4.14</zookeeper.version>
+		<zookeeper.version>3.8.4</zookeeper.version>
 	</properties>
 	<dependencies>
 		<dependency>
