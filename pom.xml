@@ -87,7 +87,7 @@
 		<selenium.version>4.1.4</selenium.version>
 		<shedlock.version>4.43.0</shedlock.version>
 		<snakeyaml.version>2.0</snakeyaml.version>
-		<springframework.version>4.2.6.RELEASE</springframework.version>
+		<springframework.version>5.2.22.RELEASE</springframework.version>
 		<thrift.version>0.14.0</thrift.version>
 		<quartz.version>2.3.2</quartz.version>
 		<slf4j.version>2.0.7</slf4j.version>
@@ -98,7 +98,7 @@
 		<vertx.version>4.5.3</vertx.version>
 		<webmagic.version>0.7.0</webmagic.version>
 		<zip4j.version>2.11.5</zip4j.version>
-		<zookeeper.version>3.4.14</zookeeper.version>
+		<zookeeper.version>3.8.4</zookeeper.version>
 	</properties>
 	<dependencies>
 		<dependency>

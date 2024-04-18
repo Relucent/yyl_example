@@ -1,6 +1,7 @@
 package yyl.example.demo.spring.cache;
 
 import java.io.Serializable;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -69,6 +70,12 @@ public class CustomCache implements Cache {
 			throw new IllegalStateException("Cached value is not of required type [" + type.getName() + "]: " + value);
 		}
 		return (T) value;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T get(Object key, Callable<T> valueLoader) {
+		return (T) this.store.computeIfAbsent(key, k -> toStoreValue(valueLoader));
 	}
 
 	@Override
