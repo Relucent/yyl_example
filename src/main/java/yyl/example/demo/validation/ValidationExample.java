@@ -1,9 +1,12 @@
 package yyl.example.demo.validation;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -55,6 +58,8 @@ public class ValidationExample {
 		@Max(value = 100, message = "value must be less than or equal to 100")
 		private Integer value;
 
+		private List<@Valid Example> children;
+
 		public String getName() {
 			return name;
 		}
@@ -71,13 +76,20 @@ public class ValidationExample {
 			this.value = value;
 		}
 
+		public List<Example> getChildren() {
+			return children;
+		}
+
+		public void setChildren(List<Example> children) {
+			this.children = children;
+		}
 	}
 
 	public static void main(String[] args) {
 		Example user = new Example();
 		user.setName("");
 		user.setValue(-10);
-
+		user.setChildren(Arrays.asList(new Example()));
 		String validationResult = validate(user);
 		if (validationResult != null) {
 			System.out.println(validationResult);
