@@ -6,35 +6,42 @@ package yyl.example.basic.thread;
  */
 public class WaitNotifyTest2 {
 
-	public static void main(String[] args) throws InterruptedException {
-		final Object lock = new Object();
-		new Thread() {
-			public void run() {
-				try {
-					while (true) {
-						synchronized (lock) {
-							lock.notify();
-							System.out.println("1");
-							lock.wait();
-						}
-					}
-				} catch (InterruptedException e) {
-				}
-			};
-		}.start();
-		new Thread() {
-			public void run() {
-				try {
-					while (true) {
-						synchronized (lock) {
-							lock.notify();
-							System.out.println("2");
-							lock.wait();
-						}
-					}
-				} catch (InterruptedException e) {
-				}
-			};
-		}.start();
-	}
+    public static void main(String[] args) throws InterruptedException {
+        final Object lock = new Object();
+        final boolean[] turn = { true }; // true = 轮到线程1, false = 轮到线程2
+        new Thread() {
+            public void run() {
+                try {
+                    while (true) {
+                        synchronized (lock) {
+                            while (!turn[0]) {
+                                lock.wait();
+                            }
+                            System.out.println("1");
+                            turn[0] = false;
+                            lock.notify();// 唤醒线程2
+                        }
+                    }
+                } catch (InterruptedException e) {
+                }
+            };
+        }.start();
+        new Thread() {
+            public void run() {
+                try {
+                    while (true) {
+                        synchronized (lock) {
+                            while (turn[0]) {
+                                lock.wait();
+                            }
+                            System.out.println("2");
+                            turn[0] = true;
+                            lock.notify(); // 唤醒线程1
+                        }
+                    }
+                } catch (InterruptedException e) {
+                }
+            };
+        }.start();
+    }
 }
