@@ -3,6 +3,8 @@ package yyl.example.demo.jjwt;
 import java.util.Base64;
 import java.util.Date;
 
+import javax.crypto.SecretKey;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwsHeader;
@@ -11,6 +13,7 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 /**
  * JSON Web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准(RFC 7519)。<br>
@@ -30,7 +33,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * JWT的标准属性使用三个字母的原因是保证 JWT的紧凑 。<br>
  * Signature 是为对Header、Payload的签名<br>
  */
-public class JjwtDemo {
+public class JjwtExample {
 
     public static void main(String[] args) throws Exception {
 
@@ -43,10 +46,10 @@ public class JjwtDemo {
         Date exp = new Date(currentMillis + ttl);
         // 指定签名的时候使用的签名算法
         SignatureAlgorithm algorithm = SignatureAlgorithm.HS256;
-        // 签名秘钥
-        String secret = "key";
-        // 本地的密码解码
-        byte[] encodedKey = Base64.getEncoder().encode(secret.getBytes());
+
+        // 签名秘钥（生成一个）
+        SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        System.out.println("secretKey=" + Base64.getEncoder().encodeToString(secretKey.getEncoded()));
 
         JwtBuilder builder = Jwts.builder();
         builder.setHeaderParam(JwsHeader.TYPE, JwsHeader.JWT_TYPE);
@@ -56,12 +59,13 @@ public class JjwtDemo {
         builder.claim("custom", "CustomClaim");// 自定义属性;如果属性名与标准属性一致，会覆盖前面的标准属性
         builder.setIssuedAt(iat);// 签发时间
         builder.setExpiration(exp); // 过期时间
-        builder.signWith(algorithm, encodedKey); // 签名算法以及密匙
+        builder.signWith(secretKey); // 密匙（secretKey包含了签名算法信息）
         String token = builder.compact(); // 生成Token
         System.out.println(token);
 
         // 获得JWT解析器
-        JwtParser parser = Jwts.parser().setSigningKey(encodedKey);
+        JwtParser parser = Jwts.parserBuilder().setSigningKey(secretKey).build();
+
         // 解析载荷为Claims
         Jws<Claims> jws = parser.parseClaimsJws(token);
         Claims claims = jws.getBody();

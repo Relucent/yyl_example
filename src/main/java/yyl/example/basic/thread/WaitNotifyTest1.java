@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 演示wait/notify的用法
  */
-public class WaitNotifyTest {
+public class WaitNotifyTest1 {
 
 	private static final Object LOCK = new Object();
 	private static final AtomicInteger COUNT = new AtomicInteger(0);
