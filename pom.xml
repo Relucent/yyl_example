@@ -15,6 +15,7 @@
         <antisamy.version>1.7.5</antisamy.version>
         <asm.version>8.0.1</asm.version>
         <aspectj.version>1.8.10</aspectj.version>
+        <aws-sdk-java.version>2.20.39</aws-sdk-java.version>
         <bouncycastle.version>1.67</bouncycastle.version>
         <caffeine.version>3.2.3</caffeine.version>
         <cglib-nodep.version>3.3.0</cglib-nodep.version>
@@ -132,6 +133,11 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>aws-sdk-java</artifactId>
+            <version>${aws-sdk-java.version}</version>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
